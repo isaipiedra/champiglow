@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://culqrc5bryhey"]
+
+[ext_resource type="PackedScene" uid="uid://be2xg8u3re0i4" path="res://Kyle's Mushroom Pack/Kyle Fuji/Models/Mycelium/mycelium_block.glb" id="1_nfr81"]
+[ext_resource type="Material" uid="uid://0eyw88fab76j" path="res://Kyle's Mushroom Pack/Kyle Fuji/Materials/Mycelium/M_mycelium_1.tres" id="2_y4lgv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nfr81"]
+size = Vector3(0.4202881, 0.42053223, 0.42070007)
+
+[node name="mycelium_block_1" instance=ExtResource("1_nfr81")]
+
+[node name="Mycelium Block" parent="." index="0"]
+material_override = ExtResource("2_y4lgv")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00018310547, 0.21026611, -0.00020599365)
+shape = SubResource("BoxShape3D_nfr81")

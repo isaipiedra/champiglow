@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dhtw7x4hdftda"]
+
+[ext_resource type="Texture2D" uid="uid://digrr1jjtk833" path="res://Kyle's Mushroom Pack/Kyle Fuji/Materials/Textures/T_conk_pore_atlas_diffuse_roughness.png" id="1_ou4vm"]
+[ext_resource type="Texture2D" uid="uid://b8pg4kmatpbf7" path="res://Kyle's Mushroom Pack/Kyle Fuji/Materials/Textures/T_conk_pore_atlas_normal.png" id="2_dw33v"]
+
+[resource]
+albedo_texture = ExtResource("1_ou4vm")
+roughness = 0.7
+roughness_texture = ExtResource("1_ou4vm")
+roughness_texture_channel = 3
+normal_enabled = true
+normal_texture = ExtResource("2_dw33v")

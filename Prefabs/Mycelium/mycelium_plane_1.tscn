@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5vhyxcoydt0i"]
+
+[ext_resource type="Material" uid="uid://dj1nlk7qmti7v" path="res://Kyle's Mushroom Pack/Kyle Fuji/Materials/Mycelium/M_mycelium_transparent_1.tres" id="1_prxc6"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_kywo0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xk5fe"]
+size = Vector3(2.0002441, 0.001, 1.9945068)
+
+[node name="mycelium_plane_1" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = ExtResource("1_prxc6")
+mesh = SubResource("PlaneMesh_kywo0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0025634766, 0.00059843063, 0.0006713867)
+shape = SubResource("BoxShape3D_xk5fe")

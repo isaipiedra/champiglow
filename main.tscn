@@ -1,0 +1,108 @@
+[gd_scene format=3 uid="uid://cvpobytgkogje"]
+
+[ext_resource type="Shader" uid="uid://gekxuoi6cj8b" path="res://dirt.gdshader" id="1_4c57u"]
+[ext_resource type="PackedScene" uid="uid://r02r6cnmk3m8" path="res://Prefabs/Amanita muscaria/amanita_muscaria_1.tscn" id="1_kek77"]
+[ext_resource type="PackedScene" uid="uid://dlbnvjrqx6mko" path="res://Prefabs/Morels/morel_1.tscn" id="2_4c57u"]
+[ext_resource type="PackedScene" uid="uid://bselp4kqfg0se" path="res://Prefabs/Chanterelles/chanterelle_1.tscn" id="3_efxa6"]
+[ext_resource type="PackedScene" uid="uid://co1lppp61l3qt" path="res://Prefabs/Shiitake/shiitake_1.tscn" id="4_dg77c"]
+[ext_resource type="PackedScene" uid="uid://c253xbqtypvbx" path="res://Prefabs/Agaricus bisporus/cremini_1.tscn" id="5_ycdy4"]
+[ext_resource type="PackedScene" uid="uid://btgvxxxfdxyib" path="res://Prefabs/Boletes/bolete_2.tscn" id="6_w48qg"]
+[ext_resource type="PackedScene" uid="uid://bp6ql6r8w6113" path="res://Prefabs/Boletes/bolete_cracked_1.tscn" id="7_vivmo"]
+[ext_resource type="PackedScene" uid="uid://ysoa5toeemby" path="res://Prefabs/Boletes Blue/bolete_blue_cracked_3.tscn" id="8_2cqfq"]
+[ext_resource type="PackedScene" uid="uid://bo5g60xc6w8bb" path="res://Prefabs/Morels Red/morel_red_2.tscn" id="9_yaehf"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_074og"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_cegan"]
+sky_material = SubResource("ProceduralSkyMaterial_074og")
+process_mode = 2
+
+[sub_resource type="Environment" id="Environment_82xsv"]
+background_mode = 2
+sky = SubResource("Sky_cegan")
+sky_custom_fov = 73.6
+sky_rotation = Vector3(-6.2831855, 0, 0)
+ambient_light_color = Color(0.06798274, 0.06798274, 0.06798273, 1)
+ambient_light_energy = 11.25
+reflected_light_source = 1
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.34713867, 0.4821508, 0.5250074, 1)
+fog_light_energy = 1.86
+fog_density = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_efxa6"]
+render_priority = 0
+shader = ExtResource("1_4c57u")
+shader_parameter/color_dark = Color(0.2, 0.15, 0.1, 1)
+shader_parameter/color_light = Color(0.36, 0.27, 0.2, 1)
+shader_parameter/scale = 7.0
+shader_parameter/bump_strength = 0.8
+shader_parameter/crack_depth = 0.01
+shader_parameter/crack_mask_scale = 0.1
+shader_parameter/crack_mask_threshold = 0.7
+shader_parameter/crack_mask_softness = 0.8
+shader_parameter/displacement_scale = 18.0
+shader_parameter/displacement_octaves = 5
+shader_parameter/displacement = 0.04
+shader_parameter/smooth_edges = true
+shader_parameter/box_half_size = Vector3(0.5, 0.5, 0.5)
+shader_parameter/edge_blend = 1.0
+shader_parameter/roughness_min = 0.7
+
+[sub_resource type="BoxMesh" id="BoxMesh_4t226"]
+subdivide_width = 200
+subdivide_height = 200
+subdivide_depth = 200
+
+[node name="Main" type="Node3D" unique_id=386580198]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1174038561]
+environment = SubResource("Environment_82xsv")
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=837326994]
+transform = Transform3D(0.0012743473, -0.73008823, -0.68335164, -0.7569929, -0.44722193, 0.4763973, -0.65342194, 0.51668525, -0.5532416, -3.4133372, 2.219348, -4.715682)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=373728276]
+transform = Transform3D(-0.5665981, -0.4395337, 0.69697684, 0.73607665, 0.110185675, 0.66787004, -0.37034822, 0.8914422, 0.26109946, 4.3471565, 2.712127, 1.9692855)
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=339649691]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_efxa6")
+mesh = SubResource("BoxMesh_4t226")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1927646265]
+transform = Transform3D(0.9998492, 0.016451562, -0.0055670515, -0.0138462195, 0.9485499, 0.3163246, 0.010484643, -0.31619975, 0.9486346, -0.035017014, 0.59837294, 1.4047887)
+
+[node name="amanita_muscaria_1" parent="." unique_id=949004234 instance=ExtResource("1_kek77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38021374, 0.24310401, 0.27115464)
+
+[node name="morel_1" parent="." unique_id=219167022 instance=ExtResource("2_4c57u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12657404, 0.2501272, 0.2831102)
+
+[node name="chanterelle_1" parent="." unique_id=265469611 instance=ExtResource("3_efxa6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.024572283, 0.24580678, -0.14175469)
+
+[node name="shiitake_1" parent="." unique_id=1662323387 instance=ExtResource("4_dg77c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17430715, 0.24964073, 0.34749162)
+
+[node name="cremini_1" parent="." unique_id=2120567909 instance=ExtResource("5_ycdy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28518397, 0.24691564, 0.24764329)
+
+[node name="bolete_2" parent="." unique_id=1240257629 instance=ExtResource("6_w48qg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.27093926, 0.25219256, -0.39094943)
+
+[node name="bolete_cracked_1" parent="." unique_id=1530294375 instance=ExtResource("7_vivmo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32522267, 0.24375744, -0.21681486)
+
+[node name="chanterelle_2" parent="." unique_id=227180405 instance=ExtResource("3_efxa6")]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, -0.13189912, 0.24565664, -0.12124437)
+
+[node name="bolete_blue_cracked_3" parent="." unique_id=1407628167 instance=ExtResource("8_2cqfq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.33266518, 0.2582042, -0.06385244)
+
+[node name="morel_red_2" parent="." unique_id=1600052131 instance=ExtResource("9_yaehf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1709094, 0.23778647, 0.3308541)

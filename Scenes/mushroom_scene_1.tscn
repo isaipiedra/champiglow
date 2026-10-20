@@ -1,0 +1,597 @@
+[gd_scene format=3 uid="uid://4gjvhfihioyr"]
+
+[ext_resource type="PackedScene" uid="uid://c253xbqtypvbx" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Agaricus bisporus/cremini_1.tscn" id="1_h1e42"]
+[ext_resource type="PackedScene" uid="uid://48j5xbaa6bep" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Agaricus bisporus/cremini_2.tscn" id="2_cynyd"]
+[ext_resource type="PackedScene" uid="uid://d0j5ygukhmqwg" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Agaricus bisporus/portobello_1.tscn" id="3_i6xpt"]
+[ext_resource type="PackedScene" uid="uid://b6rq2pkstlhlk" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Agaricus bisporus/portobello_2.tscn" id="4_e8516"]
+[ext_resource type="PackedScene" uid="uid://c7luyv5jferru" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Agaricus bisporus/portobello_cracked_1.tscn" id="5_b5q68"]
+[ext_resource type="PackedScene" uid="uid://bu6ykoc4i31rs" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Agaricus bisporus/portobello_cracked_2.tscn" id="6_mbqib"]
+[ext_resource type="PackedScene" uid="uid://bfvmtew3hfamp" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Agaricus bisporus/white_button_1.tscn" id="7_t1rh1"]
+[ext_resource type="PackedScene" uid="uid://2fe04sqofhrh" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Agaricus bisporus/white_button_2.tscn" id="8_5qq00"]
+[ext_resource type="PackedScene" uid="uid://b745f0x2ql2nf" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Agaricus bisporus/white_button_3.tscn" id="9_rtt6m"]
+[ext_resource type="PackedScene" uid="uid://68kusmvuulc8" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Agaricus bisporus/white_button_4.tscn" id="10_e7cew"]
+[ext_resource type="PackedScene" uid="uid://r02r6cnmk3m8" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Amanita muscaria/amanita_muscaria_1.tscn" id="11_choxb"]
+[ext_resource type="PackedScene" uid="uid://dyvhgsw2cxxc3" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Amanita muscaria/amanita_muscaria_2.tscn" id="12_5d6wn"]
+[ext_resource type="PackedScene" uid="uid://baqg8rrw10er4" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Amanita muscaria/amanita_muscaria_3.tscn" id="13_g448f"]
+[ext_resource type="PackedScene" uid="uid://c6s8re17ynlrb" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Amanita muscaria/amanita_muscaria_4.tscn" id="14_mixmy"]
+[ext_resource type="PackedScene" uid="uid://bg3p40oybic5d" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Amanita muscaria/amanita_muscaria_5.tscn" id="15_etauq"]
+[ext_resource type="PackedScene" uid="uid://eg4ej7wolxlk" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Amanita muscaria/amanita_muscaria_6.tscn" id="16_hijjp"]
+[ext_resource type="PackedScene" uid="uid://buivt53jx5t7r" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Amanita muscaria/amanita_muscaria_7.tscn" id="17_0g2a3"]
+[ext_resource type="PackedScene" uid="uid://u7d44et5ao2c" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Amanita muscaria/amanita_muscaria_8.tscn" id="18_j18ra"]
+[ext_resource type="PackedScene" uid="uid://bmosa8y8dmjbx" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Boletes/bolete_1.tscn" id="19_4g3mu"]
+[ext_resource type="PackedScene" uid="uid://btgvxxxfdxyib" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Boletes/bolete_2.tscn" id="20_k803c"]
+[ext_resource type="PackedScene" uid="uid://nd5pv1cs2hmf" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Boletes/bolete_3.tscn" id="21_k5j41"]
+[ext_resource type="PackedScene" uid="uid://bsy2dftk50jfl" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Boletes/bolete_4.tscn" id="22_adxwo"]
+[ext_resource type="PackedScene" uid="uid://bp6ql6r8w6113" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Boletes/bolete_cracked_1.tscn" id="23_x2awy"]
+[ext_resource type="PackedScene" uid="uid://bbh7tdidic6cu" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Boletes/bolete_cracked_2.tscn" id="24_hgy3h"]
+[ext_resource type="PackedScene" uid="uid://do8u7dos8ho6d" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Boletes/bolete_cracked_3.tscn" id="25_jlrko"]
+[ext_resource type="PackedScene" uid="uid://bgtoht7yil72v" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Boletes/bolete_cracked_4.tscn" id="26_alkk7"]
+[ext_resource type="PackedScene" uid="uid://dpbqdpjbkt434" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Boletes Blue/bolete_blue_1.tscn" id="27_mp25i"]
+[ext_resource type="PackedScene" uid="uid://byo1rqw7ehajb" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Boletes Blue/bolete_blue_2.tscn" id="28_nlxxr"]
+[ext_resource type="PackedScene" uid="uid://bl7dqiwefi0n" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Boletes Blue/bolete_blue_3.tscn" id="29_xq4nc"]
+[ext_resource type="PackedScene" uid="uid://cbyunsgkbbcko" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Boletes Blue/bolete_blue_4.tscn" id="30_fmwq3"]
+[ext_resource type="PackedScene" uid="uid://cp21dnsrhvaao" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Boletes Blue/bolete_blue_cracked_1.tscn" id="31_sqysh"]
+[ext_resource type="PackedScene" uid="uid://dxj6epdsng4bq" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Boletes Blue/bolete_blue_cracked_2.tscn" id="32_kxrgb"]
+[ext_resource type="PackedScene" uid="uid://ysoa5toeemby" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Boletes Blue/bolete_blue_cracked_3.tscn" id="33_duo8d"]
+[ext_resource type="PackedScene" uid="uid://bru3n6blfp28y" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Boletes Blue/bolete_blue_cracked_4.tscn" id="34_6qnw1"]
+[ext_resource type="PackedScene" uid="uid://bselp4kqfg0se" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Chanterelles/chanterelle_1.tscn" id="35_who0u"]
+[ext_resource type="PackedScene" uid="uid://cyqugocn4f03q" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Chanterelles/chanterelle_2.tscn" id="36_jbvwv"]
+[ext_resource type="PackedScene" uid="uid://bglb0vlun88t7" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Chanterelles/chanterelle_3.tscn" id="37_m23sk"]
+[ext_resource type="PackedScene" uid="uid://yfpgh25plwvj" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Chanterelles/chanterelle_4.tscn" id="38_qp5d5"]
+[ext_resource type="PackedScene" uid="uid://c6dt6of47p35p" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Chanterelles/chanterelle_5.tscn" id="39_xeg6w"]
+[ext_resource type="PackedScene" uid="uid://eeo102xp25c3" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Chanterelles/chanterelle_6.tscn" id="40_5ah44"]
+[ext_resource type="PackedScene" uid="uid://la3juqd24fl4" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Chanterelles/chanterelle_7.tscn" id="41_37vor"]
+[ext_resource type="PackedScene" uid="uid://ci4bn1oth4ouw" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Chicken of the Woods/chicken_of_the_woods_1.tscn" id="45_h6lbp"]
+[ext_resource type="PackedScene" uid="uid://dlve2idan5bmt" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Chicken of the Woods/chicken_of_the_woods_2.tscn" id="46_rc06u"]
+[ext_resource type="PackedScene" uid="uid://8j38sx0cacrq" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Chicken of the Woods/chicken_of_the_woods_3.tscn" id="47_sxeb1"]
+[ext_resource type="PackedScene" uid="uid://cwm11wtme7l1q" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Chicken of the Woods/chicken_of_the_woods_4.tscn" id="48_nmuo7"]
+[ext_resource type="PackedScene" uid="uid://etrk1qhrk52e" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Chicken of the Woods/chicken_of_the_woods_5.tscn" id="49_blqi7"]
+[ext_resource type="PackedScene" uid="uid://y2gyo0jbf1t" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Chicken of the Woods/chicken_of_the_woods_6.tscn" id="50_hkxu6"]
+[ext_resource type="PackedScene" uid="uid://2hoqnrt38aa7" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Chicken of the Woods/chicken_of_the_woods_7.tscn" id="51_ln4c3"]
+[ext_resource type="PackedScene" uid="uid://ci3pqqx25msdb" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Chicken of the Woods/chicken_of_the_woods_8.tscn" id="52_dtfqp"]
+[ext_resource type="PackedScene" uid="uid://d4exes2a1blui" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Chicken of the Woods/chicken_of_the_woods_9.tscn" id="53_hfdi5"]
+[ext_resource type="PackedScene" uid="uid://bnhons12kih3h" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Chicken of the Woods/chicken_of_the_woods_10.tscn" id="54_wyg3j"]
+[ext_resource type="PackedScene" uid="uid://droe5myd480ub" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Chicken of the Woods/chicken_of_the_woods_11.tscn" id="55_yokst"]
+[ext_resource type="PackedScene" uid="uid://dc6u66d1xxwxq" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Jack o' Lanterns/jack_o_lantern_1.tscn" id="56_jgbp8"]
+[ext_resource type="PackedScene" uid="uid://bo41u8p3nhx0j" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Jack o' Lanterns/jack_o_lantern_2.tscn" id="57_gpoo7"]
+[ext_resource type="PackedScene" uid="uid://cutwce3v7771e" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Jack o' Lanterns/jack_o_lantern_3.tscn" id="58_300ix"]
+[ext_resource type="PackedScene" uid="uid://ctty140nvjdn0" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Jack o' Lanterns/jack_o_lantern_4.tscn" id="59_3kw6x"]
+[ext_resource type="PackedScene" uid="uid://colvodaxe7vpj" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Jack o' Lanterns/jack_o_lantern_5.tscn" id="60_ui0pk"]
+[ext_resource type="PackedScene" uid="uid://dyvqr5y102jjn" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Jack o' Lanterns/jack_o_lantern_6.tscn" id="61_52y4p"]
+[ext_resource type="PackedScene" uid="uid://blyw5rgti8vf4" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Jack o' Lanterns/jack_o_lantern_7.tscn" id="62_dkd34"]
+[ext_resource type="PackedScene" uid="uid://dlbnvjrqx6mko" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Morels/morel_1.tscn" id="66_5k0xy"]
+[ext_resource type="PackedScene" uid="uid://dn40fdygeys4m" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Morels/morel_2.tscn" id="67_x2seg"]
+[ext_resource type="PackedScene" uid="uid://b0wcechb2b573" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Morels/morel_3.tscn" id="68_ngn1e"]
+[ext_resource type="PackedScene" uid="uid://gekrndkc1pev" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Morels/morel_4.tscn" id="69_m2q6e"]
+[ext_resource type="PackedScene" uid="uid://bada8dpe5s7ys" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Morels/morel_5.tscn" id="70_h82qi"]
+[ext_resource type="PackedScene" uid="uid://dnilhffdquwb6" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Morels/morel_6.tscn" id="71_0o3vm"]
+[ext_resource type="PackedScene" uid="uid://crhhuba61esbi" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Morels Red/morel_red_1.tscn" id="72_hkaxa"]
+[ext_resource type="PackedScene" uid="uid://bo5g60xc6w8bb" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Morels Red/morel_red_2.tscn" id="73_y15u7"]
+[ext_resource type="PackedScene" uid="uid://ch5pgsxhespoc" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Morels Red/morel_red_3.tscn" id="74_hj5r0"]
+[ext_resource type="PackedScene" uid="uid://dp4jf083pe2gy" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Morels Red/morel_red_4.tscn" id="75_wrqkx"]
+[ext_resource type="PackedScene" uid="uid://br5fpuufnkmea" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Morels Red/morel_red_5.tscn" id="76_2nr45"]
+[ext_resource type="PackedScene" uid="uid://bv81cq7iclohv" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Morels Red/morel_red_6.tscn" id="77_e6dnl"]
+[ext_resource type="PackedScene" uid="uid://ctfdhnufxb8xo" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Oysters Blue/oyster_blue_1.tscn" id="78_rfgd4"]
+[ext_resource type="PackedScene" uid="uid://cmncnvdjk3a0l" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Oysters Blue/oyster_blue_1_side.tscn" id="79_bk4on"]
+[ext_resource type="PackedScene" uid="uid://bb6exb8qugsed" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Oysters Blue/oyster_blue_2.tscn" id="80_i1lb5"]
+[ext_resource type="PackedScene" uid="uid://beyg4e1n8i61v" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Oysters Blue/oyster_blue_2_side.tscn" id="81_h5tty"]
+[ext_resource type="PackedScene" uid="uid://d3obriu4kgviv" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Oysters Blue/oyster_blue_3.tscn" id="82_a7cy8"]
+[ext_resource type="PackedScene" uid="uid://cexvlyakjs3mj" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Oysters Blue/oyster_blue_3_side.tscn" id="83_jh37u"]
+[ext_resource type="PackedScene" uid="uid://dgelwmes1qn23" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Oysters Pearl/oyster_pearl_1.tscn" id="84_o8c43"]
+[ext_resource type="PackedScene" uid="uid://cjjs1unvffupj" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Oysters Pearl/oyster_pearl_1_side.tscn" id="85_dt3at"]
+[ext_resource type="PackedScene" uid="uid://brq8eyruiel6l" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Oysters Pearl/oyster_pearl_2.tscn" id="86_sqg85"]
+[ext_resource type="PackedScene" uid="uid://nxckoqgscj76" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Oysters Pearl/oyster_pearl_2_side.tscn" id="87_nwapw"]
+[ext_resource type="PackedScene" uid="uid://bj0xyo27fprs8" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Oysters Pearl/oyster_pearl_3.tscn" id="88_6dej3"]
+[ext_resource type="PackedScene" uid="uid://dq10k4qvyhh5j" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Oysters Pearl/oyster_pearl_3_side.tscn" id="89_p516k"]
+[ext_resource type="PackedScene" uid="uid://bnh4mqu5fosbr" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Reishis/reishi_1.tscn" id="90_wpc0q"]
+[ext_resource type="PackedScene" uid="uid://kc0vx5yy108j" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Reishis/reishi_2.tscn" id="91_filu7"]
+[ext_resource type="PackedScene" uid="uid://da25aiom5flbr" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Reishis/reishi_3.tscn" id="92_mki1q"]
+[ext_resource type="PackedScene" uid="uid://b4fiph8enc5ym" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Reishis/reishi_4.tscn" id="93_oh0s2"]
+[ext_resource type="PackedScene" uid="uid://bob6po1kn6q4k" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Reishis/reishi_5.tscn" id="94_8ms8g"]
+[ext_resource type="PackedScene" uid="uid://cssskvpp452so" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Reishis/reishi_6.tscn" id="95_gkj6g"]
+[ext_resource type="PackedScene" uid="uid://jliaqn2mfkrp" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Reishis/reishi_7.tscn" id="96_vl17p"]
+[ext_resource type="PackedScene" uid="uid://t6v6trfosix1" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Reishis/reishi_8.tscn" id="97_3pvu1"]
+[ext_resource type="PackedScene" uid="uid://cyop2a34ibkeh" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Reishis/reishi_9.tscn" id="98_22kfu"]
+[ext_resource type="PackedScene" uid="uid://cpg81dc0m5ief" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Reishis/reishi_10.tscn" id="99_utrut"]
+[ext_resource type="PackedScene" uid="uid://dphr4h01ek0lg" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Reishis/reishi_11.tscn" id="100_f27jf"]
+[ext_resource type="PackedScene" uid="uid://co1lppp61l3qt" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Shiitake/shiitake_1.tscn" id="101_v5nbk"]
+[ext_resource type="PackedScene" uid="uid://c7w6r0v72ghci" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Shiitake/shiitake_2.tscn" id="102_mdix3"]
+[ext_resource type="PackedScene" uid="uid://8f0o3k6142wg" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Shiitake/shiitake_3.tscn" id="103_ut8n3"]
+[ext_resource type="PackedScene" uid="uid://b7d72f7uewatv" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Shiitake/shiitake_4.tscn" id="104_garku"]
+[ext_resource type="PackedScene" uid="uid://c8jpck6sh8wre" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Shiitake/shiitake_5.tscn" id="105_fi6dp"]
+[ext_resource type="PackedScene" uid="uid://br3ebemdp7usf" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Shiitake/shiitake_6.tscn" id="106_6lut2"]
+[ext_resource type="PackedScene" uid="uid://cpy3i01b8h325" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Shiitake/shiitake_cracked_1.tscn" id="107_6llqt"]
+[ext_resource type="PackedScene" uid="uid://cgm6236wg4hya" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Shiitake/shiitake_cracked_2.tscn" id="108_1f52j"]
+[ext_resource type="PackedScene" uid="uid://d3ynfk2fvjd4y" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Shiitake/shiitake_cracked_3.tscn" id="109_iwcry"]
+[ext_resource type="PackedScene" uid="uid://pbewe6pvslem" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Shiitake/shiitake_cracked_4.tscn" id="110_nbt2e"]
+[ext_resource type="PackedScene" uid="uid://j5iwkng0ut3a" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Shiitake/shiitake_cracked_5.tscn" id="111_gc2an"]
+[ext_resource type="PackedScene" uid="uid://btn5n5as4hfps" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Shiitake/shiitake_cracked_6.tscn" id="112_4j5qb"]
+[ext_resource type="PackedScene" uid="uid://buu7t5bbdrtcl" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Shiitake/shiitake_side_1.tscn" id="113_12og4"]
+[ext_resource type="PackedScene" uid="uid://d4b1uaae84pji" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Shiitake/shiitake_side_2.tscn" id="114_j7mxk"]
+[ext_resource type="PackedScene" uid="uid://bj2r24j56edhk" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Shiitake/shiitake_side_3.tscn" id="115_0tiyi"]
+[ext_resource type="PackedScene" uid="uid://dv4ue133octh2" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Shiitake/shiitake_side_cracked_1.tscn" id="116_itrew"]
+[ext_resource type="PackedScene" uid="uid://s6wsnqghdfty" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Shiitake/shiitake_side_cracked_2.tscn" id="117_keqse"]
+[ext_resource type="PackedScene" uid="uid://cgkyevy04oygs" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Shiitake/shiitake_side_cracked_3.tscn" id="118_7mn08"]
+[ext_resource type="PackedScene" uid="uid://ov5trdnmut7g" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Turkey Tails/turkey_tail_1.tscn" id="119_cg0jp"]
+[ext_resource type="PackedScene" uid="uid://bch8b5j2n7hhi" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Turkey Tails/turkey_tail_2.tscn" id="120_20oss"]
+[ext_resource type="PackedScene" uid="uid://ccx58s1t3y1uj" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Turkey Tails/turkey_tail_3.tscn" id="121_slmol"]
+[ext_resource type="PackedScene" uid="uid://c4m1cesc05hws" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Turkey Tails/turkey_tail_4.tscn" id="122_fjdvg"]
+[ext_resource type="PackedScene" uid="uid://br583xnpunncx" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Turkey Tails/turkey_tail_5.tscn" id="123_ushe1"]
+[ext_resource type="PackedScene" uid="uid://wndc0oqy3m47" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Turkey Tails/turkey_tail_6.tscn" id="124_x3wc4"]
+[ext_resource type="PackedScene" uid="uid://bpjqm2wo2q7l6" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Turkey Tails/turkey_tail_7.tscn" id="125_ic8r5"]
+[ext_resource type="PackedScene" uid="uid://cq2nvchupj647" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Turkey Tails/turkey_tail_8.tscn" id="126_62cs7"]
+[ext_resource type="PackedScene" uid="uid://bru0e47vnk3d" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Turkey Tails/turkey_tail_9.tscn" id="127_q68o4"]
+[ext_resource type="PackedScene" uid="uid://ddomubfobctg8" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Turkey Tails/turkey_tail_10.tscn" id="128_16ut7"]
+[ext_resource type="PackedScene" uid="uid://dmw7iux8nbkta" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Turkey Tails/turkey_tail_11.tscn" id="129_s5qn8"]
+[ext_resource type="PackedScene" uid="uid://cnatengpuxpx8" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Lions Mane/lions_mane_1.tscn" id="130_h2iv5"]
+[ext_resource type="PackedScene" uid="uid://cfw707xx43mi8" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Lions Mane/lions_mane_2.tscn" id="131_l2a5g"]
+[ext_resource type="PackedScene" uid="uid://bdhoqwvekdnbl" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Lions Mane/lions_mane_3.tscn" id="132_c1uvi"]
+[ext_resource type="Script" uid="uid://bi4msaq0yxe4b" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Scenes/Scripts/character_body_3d.gd" id="133_cynyd"]
+[ext_resource type="Material" uid="uid://b2ne5lr6kch1e" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Scenes/Materials/M_dirt_example.tres" id="133_i6xpt"]
+[ext_resource type="PackedScene" uid="uid://culqrc5bryhey" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Mycelium/mycelium_block_1.tscn" id="135_t1rh1"]
+[ext_resource type="PackedScene" uid="uid://cpxk2285r3dgx" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Mycelium/mycelium_block_2.tscn" id="136_5qq00"]
+[ext_resource type="PackedScene" uid="uid://cl1ndemo61mq5" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Mycelium/mycelium_block_3.tscn" id="137_rtt6m"]
+[ext_resource type="PackedScene" uid="uid://bpqx4af4j66vm" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Mycelium/mycelium_block_4.tscn" id="138_e7cew"]
+[ext_resource type="PackedScene" uid="uid://b5vhyxcoydt0i" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Mycelium/mycelium_plane_1.tscn" id="139_choxb"]
+[ext_resource type="PackedScene" uid="uid://cpe3bjmmupcmf" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Mycelium/mycelium_plane_2.tscn" id="140_5d6wn"]
+[ext_resource type="PackedScene" uid="uid://4q023kd86wqx" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Mycelium/mycelium_plane_3.tscn" id="141_g448f"]
+[ext_resource type="PackedScene" uid="uid://88tn8624432s" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Prefabs/Mycelium/mycelium_plane_4.tscn" id="142_mixmy"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_h1e42"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cynyd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cynyd"]
+size = Vector3(1.9862671, 0.03161621, 2.0162354)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_h1e42"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cynyd"]
+
+[sub_resource type="Environment" id="Environment_i6xpt"]
+ssr_enabled = true
+fog_enabled = true
+fog_mode = 1
+fog_density = 0.0323
+
+[node name="Mushroom Scene 1" type="Node3D" unique_id=1962714008]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1591097660]
+transform = Transform3D(62.55132, 0, 0, 0, 62.55132, 0, 0, 0, 62.55132, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=325997567]
+transform = Transform3D(1.0032132, 0, 0, 0, 1.0032132, 0, 0, 0, 1.0032132, 0, 0, 0)
+material_override = ExtResource("133_i6xpt")
+mesh = SubResource("PlaneMesh_h1e42")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_cynyd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=439803398]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00088501547, -0.016052246, 0.009094233)
+shape = SubResource("BoxShape3D_cynyd")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=635886078]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -18.886307, 7.790949, -8.255467e-07)
+script = ExtResource("133_cynyd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D" unique_id=1918774602]
+mesh = SubResource("CapsuleMesh_h1e42")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=1880086711]
+shape = SubResource("CapsuleShape3D_cynyd")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D" unique_id=1026082730]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1759682926]
+transform = Transform3D(0.6691825, -0.66406643, 0.33348247, 0, 0.44877318, 0.8936457, -0.7430981, -0.59801203, 0.30031115, 0, 9.139629, 0)
+light_color = Color(0.8992584, 0.8992584, 0.8992584, 1)
+light_energy = 0.9
+light_volumetric_fog_energy = 16.0
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1422261213]
+environment = SubResource("Environment_i6xpt")
+
+[node name="Mushrooms" type="Node3D" parent="." unique_id=1676001036]
+
+[node name="cremini_1" parent="Mushrooms" unique_id=420143797 instance=ExtResource("1_h1e42")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 2.0244944, 9.630675e-08, -27.78349)
+
+[node name="cremini_2" parent="Mushrooms" unique_id=170867079 instance=ExtResource("2_cynyd")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 5.8338094, 9.630675e-08, -27.78349)
+
+[node name="portobello_1" parent="Mushrooms" unique_id=1632069295 instance=ExtResource("3_i6xpt")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 8.988196, 9.630675e-08, -27.78349)
+
+[node name="portobello_2" parent="Mushrooms" unique_id=1097384889 instance=ExtResource("4_e8516")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 12.11035, 9.630675e-08, -27.78349)
+
+[node name="portobello_cracked_1" parent="Mushrooms" unique_id=631132148 instance=ExtResource("5_b5q68")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 16.690578, 9.630675e-08, -27.78349)
+
+[node name="portobello_cracked_2" parent="Mushrooms" unique_id=1004311685 instance=ExtResource("6_mbqib")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 20.958008, 9.630675e-08, -27.78349)
+
+[node name="white_button_1" parent="Mushrooms" unique_id=1776016087 instance=ExtResource("7_t1rh1")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -12.639591, 9.630675e-08, -27.78349)
+
+[node name="white_button_2" parent="Mushrooms" unique_id=1865304001 instance=ExtResource("8_5qq00")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -9.457335, 9.630675e-08, -27.78349)
+
+[node name="white_button_3" parent="Mushrooms" unique_id=1022473159 instance=ExtResource("9_rtt6m")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -5.9563932, 9.630675e-08, -27.78349)
+
+[node name="white_button_4" parent="Mushrooms" unique_id=459412996 instance=ExtResource("10_e7cew")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -1.8569223, 9.630675e-08, -27.78349)
+
+[node name="amanita_muscaria_1" parent="Mushrooms" unique_id=934060909 instance=ExtResource("11_choxb")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -13.431434, 9.630675e-08, -21.90055)
+
+[node name="amanita_muscaria_2" parent="Mushrooms" unique_id=429911006 instance=ExtResource("12_5d6wn")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -10.249179, 9.630675e-08, -21.90055)
+
+[node name="amanita_muscaria_3" parent="Mushrooms" unique_id=690997164 instance=ExtResource("13_g448f")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -6.7482357, 9.630675e-08, -21.90055)
+
+[node name="amanita_muscaria_4" parent="Mushrooms" unique_id=2043486450 instance=ExtResource("14_mixmy")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -2.648765, 9.630675e-08, -21.90055)
+
+[node name="amanita_muscaria_5" parent="Mushrooms" unique_id=769331781 instance=ExtResource("15_etauq")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 1.5718714, 9.630675e-08, -21.90055)
+
+[node name="amanita_muscaria_6" parent="Mushrooms" unique_id=341440003 instance=ExtResource("16_hijjp")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 5.214415, 9.630675e-08, -21.90055)
+
+[node name="amanita_muscaria_7" parent="Mushrooms" unique_id=930006643 instance=ExtResource("17_0g2a3")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 8.627667, 9.630675e-08, -21.90055)
+
+[node name="amanita_muscaria_8" parent="Mushrooms" unique_id=1108006292 instance=ExtResource("18_j18ra")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 11.830911, 9.630675e-08, -21.90055)
+
+[node name="bolete_1" parent="Mushrooms" unique_id=31368256 instance=ExtResource("19_4g3mu")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -12.853734, 9.630675e-08, -18.549725)
+
+[node name="bolete_2" parent="Mushrooms" unique_id=862448433 instance=ExtResource("20_k803c")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -9.671479, 9.630675e-08, -18.549725)
+
+[node name="bolete_3" parent="Mushrooms" unique_id=2042865222 instance=ExtResource("21_k5j41")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -6.170536, 9.630675e-08, -18.549725)
+
+[node name="bolete_4" parent="Mushrooms" unique_id=1892349888 instance=ExtResource("22_adxwo")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -2.071066, 9.630675e-08, -18.549725)
+
+[node name="bolete_cracked_1" parent="Mushrooms" unique_id=114145115 instance=ExtResource("23_x2awy")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 1.8386542, 9.630675e-08, -18.549725)
+
+[node name="bolete_cracked_2" parent="Mushrooms" unique_id=147991612 instance=ExtResource("24_hgy3h")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 5.6479697, 9.630675e-08, -18.549725)
+
+[node name="bolete_cracked_3" parent="Mushrooms" unique_id=575641233 instance=ExtResource("25_jlrko")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 8.290355, 9.630675e-08, -18.549725)
+
+[node name="bolete_cracked_4" parent="Mushrooms" unique_id=724684090 instance=ExtResource("26_alkk7")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 11.7026615, 9.630675e-08, -18.549725)
+
+[node name="bolete_blue_1" parent="Mushrooms" unique_id=2063503030 instance=ExtResource("27_mp25i")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -12.858481, 9.630675e-08, -15.95959)
+
+[node name="bolete_blue_2" parent="Mushrooms" unique_id=177522838 instance=ExtResource("28_nlxxr")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -9.676226, 9.630675e-08, -15.95959)
+
+[node name="bolete_blue_3" parent="Mushrooms" unique_id=837978638 instance=ExtResource("29_xq4nc")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -6.1752825, 9.630675e-08, -15.95959)
+
+[node name="bolete_blue_4" parent="Mushrooms" unique_id=1377872740 instance=ExtResource("30_fmwq3")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -2.07581, 9.630675e-08, -15.95959)
+
+[node name="bolete_blue_cracked_1" parent="Mushrooms" unique_id=444085505 instance=ExtResource("31_sqysh")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 1.8340781, 9.630675e-08, -15.95959)
+
+[node name="bolete_blue_cracked_2" parent="Mushrooms" unique_id=1462066117 instance=ExtResource("32_kxrgb")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 5.6433935, 9.630675e-08, -15.95959)
+
+[node name="bolete_blue_cracked_3" parent="Mushrooms" unique_id=1464307673 instance=ExtResource("33_duo8d")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 8.285779, 9.630675e-08, -15.95959)
+
+[node name="bolete_blue_cracked_4" parent="Mushrooms" unique_id=1445476373 instance=ExtResource("34_6qnw1")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 11.698088, 9.630675e-08, -15.95959)
+
+[node name="chanterelle_1" parent="Mushrooms" unique_id=1970231899 instance=ExtResource("35_who0u")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -12.150059, 9.630675e-08, -12.689282)
+
+[node name="chanterelle_2" parent="Mushrooms" unique_id=632447686 instance=ExtResource("36_jbvwv")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -8.967804, 9.630675e-08, -12.689282)
+
+[node name="chanterelle_3" parent="Mushrooms" unique_id=1287603083 instance=ExtResource("37_m23sk")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -5.4668612, 9.630675e-08, -12.689282)
+
+[node name="chanterelle_4" parent="Mushrooms" unique_id=474996152 instance=ExtResource("38_qp5d5")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -1.3673898, 9.630675e-08, -12.689282)
+
+[node name="chanterelle_5" parent="Mushrooms" unique_id=1805985490 instance=ExtResource("39_xeg6w")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 2.853249, 9.630675e-08, -12.689282)
+
+[node name="chanterelle_6" parent="Mushrooms" unique_id=897801622 instance=ExtResource("40_5ah44")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 6.4957876, 9.630675e-08, -12.689282)
+
+[node name="chanterelle_7" parent="Mushrooms" unique_id=1339638537 instance=ExtResource("41_37vor")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 9.909044, 9.630675e-08, -12.689282)
+
+[node name="chicken_of_the_woods_1" parent="Mushrooms" unique_id=839201841 instance=ExtResource("45_h6lbp")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -12.157958, 0.6541844, -8.378605)
+
+[node name="chicken_of_the_woods_2" parent="Mushrooms" unique_id=132781052 instance=ExtResource("46_rc06u")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -8.975703, 0.6541844, -8.378605)
+
+[node name="chicken_of_the_woods_3" parent="Mushrooms" unique_id=1884783552 instance=ExtResource("47_sxeb1")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -5.4747615, 0.6541844, -8.378605)
+
+[node name="chicken_of_the_woods_4" parent="Mushrooms" unique_id=512485932 instance=ExtResource("48_nmuo7")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -1.3752898, 0.6541844, -8.378605)
+
+[node name="chicken_of_the_woods_5" parent="Mushrooms" unique_id=572115184 instance=ExtResource("49_blqi7")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 2.8453467, 0.6541844, -8.378605)
+
+[node name="chicken_of_the_woods_6" parent="Mushrooms" unique_id=1686490857 instance=ExtResource("50_hkxu6")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 6.48789, 0.6541844, -8.378605)
+
+[node name="chicken_of_the_woods_7" parent="Mushrooms" unique_id=249647886 instance=ExtResource("51_ln4c3")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 9.901143, 0.6541844, -8.378605)
+
+[node name="chicken_of_the_woods_8" parent="Mushrooms" unique_id=229476881 instance=ExtResource("52_dtfqp")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 13.104385, 9.630675e-08, -8.378605)
+
+[node name="chicken_of_the_woods_9" parent="Mushrooms" unique_id=166399867 instance=ExtResource("53_hfdi5")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 17.267324, 9.630675e-08, -8.378605)
+
+[node name="chicken_of_the_woods_10" parent="Mushrooms" unique_id=1665398560 instance=ExtResource("54_wyg3j")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 21.819021, 9.630675e-08, -8.378605)
+
+[node name="chicken_of_the_woods_11" parent="Mushrooms" unique_id=1704155216 instance=ExtResource("55_yokst")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 26.214079, 9.630675e-08, -8.378605)
+
+[node name="jack_o_lantern_1" parent="Mushrooms" unique_id=1697326484 instance=ExtResource("56_jgbp8")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -12.779243, -8.174329e-07, -4.732727)
+
+[node name="jack_o_lantern_2" parent="Mushrooms" unique_id=834133095 instance=ExtResource("57_gpoo7")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -9.596989, -8.174329e-07, -4.732727)
+
+[node name="jack_o_lantern_3" parent="Mushrooms" unique_id=65519724 instance=ExtResource("58_300ix")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -6.0960455, -8.174329e-07, -4.732727)
+
+[node name="jack_o_lantern_4" parent="Mushrooms" unique_id=324995807 instance=ExtResource("59_3kw6x")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -1.9965743, -8.174329e-07, -4.732727)
+
+[node name="jack_o_lantern_5" parent="Mushrooms" unique_id=928674518 instance=ExtResource("60_ui0pk")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 2.2240622, -8.174329e-07, -4.732727)
+
+[node name="jack_o_lantern_6" parent="Mushrooms" unique_id=1613479929 instance=ExtResource("61_52y4p")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 5.8666053, -8.174329e-07, -4.732727)
+
+[node name="jack_o_lantern_7" parent="Mushrooms" unique_id=1592436300 instance=ExtResource("62_dkd34")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 9.279859, -8.174329e-07, -4.732727)
+
+[node name="morel_1" parent="Mushrooms" unique_id=358647879 instance=ExtResource("66_5k0xy")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -13.236921, 9.630675e-08, 2.8607483)
+
+[node name="morel_2" parent="Mushrooms" unique_id=331278021 instance=ExtResource("67_x2seg")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -10.054665, 9.630675e-08, 2.8607483)
+
+[node name="morel_3" parent="Mushrooms" unique_id=798631649 instance=ExtResource("68_ngn1e")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -6.5537224, 9.630675e-08, 2.8607483)
+
+[node name="morel_4" parent="Mushrooms" unique_id=360154640 instance=ExtResource("69_m2q6e")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -2.4542518, 9.630675e-08, 2.8607483)
+
+[node name="morel_5" parent="Mushrooms" unique_id=217746869 instance=ExtResource("70_h82qi")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 1.7663851, 9.630675e-08, 2.8607483)
+
+[node name="morel_6" parent="Mushrooms" unique_id=798535642 instance=ExtResource("71_0o3vm")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 5.408927, 9.630675e-08, 2.8607483)
+
+[node name="morel_red_1" parent="Mushrooms" unique_id=237345648 instance=ExtResource("72_hkaxa")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -13.239329, -8.174329e-07, 4.1744976)
+
+[node name="morel_red_2" parent="Mushrooms" unique_id=1733569171 instance=ExtResource("73_y15u7")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -10.057074, -8.174329e-07, 4.1744976)
+
+[node name="morel_red_3" parent="Mushrooms" unique_id=1230591722 instance=ExtResource("74_hj5r0")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -6.5561295, -8.174329e-07, 4.1744976)
+
+[node name="morel_red_4" parent="Mushrooms" unique_id=1239992299 instance=ExtResource("75_wrqkx")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -2.4566588, -8.174329e-07, 4.1744976)
+
+[node name="morel_red_5" parent="Mushrooms" unique_id=1154814293 instance=ExtResource("76_2nr45")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 1.7639782, -8.174329e-07, 4.1744976)
+
+[node name="morel_red_6" parent="Mushrooms" unique_id=276312576 instance=ExtResource("77_e6dnl")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 5.4065223, -8.174329e-07, 4.1744976)
+
+[node name="oyster_blue_1" parent="Mushrooms" unique_id=646749984 instance=ExtResource("78_rfgd4")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -12.759037, 9.630675e-08, 6.374962)
+
+[node name="oyster_blue_1_side" parent="Mushrooms" unique_id=1398562628 instance=ExtResource("79_bk4on")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -1.2662717, 9.630675e-08, 6.374962)
+
+[node name="oyster_blue_2" parent="Mushrooms" unique_id=378826473 instance=ExtResource("80_i1lb5")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -9.576781, 9.630675e-08, 6.374962)
+
+[node name="oyster_blue_2_side" parent="Mushrooms" unique_id=21388714 instance=ExtResource("81_h5tty")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 2.7721014, 9.630675e-08, 6.374962)
+
+[node name="oyster_blue_3" parent="Mushrooms" unique_id=1220948985 instance=ExtResource("82_a7cy8")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -6.075839, 9.630675e-08, 6.374962)
+
+[node name="oyster_blue_3_side" parent="Mushrooms" unique_id=1646611694 instance=ExtResource("83_jh37u")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 5.872604, 9.630675e-08, 6.374962)
+
+[node name="oyster_pearl_1" parent="Mushrooms" unique_id=1190851473 instance=ExtResource("84_o8c43")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -12.899909, 9.630675e-08, 9.340215)
+
+[node name="oyster_pearl_1_side" parent="Mushrooms" unique_id=417172322 instance=ExtResource("85_dt3at")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -1.2791716, 9.630675e-08, 9.340215)
+
+[node name="oyster_pearl_2" parent="Mushrooms" unique_id=47681305 instance=ExtResource("86_sqg85")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -9.717652, 9.630675e-08, 9.340215)
+
+[node name="oyster_pearl_2_side" parent="Mushrooms" unique_id=318903220 instance=ExtResource("87_nwapw")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 2.7592032, 9.630675e-08, 9.340215)
+
+[node name="oyster_pearl_3" parent="Mushrooms" unique_id=1436394749 instance=ExtResource("88_6dej3")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -6.216708, 9.630675e-08, 9.340215)
+
+[node name="oyster_pearl_3_side" parent="Mushrooms" unique_id=1439704464 instance=ExtResource("89_p516k")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 5.859701, 9.630675e-08, 9.340215)
+
+[node name="reishi_1" parent="Mushrooms" unique_id=403917157 instance=ExtResource("90_wpc0q")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -11.878065, 0.61935717, 13.465437)
+
+[node name="reishi_2" parent="Mushrooms" unique_id=28150544 instance=ExtResource("91_filu7")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -8.695809, 0.61935717, 13.465437)
+
+[node name="reishi_3" parent="Mushrooms" unique_id=1826170636 instance=ExtResource("92_mki1q")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -5.194866, 0.61935717, 13.465437)
+
+[node name="reishi_4" parent="Mushrooms" unique_id=941313141 instance=ExtResource("93_oh0s2")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -1.095395, 0.61935717, 13.465437)
+
+[node name="reishi_5" parent="Mushrooms" unique_id=2108318188 instance=ExtResource("94_8ms8g")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 3.1252434, 0.61935717, 13.465437)
+
+[node name="reishi_6" parent="Mushrooms" unique_id=1982718520 instance=ExtResource("95_gkj6g")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 6.7677827, 0.61935717, 13.465437)
+
+[node name="reishi_7" parent="Mushrooms" unique_id=1031803656 instance=ExtResource("96_vl17p")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 10.18104, 0.61935717, 13.465437)
+
+[node name="reishi_8" parent="Mushrooms" unique_id=1985404715 instance=ExtResource("97_3pvu1")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 13.384282, 9.630675e-08, 13.465437)
+
+[node name="reishi_9" parent="Mushrooms" unique_id=1935391990 instance=ExtResource("98_22kfu")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 17.547222, 9.630675e-08, 13.465437)
+
+[node name="reishi_10" parent="Mushrooms" unique_id=676678291 instance=ExtResource("99_utrut")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 22.098917, 9.630675e-08, 13.465437)
+
+[node name="reishi_11" parent="Mushrooms" unique_id=702951823 instance=ExtResource("100_f27jf")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 26.493963, 9.630675e-08, 13.465437)
+
+[node name="shiitake_1" parent="Mushrooms" unique_id=423424353 instance=ExtResource("101_v5nbk")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -12.116217, 9.630675e-08, 24.002144)
+
+[node name="shiitake_2" parent="Mushrooms" unique_id=770148261 instance=ExtResource("102_mdix3")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -8.933961, 9.630675e-08, 24.002144)
+
+[node name="shiitake_3" parent="Mushrooms" unique_id=91394171 instance=ExtResource("103_ut8n3")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -5.4330173, 9.630675e-08, 24.002144)
+
+[node name="shiitake_4" parent="Mushrooms" unique_id=89377894 instance=ExtResource("104_garku")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -1.3335465, 9.630675e-08, 24.002144)
+
+[node name="shiitake_5" parent="Mushrooms" unique_id=21374760 instance=ExtResource("105_fi6dp")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 2.8870902, 9.630675e-08, 24.002144)
+
+[node name="shiitake_6" parent="Mushrooms" unique_id=1366372378 instance=ExtResource("106_6lut2")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 6.529633, 9.630675e-08, 24.002144)
+
+[node name="shiitake_cracked_1" parent="Mushrooms" unique_id=178110205 instance=ExtResource("107_6llqt")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 9.142867, 9.630675e-08, 24.002144)
+
+[node name="shiitake_cracked_2" parent="Mushrooms" unique_id=875814864 instance=ExtResource("108_1f52j")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 12.325122, 9.630675e-08, 24.002144)
+
+[node name="shiitake_cracked_3" parent="Mushrooms" unique_id=996502867 instance=ExtResource("109_iwcry")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 17.808529, 9.630675e-08, 24.002144)
+
+[node name="shiitake_cracked_4" parent="Mushrooms" unique_id=115077587 instance=ExtResource("110_nbt2e")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 15.341988, 9.630675e-08, 24.002144)
+
+[node name="shiitake_cracked_5" parent="Mushrooms" unique_id=668143933 instance=ExtResource("111_gc2an")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 20.987524, 9.630675e-08, 24.002144)
+
+[node name="shiitake_cracked_6" parent="Mushrooms" unique_id=1837213897 instance=ExtResource("112_4j5qb")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 25.495728, 9.630675e-08, 24.002144)
+
+[node name="shiitake_side_1" parent="Mushrooms" unique_id=1722836626 instance=ExtResource("113_12og4")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -12.116217, 9.630675e-08, 27.761612)
+
+[node name="shiitake_side_2" parent="Mushrooms" unique_id=763190285 instance=ExtResource("114_j7mxk")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -8.933961, 9.630675e-08, 27.761612)
+
+[node name="shiitake_side_3" parent="Mushrooms" unique_id=465700030 instance=ExtResource("115_0tiyi")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -5.4330173, 9.630675e-08, 27.761612)
+
+[node name="shiitake_side_cracked_1" parent="Mushrooms" unique_id=395249342 instance=ExtResource("116_itrew")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -0.9821154, 9.630675e-08, 27.761612)
+
+[node name="shiitake_side_cracked_2" parent="Mushrooms" unique_id=2145505627 instance=ExtResource("117_keqse")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 2.441163, 9.630675e-08, 27.761612)
+
+[node name="shiitake_side_cracked_3" parent="Mushrooms" unique_id=517008080 instance=ExtResource("118_7mn08")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 7.144543, 9.630675e-08, 27.761612)
+
+[node name="turkey_tail_1" parent="Mushrooms" unique_id=389993943 instance=ExtResource("119_cg0jp")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -11.746972, 0.5820733, 19.274672)
+
+[node name="turkey_tail_2" parent="Mushrooms" unique_id=1250021197 instance=ExtResource("120_20oss")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -8.564716, 0.5820733, 19.274672)
+
+[node name="turkey_tail_3" parent="Mushrooms" unique_id=2059727123 instance=ExtResource("121_slmol")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -5.0637736, 0.5820733, 19.274672)
+
+[node name="turkey_tail_4" parent="Mushrooms" unique_id=1733109195 instance=ExtResource("122_fjdvg")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -0.9643022, 0.5820733, 19.274672)
+
+[node name="turkey_tail_5" parent="Mushrooms" unique_id=1160751707 instance=ExtResource("123_ushe1")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 3.2563329, 0.5820733, 19.274672)
+
+[node name="turkey_tail_6" parent="Mushrooms" unique_id=2144956276 instance=ExtResource("124_x3wc4")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 6.898879, 0.5820733, 19.274672)
+
+[node name="turkey_tail_7" parent="Mushrooms" unique_id=1487795256 instance=ExtResource("125_ic8r5")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 10.312128, 0.5820733, 19.274672)
+
+[node name="turkey_tail_8" parent="Mushrooms" unique_id=1973488209 instance=ExtResource("126_62cs7")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 13.515371, 9.630675e-08, 19.274672)
+
+[node name="turkey_tail_9" parent="Mushrooms" unique_id=84328273 instance=ExtResource("127_q68o4")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 17.678312, 9.630675e-08, 19.274672)
+
+[node name="turkey_tail_10" parent="Mushrooms" unique_id=1406321289 instance=ExtResource("128_16ut7")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 22.230005, 9.630675e-08, 19.274672)
+
+[node name="turkey_tail_11" parent="Mushrooms" unique_id=1435087768 instance=ExtResource("129_s5qn8")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, 26.625044, 9.630675e-08, 19.274672)
+
+[node name="lions_mane_1" parent="Mushrooms" unique_id=1132867766 instance=ExtResource("130_h2iv5")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -12.031486, 1.5262552, 0.068689644)
+
+[node name="lions_mane_2" parent="Mushrooms" unique_id=245197785 instance=ExtResource("131_l2a5g")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -8.84923, 1.5262552, 0.068689644)
+
+[node name="lions_mane_3" parent="Mushrooms" unique_id=2075572693 instance=ExtResource("132_c1uvi")]
+transform = Transform3D(7.6650043, 0, 0, 0, 7.6650043, 0, 0, 0, 7.6650043, -5.3482866, 1.5262552, 0.068689644)
+
+[node name="mycelium_block_1" parent="Mushrooms" unique_id=739074293 instance=ExtResource("135_t1rh1")]
+transform = Transform3D(2.39262, 0, 0, 0, 2.39262, 0, 0, 0, 2.39262, 7.122402, -0.015271246, 8.618938)
+
+[node name="mycelium_block_2" parent="Mushrooms" unique_id=932969334 instance=ExtResource("136_5qq00")]
+transform = Transform3D(2.39262, 0, 0, 0, 2.39262, 0, 0, 0, 2.39262, 7.122402, -0.015271246, 6.3175445)
+
+[node name="mycelium_block_3" parent="Mushrooms" unique_id=646174241 instance=ExtResource("137_rtt6m")]
+transform = Transform3D(2.39262, 0, 0, 0, 2.39262, 0, 0, 0, 2.39262, 7.122402, -0.015271246, 4.0968485)
+
+[node name="mycelium_block_4" parent="Mushrooms" unique_id=1327310370 instance=ExtResource("138_e7cew")]
+transform = Transform3D(2.39262, 0, 0, 0, 2.39262, 0, 0, 0, 2.39262, 7.122402, -0.015271246, 1.6645746)
+
+[node name="mycelium_plane_1" parent="Mushrooms" unique_id=1942224016 instance=ExtResource("139_choxb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.617782, 0.037457883, 8.545855)
+
+[node name="mycelium_plane_2" parent="Mushrooms" unique_id=1599034574 instance=ExtResource("140_5d6wn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.617782, 0.037457883, 6.299042)
+
+[node name="mycelium_plane_3" parent="Mushrooms" unique_id=1955618563 instance=ExtResource("141_g448f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.617782, 0.037457883, 3.9707236)
+
+[node name="mycelium_plane_4" parent="Mushrooms" unique_id=95493555 instance=ExtResource("142_mixmy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.617782, 0.037457883, 1.675015)

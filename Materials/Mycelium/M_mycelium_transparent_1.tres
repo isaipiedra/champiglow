@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://dj1nlk7qmti7v"]
+
+[ext_resource type="Texture2D" uid="uid://tvf75l16rca5" path="res://Kyle's Mushroom Pack/Kyle Fuji/Materials/Textures/Mycelium/T_mycelium_1_transparent_diffuse.png" id="1_5twgl"]
+[ext_resource type="Texture2D" uid="uid://c786lk8y4vm7p" path="res://Kyle's Mushroom Pack/Kyle Fuji/Materials/Textures/Mycelium/T_mycelium_1_transparent_normal.png" id="2_3v663"]
+
+[resource]
+transparency = 1
+albedo_texture = ExtResource("1_5twgl")
+normal_enabled = true
+normal_texture = ExtResource("2_3v663")

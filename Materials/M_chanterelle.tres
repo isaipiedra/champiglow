@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cegqucqy1tysg"]
+
+[ext_resource type="Texture2D" uid="uid://8wrgfge00c4" path="res://Kyle's Mushroom Pack/Kyle Fuji/Materials/Textures/T_chanterelle_atlas_diffuse_roughness.png" id="1_2y6ga"]
+[ext_resource type="Texture2D" uid="uid://coiqgceuk3p2l" path="res://Kyle's Mushroom Pack/Kyle Fuji/Materials/Textures/T_chanterelle_atlas_normal.png" id="2_8ibwd"]
+
+[resource]
+albedo_texture = ExtResource("1_2y6ga")
+roughness = 0.7
+roughness_texture = ExtResource("1_2y6ga")
+roughness_texture_channel = 3
+normal_enabled = true
+normal_texture = ExtResource("2_8ibwd")

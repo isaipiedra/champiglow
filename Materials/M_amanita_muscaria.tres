@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c57ws8b4g1rek"]
+
+[ext_resource type="Texture2D" uid="uid://m3k2fapdgkcy" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Materials/Textures/T_amanita_muscaria_atlas_diffuse_roughness.png" id="1_labsc"]
+[ext_resource type="Texture2D" uid="uid://8hofhtuinwfx" path="res://Kyle's Mushroom Pack FREE/Kyle Fuji/Materials/Textures/T_amanita_muscaria_atlas_normal.png" id="2_aps3s"]
+
+[resource]
+albedo_texture = ExtResource("1_labsc")
+roughness_texture = ExtResource("1_labsc")
+roughness_texture_channel = 3
+normal_enabled = true
+normal_texture = ExtResource("2_aps3s")
