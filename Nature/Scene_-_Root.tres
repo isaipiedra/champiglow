@@ -8,7 +8,8 @@
 resource_name = "Scene_-_Root"
 cull_mode = 2
 albedo_texture = ExtResource("1_e3cxi")
-metallic = 1.0
+metallic = 0.3
+metallic_specular = 0.3
 metallic_texture = ExtResource("2_o07tx")
 metallic_texture_channel = 2
 roughness_texture = ExtResource("2_o07tx")

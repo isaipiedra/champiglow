@@ -2,6 +2,7 @@ extends Node
 
 @export var world_environment: WorldEnvironment
 @export var sun: DirectionalLight3D
+@export var moon: DirectionalLight3D
 @export var sky_shader: Shader
 
 @export_range(0.0, 24.0) var time_of_day := 8.0:
@@ -9,14 +10,14 @@ extends Node
 		time_of_day = v
 		_apply()
 @export var auto_advance := true
-@export var day_length := 120.0 ## segundos reales
+@export var day_length := 10.0 ## segundos reales
 @export_range(-180.0, 180.0) var sun_yaw := 30.0 ## rotación del recorrido del sol
 
 @export var day_light_color := Color(1.0, 0.96, 0.88)
 @export var warm_light_color := Color(1.0, 0.55, 0.25)
 @export var night_light_color := Color(0.45, 0.55, 0.9)
 @export var enable_shadows := true
-@export var shadow_distance := 300.0 ## distancia máxima de sombras
+@export var shadow_distance := 120.0 ## distancia máxima de sombras
 @export_range(0.0, 1.0) var ambient_day := 0.2 ## luz de relleno del cielo de día
 @export_range(0.0, 1.0) var ambient_night := 0.08
 @export_range(0.5, 2.0) var contrast := 1.1
@@ -35,10 +36,21 @@ func _ready() -> void:
 		sun = DirectionalLight3D.new()
 		sun.shadow_enabled = true
 		add_child(sun)
-	sun.shadow_enabled = enable_shadows
-	sun.directional_shadow_max_distance = shadow_distance
+	if moon == null:
+		moon = DirectionalLight3D.new()
+		add_child(moon)
+	for l in [sun, moon]:
+		l.shadow_enabled = enable_shadows
+		l.directional_shadow_max_distance = shadow_distance
+		l.directional_shadow_blend_splits = true
+	moon.light_color = night_light_color
 	if sky_shader == null:
-		sky_shader = load("res://Shaders/sky.gdshader")
+		const path = "res://Shaders/sky.gdshader"
+		if ResourceLoader.exists(path):
+			sky_shader = load(path)
+	if sky_shader == null:
+		push_error("day_night.gd: no se encontró sky.gdshader.")
+		return
 
 	_mat = ShaderMaterial.new()
 	_mat.shader = sky_shader
@@ -76,14 +88,17 @@ func _apply() -> void:
 	var day := smoothstep(-0.05, 0.3, elev)
 	var twilight := 1.0 - smoothstep(0.0, 0.3, absf(elev))
 
-	# luz de noche
-	var light_to := to_sun if elev > -0.05 else -to_sun
-	sun.global_transform = Transform3D(Basis.looking_at(-light_to, side), sun.global_position)
+	# Sol y luna
+	sun.global_transform = Transform3D(Basis.looking_at(-to_sun, side), sun.global_position)
+	moon.global_transform = Transform3D(Basis.looking_at(to_sun, side), moon.global_position)
 
-	var col := night_light_color.lerp(day_light_color, day)
-	col = col.lerp(warm_light_color, twilight * 0.85 * smoothstep(-0.05, 0.1, elev))
-	sun.light_color = col
-	sun.light_energy = lerpf(night_energy, day_energy, day)
+	sun.light_color = day_light_color.lerp(warm_light_color, twilight * 0.85)
+	sun.light_energy = day_energy * smoothstep(-0.12, 0.25, elev)
+	sun.visible = sun.light_energy > 0.001
+
+	moon.light_color = night_light_color
+	moon.light_energy = night_energy * smoothstep(-0.12, 0.25, -elev)
+	moon.visible = moon.light_energy > 0.001
 
 	_env.ambient_light_energy = lerpf(ambient_night, ambient_day, day)
 	_mat.set_shader_parameter("sun_dir", to_sun)
