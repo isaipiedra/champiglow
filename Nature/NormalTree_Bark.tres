@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://drc1gn023laee"]
+
+[ext_resource type="Texture2D" uid="uid://cgdu07qjonm4s" path="res://Textures/MapleTree_Bark.png" id="1_3yneb"]
+[ext_resource type="Texture2D" uid="uid://bw8xf2v0cqwc5" path="res://Nature/NormalTree_Bark_Normal.png" id="2_iccfa"]
+
+[resource]
+resource_name = "NormalTree_Bark"
+cull_mode = 2
+albedo_texture = ExtResource("1_3yneb")
+roughness = 0.7
+normal_enabled = true
+normal_texture = ExtResource("2_iccfa")
+metadata/_gltf_primary_texture_coord = 0

@@ -1,0 +1,20 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://v75bq343x5ib"]
+
+[ext_resource type="Texture2D" uid="uid://iyobf2c6xhg0" path="res://Nature/tree_chomp_0.jpg" id="1_xtb3w"]
+[ext_resource type="Texture2D" uid="uid://bppuetkjec5kj" path="res://Nature/tree_chomp_1.png" id="2_g1vvk"]
+[ext_resource type="Texture2D" uid="uid://bemrcupxpgmlk" path="res://Nature/tree_chomp_2.jpg" id="3_apjh0"]
+
+[resource]
+resource_name = "material_0"
+cull_mode = 2
+albedo_texture = ExtResource("1_xtb3w")
+metallic_specular = 0.54
+metallic_texture = ExtResource("2_g1vvk")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_g1vvk")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_apjh0")
+ao_enabled = true
+ao_texture = ExtResource("2_g1vvk")
+metadata/_gltf_primary_texture_coord = 0
