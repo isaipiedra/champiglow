@@ -1,7 +1,9 @@
 extends Node3D
 
 @export var mycena_scene: PackedScene
-@export var wind_force: Vector3 = Vector3(1.5,0.0,0.8) #Fuerza del viento
+@export var wind_force: Vector3 = Vector3(0,0.0,0) #Fuerza del viento
+
+var wind_value = 0.5
 
 var array_mycena_particles: Array = [] #Arreglo para almacenar todas las esferas
 
@@ -13,6 +15,24 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		generate_particle()
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_RIGHT || event.keycode == KEY_LEFT || event.keycode == KEY_UP || event.keycode == KEY_DOWN:
+			#todo esto desde la perspectiva de incio del juego, sin mover la cámara
+			match event.keycode:
+				KEY_RIGHT: #Viento hacia la derecha
+					wind_force = Vector3(wind_value,0.0,0.0)
+				KEY_LEFT: #viento hacia la izquierda
+					wind_force = Vector3(-wind_value,0.0,0.0)
+				KEY_UP: #Viento hacia el frente
+					wind_force = Vector3(0.0,0.0,wind_value)
+				KEY_DOWN: #Viento acia atras
+					wind_force = Vector3(0.0,0.0,-wind_value)
+				
+			for particle in array_mycena_particles:
+				if is_instance_valid(particle):
+					particle.change_actual_wind(wind_force)
+			
+			
 
 
 func generate_particle(): 
@@ -24,7 +44,7 @@ func generate_particle():
 	var ray_direction = $Camera3D.project_ray_normal(mouse_pos)
 	
 	var new_particle = mycena_scene.instantiate()
-	new_particle.global_position = ray_origin + ray_direction * 10.0
+	new_particle.global_position = ray_origin + ray_direction 
 	
 	add_child(new_particle)
 	

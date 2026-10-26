@@ -9,7 +9,12 @@ var humidity: float = 0.0
 #Funcion que recibe el viento del main
 func fetch_environmental_factors(wind: Vector3) -> void:
 	actual_wind = wind
-	print("Se inició la particula con viento");
+	rigid_body.gravity_scale = 0.1
+	print("Se inició la particula con viento")
+		
+func change_actual_wind(wind: Vector3) -> void:
+	actual_wind = wind
+	
 
 func _physics_process(delta: float) -> void:
 	if rigid_body and actual_wind != Vector3.ZERO:
