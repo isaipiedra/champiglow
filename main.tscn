@@ -2,6 +2,7 @@
 
 [ext_resource type="Shader" uid="uid://gekxuoi6cj8b" path="res://Shaders/dirt.gdshader" id="1_4c57u"]
 [ext_resource type="PackedScene" uid="uid://r02r6cnmk3m8" path="res://Prefabs/Amanita muscaria/amanita_muscaria_1.tscn" id="1_kek77"]
+[ext_resource type="Script" uid="uid://cqcrdyja7ij4x" path="res://Scripts/main.gd" id="1_lswn8"]
 [ext_resource type="Script" uid="uid://dte0vf8di5tk6" path="res://Scripts/free_camera.gd" id="1_ryguw"]
 [ext_resource type="PackedScene" uid="uid://mb6w6585p6dm" path="res://TerrainData/terrain-col.glb" id="3_1bvp3"]
 [ext_resource type="Shape3D" uid="uid://cf577kb00em57" path="res://TerrainData/terrain_shape.res" id="5_vivmo"]
@@ -24,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://coapirc1ydibp" path="res://Nature/Flower_5_Clump.gltf" id="20_xuqvo"]
 [ext_resource type="PackedScene" uid="uid://diqqvhin1op3o" path="res://Nature/stylized_dead_tree.glb" id="21_qsp4k"]
 [ext_resource type="Script" uid="uid://qbep2qt0lb06" path="res://Scripts/day_night.gd" id="22_ryguw"]
+[ext_resource type="PackedScene" uid="uid://decs1u87oylc" path="res://Scenes/MycenaParticle.tscn" id="26_a6jrf"]
 
 [sub_resource type="Environment" id="Environment_82xsv"]
 background_mode = 2
@@ -117,6 +119,8 @@ shader_parameter/wind_strength = 0.03
 shader_parameter/wind_speed = 1.5
 
 [node name="Main" type="Node3D" unique_id=386580198]
+script = ExtResource("1_lswn8")
+mycena_scene = ExtResource("26_a6jrf")
 
 [node name="Moon" type="DirectionalLight3D" parent="." unique_id=1136552625]
 transform = Transform3D(-0.06506064, -0.95362943, 0.29386762, -0.9525469, -0.028404482, -0.30306396, 0.29735783, -0.29964018, -0.9065287, -9.92688, -1.101408, -25.094961)
@@ -148,7 +152,7 @@ transform = Transform3D(-0.288155, 0, -0.9575838, 0, 1, 0, 0.9575838, 0, -0.2881
 
 [node name="terrain" parent="environment" unique_id=188997738 instance=ExtResource("3_1bvp3")]
 
-[node name="Cube" parent="environment/terrain" index="0" unique_id=1234987154]
+[node name="Cube" parent="environment/terrain" index="0" unique_id=1353208737]
 surface_material_override/0 = SubResource("ShaderMaterial_4t226")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="environment/terrain/Cube" index="0" unique_id=291272868]
@@ -160,7 +164,7 @@ shape = ExtResource("5_vivmo")
 [node name="tree_chomp" parent="environment" unique_id=601769142 instance=ExtResource("6_2cqfq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.252376, 1.9844625, 1.7214355)
 
-[node name="Object_2" parent="environment/tree_chomp/Sketchfab_model/4a212aa4cd204a66b64df98f9b6a5a48_obj_cleaner_materialmerger_gles" parent_id_path=PackedInt32Array(601769142, 1578339468) index="0" unique_id=627577501]
+[node name="Object_2" parent="environment/tree_chomp/Sketchfab_model/4a212aa4cd204a66b64df98f9b6a5a48_obj_cleaner_materialmerger_gles" parent_id_path=PackedInt32Array(601769142, 77628971) index="0" unique_id=1237637878]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.071167, -0.44222593)
 surface_material_override/0 = ExtResource("7_getpj")
 
@@ -1528,26 +1532,29 @@ transform = Transform3D(0.29788688, 0, -0.75323534, 0, 0.81, 0, 0.75323534, 0, 0
 [node name="MapleTree_12" parent="environment" unique_id=1698017192 instance=ExtResource("12_getpj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.553217, 0.889712, -1.7948688)
 
-[node name="MapleTree_1" parent="environment/MapleTree_12" index="0" unique_id=1746235419]
+[node name="MapleTree_1" parent="environment/MapleTree_12" index="0" unique_id=1935036744]
 transform = Transform3D(0.8889313, 0, -0.4580406, 0, 1, 0, 0.4580406, 0, 0.8889313, -0.95227146, -0.5751543, 8.635313)
+visible = false
 surface_material_override/1 = SubResource("ShaderMaterial_xnl7b")
 
 [node name="MapleTree_22" parent="environment" unique_id=691351441 instance=ExtResource("13_ryguw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.0885634, 0.5880065, 8.038151)
 
-[node name="MapleTree_2" parent="environment/MapleTree_22" index="0" unique_id=1840284149]
+[node name="MapleTree_2" parent="environment/MapleTree_22" index="0" unique_id=1915247829]
+visible = false
 surface_material_override/1 = SubResource("ShaderMaterial_ojax5")
 
 [node name="MapleTree_32" parent="environment" unique_id=2015085217 instance=ExtResource("14_d13ii")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.573721, 0.077257395, -7.2745886)
 
-[node name="MapleTree_3" parent="environment/MapleTree_32" index="0" unique_id=1815319001]
+[node name="MapleTree_3" parent="environment/MapleTree_32" index="0" unique_id=57169964]
+visible = false
 surface_material_override/1 = SubResource("ShaderMaterial_0odxb")
 
 [node name="DeadTree_32" parent="environment" unique_id=1734382756 instance=ExtResource("15_d13ii")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 2.140507, 1.4978994, -1.4339268)
 
-[node name="DeadTree_3" parent="environment/DeadTree_32" index="0" unique_id=633658091]
+[node name="DeadTree_3" parent="environment/DeadTree_32" index="0" unique_id=638703697]
 transform = Transform3D(-0.46066618, 0, -0.8875735, 0, 1, 0, 0.8875735, 0, -0.46066618, -3.861672, -0.8057189, -0.40110147)
 
 [node name="DeadTree_42" parent="environment" unique_id=1466843891 instance=ExtResource("16_1u8w0")]
