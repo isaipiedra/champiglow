@@ -1627,7 +1627,7 @@ script = ExtResource("22_ryguw")
 world_environment = NodePath("../WorldEnvironment")
 sun = NodePath("../Sun")
 moon = NodePath("../Moon")
-auto_advance = false
+day_length = 30.0
 saturation = 1.713
 night_energy = 1.2
 

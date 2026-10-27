@@ -9,8 +9,11 @@ extends Node3D
 var wind_value = 0.5
 var time_speed_mul = 1
 var original_day_length = 0
+var is_night = false
+var is_day = false
 var array_mycena_particles: Array = [] #Arreglo para almacenar todas las esferas
 var wind_direction_text = "Ninguna"
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -55,11 +58,15 @@ func _unhandled_input(event: InputEvent) -> void:
 			
 			label_time.text = "Velocidad de día: x%d" % [time_speed_mul]
 			print($sky.day_length)
+		
+		if event.keycode == KEY_SPACE: #Con espacio se detiene el tiempo
+			var advancing = !$sky.auto_advance 
+			$sky.auto_advance = advancing
+			if not advancing:
+				label_time.text = "Velocidad de día: x%d - Tiempo detenido" % [0]
+			else:
+				label_time.text = "Velocidad de día: x%d" % [time_speed_mul]
 			
-				
-			
-
-
 func generate_particle(): 
 	if not mycena_scene:
 		print("No se ha añadido la escena en el Inspector")
@@ -82,4 +89,18 @@ func generate_particle():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if $sky.time_of_day >= 18.0 and not is_night:
+		is_night = true
+		is_day = false
+		for particle in array_mycena_particles:
+			if is_instance_valid(particle):
+				particle.its_night()
+	else:
+		if not is_day:
+			is_day = true
+			is_night = false
+			for particle in array_mycena_particles:
+				if is_instance_valid(particle):
+					particle.its_day()
+			
 	pass

@@ -15,6 +15,12 @@ func fetch_environmental_factors(wind: Vector3) -> void:
 func change_actual_wind(wind: Vector3) -> void:
 	actual_wind = wind
 	
+func its_night() -> void:
+	rigid_body.gravity_scale = 0.1
+
+func its_day() -> void:
+	rigid_body.gravity_scale = 0.01
+	
 
 func _physics_process(delta: float) -> void:
 	if rigid_body and actual_wind != Vector3.ZERO:
