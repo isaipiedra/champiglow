@@ -3,13 +3,17 @@ extends Node3D
 @export var mycena_scene: PackedScene
 @export var wind_force: Vector3 = Vector3(0,0.0,0) #Fuerza del viento
 
-var wind_value = 0.5
+@onready var label_time = $CanvasLayer/Control/Label_Time
 
+var wind_value = 0.5
+var time_speed_mul = 1
 var array_mycena_particles: Array = [] #Arreglo para almacenar todas las esferas
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print("Prueba de particulas")
+	if label_time:
+		label_time.text = "Velocidad de día: x%d" % [time_speed_mul]
 
 #Detecta entradas como clics del mouse
 func _unhandled_input(event: InputEvent) -> void:
