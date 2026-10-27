@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://cqcrdyja7ij4x" path="res://Scripts/main.gd" id="1_lswn8"]
 [ext_resource type="Script" uid="uid://dte0vf8di5tk6" path="res://Scripts/free_camera.gd" id="1_ryguw"]
 [ext_resource type="PackedScene" uid="uid://mb6w6585p6dm" path="res://TerrainData/terrain-col.glb" id="3_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://bqt8olamdj1ya" path="res://Scenes/AmanitaParticle.tscn" id="3_a6jrf"]
 [ext_resource type="Shape3D" uid="uid://cf577kb00em57" path="res://TerrainData/terrain_shape.res" id="5_vivmo"]
 [ext_resource type="PackedScene" uid="uid://iku0ialhgi1d" path="res://Scenes/boulder_round_regular.tscn" id="5_w48qg"]
 [ext_resource type="PackedScene" uid="uid://tqn8o5la47kt" path="res://Nature/tree_chomp.glb" id="6_2cqfq"]
@@ -121,6 +122,7 @@ shader_parameter/wind_speed = 1.5
 [node name="Main" type="Node3D" unique_id=386580198]
 script = ExtResource("1_lswn8")
 mycena_scene = ExtResource("26_a6jrf")
+amanita_scene = ExtResource("3_a6jrf")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=716843753]
 
@@ -150,6 +152,31 @@ offset_left = -234.0
 offset_top = -24.0
 grow_horizontal = 0
 grow_vertical = 0
+
+[node name="Label_Temperature" type="Label" parent="CanvasLayer/Control" unique_id=391663648]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.99700004
+anchor_right = 1.0
+offset_left = -3.5440674
+offset_bottom = 24.0
+grow_horizontal = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Label_Humidity" type="Label" parent="CanvasLayer/Control" unique_id=630140159]
+layout_mode = 1
+offset_right = 145.0
+offset_bottom = 24.0
+
+[node name="Label_Selected_Fungus" type="Label" parent="CanvasLayer/Control" unique_id=2024566807]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -3.125
+offset_right = 3.125
+offset_bottom = 24.0
+grow_horizontal = 2
 
 [node name="Moon" type="DirectionalLight3D" parent="." unique_id=1136552625]
 transform = Transform3D(-0.06506064, -0.95362943, 0.29386762, -0.9525469, -0.028404482, -0.30306396, 0.29735783, -0.29964018, -0.9065287, -9.92688, -1.101408, -25.094961)

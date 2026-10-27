@@ -8,7 +8,6 @@ var humidity: float = 0.0
 
 func _ready() -> void:
 		rigid_body.gravity_scale = 0.1
-		print("Gravedad actual del RigidBody: ", rigid_body.gravity_scale)
 
 	
 #Funcion que recibe el viento del main
