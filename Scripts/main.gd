@@ -7,6 +7,7 @@ extends Node3D
 
 var wind_value = 0.5
 var time_speed_mul = 1
+var original_day_length = 0
 var array_mycena_particles: Array = [] #Arreglo para almacenar todas las esferas
 
 # Called when the node enters the scene tree for the first time.
@@ -14,6 +15,8 @@ func _ready() -> void:
 	print("Prueba de particulas")
 	if label_time:
 		label_time.text = "Velocidad de día: x%d" % [time_speed_mul]
+		original_day_length = $sky.day_length
+		print(original_day_length)
 
 #Detecta entradas como clics del mouse
 func _unhandled_input(event: InputEvent) -> void:
@@ -35,7 +38,19 @@ func _unhandled_input(event: InputEvent) -> void:
 			for particle in array_mycena_particles:
 				if is_instance_valid(particle):
 					particle.change_actual_wind(wind_force)
+					
+		if event.keycode == KEY_R:
+			if time_speed_mul < 4:
+				time_speed_mul *= 2
+			else: 
+				time_speed_mul = 1
+				
+			$sky.day_length = original_day_length / time_speed_mul
 			
+			label_time.text = "Velocidad de día: x%d" % [time_speed_mul]
+			print($sky.day_length)
+			
+				
 			
 
 

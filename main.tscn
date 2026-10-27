@@ -1616,7 +1616,6 @@ world_environment = NodePath("../WorldEnvironment")
 sun = NodePath("../Sun")
 moon = NodePath("../Moon")
 auto_advance = false
-day_length = 120.0
 saturation = 1.713
 night_energy = 1.2
 
