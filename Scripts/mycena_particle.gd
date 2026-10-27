@@ -6,11 +6,14 @@ extends Node3D
 var actual_wind: Vector3 = Vector3.ZERO
 var humidity: float = 0.0
 
+func _ready() -> void:
+		rigid_body.gravity_scale = 0.1
+		print("Gravedad actual del RigidBody: ", rigid_body.gravity_scale)
+
+	
 #Funcion que recibe el viento del main
 func fetch_environmental_factors(wind: Vector3) -> void:
 	actual_wind = wind
-	rigid_body.gravity_scale = 0.1
-	print("Se inició la particula con viento")
 		
 func change_actual_wind(wind: Vector3) -> void:
 	actual_wind = wind
@@ -18,8 +21,10 @@ func change_actual_wind(wind: Vector3) -> void:
 func its_night() -> void:
 	rigid_body.gravity_scale = 0.1
 
+
 func its_day() -> void:
-	rigid_body.gravity_scale = 0.01
+	rigid_body.gravity_scale = 0.001
+
 	
 
 func _physics_process(delta: float) -> void:

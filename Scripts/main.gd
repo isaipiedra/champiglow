@@ -17,11 +17,16 @@ var wind_direction_text = "Ninguna"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print("Prueba de particulas")
+	var advancing = $sky.auto_advance 
 	if label_time:
-		label_time.text = "Velocidad de día: x%d" % [time_speed_mul]
+		if advancing:
+			label_time.text = "Velocidad de día: x%d" % [time_speed_mul]
+		else:
+			label_time.text = "Velocidad de día: x%d - Tiempo detenido" % [0]
+			
 		original_day_length = $sky.day_length
 		label_wind_direction.text = "Dirección del viento: " + wind_direction_text
+		
 #Detecta entradas como clics del mouse
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -48,7 +53,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				if is_instance_valid(particle):
 					particle.change_actual_wind(wind_force)
 					
-		if event.keycode == KEY_R:
+		if event.keycode == KEY_R && $sky.auto_advance:
 			if time_speed_mul < 4:
 				time_speed_mul *= 2
 			else: 
