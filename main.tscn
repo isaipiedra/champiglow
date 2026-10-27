@@ -139,6 +139,18 @@ offset_top = 622.0
 offset_right = 234.0
 offset_bottom = 646.0
 
+[node name="Label_Wind_Direction" type="Label" parent="CanvasLayer/Control" unique_id=994214744]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -234.0
+offset_top = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+
 [node name="Moon" type="DirectionalLight3D" parent="." unique_id=1136552625]
 transform = Transform3D(-0.06506064, -0.95362943, 0.29386762, -0.9525469, -0.028404482, -0.30306396, 0.29735783, -0.29964018, -0.9065287, -9.92688, -1.101408, -25.094961)
 light_color = Color(0.45350337, 0.61023766, 0.92639714, 1)

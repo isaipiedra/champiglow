@@ -4,11 +4,13 @@ extends Node3D
 @export var wind_force: Vector3 = Vector3(0,0.0,0) #Fuerza del viento
 
 @onready var label_time = $CanvasLayer/Control/Label_Time
+@onready var label_wind_direction = $CanvasLayer/Control/Label_Wind_Direction
 
 var wind_value = 0.5
 var time_speed_mul = 1
 var original_day_length = 0
 var array_mycena_particles: Array = [] #Arreglo para almacenar todas las esferas
+var wind_direction_text = "Ninguna"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,8 +18,7 @@ func _ready() -> void:
 	if label_time:
 		label_time.text = "Velocidad de día: x%d" % [time_speed_mul]
 		original_day_length = $sky.day_length
-		print(original_day_length)
-
+		label_wind_direction.text = "Dirección del viento: " + wind_direction_text
 #Detecta entradas como clics del mouse
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -28,13 +29,18 @@ func _unhandled_input(event: InputEvent) -> void:
 			match event.keycode:
 				KEY_RIGHT: #Viento hacia la derecha
 					wind_force = Vector3(wind_value,0.0,0.0)
+					wind_direction_text = "Este a Oeste"
 				KEY_LEFT: #viento hacia la izquierda
 					wind_force = Vector3(-wind_value,0.0,0.0)
+					wind_direction_text = "Oeste a Este"
 				KEY_UP: #Viento hacia el frente
 					wind_force = Vector3(0.0,0.0,wind_value)
+					wind_direction_text = "Sur a Norte"
 				KEY_DOWN: #Viento acia atras
 					wind_force = Vector3(0.0,0.0,-wind_value)
-				
+					wind_direction_text = "Norte a sur"
+					
+			label_wind_direction.text = "Dirección del viento: " + wind_direction_text
 			for particle in array_mycena_particles:
 				if is_instance_valid(particle):
 					particle.change_actual_wind(wind_force)
@@ -63,7 +69,7 @@ func generate_particle():
 	var ray_direction = $Camera3D.project_ray_normal(mouse_pos)
 	
 	var new_particle = mycena_scene.instantiate()
-	new_particle.global_position = ray_origin + ray_direction 
+	new_particle.global_position = ray_origin + ray_direction * 5.0
 	
 	add_child(new_particle)
 	
