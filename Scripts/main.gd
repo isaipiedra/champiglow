@@ -94,7 +94,24 @@ func _unhandled_input(event: InputEvent) -> void:
 			chosen_fungus = 0 if chosen_fungus == 1 else 1
 			label_selected_fungus.text = "Amanita Muscaria" if chosen_fungus == 0 else "Mycena Chlorophos"
 		
+		if event.keycode == KEY_O:
+			temperature_celsius += 0.5
+			label_temperature.text = "Temperatura %.1f °C" % [temperature_celsius]
+
+		#Disminuir temperatura
+		if event.keycode == KEY_I:
+			temperature_celsius -= 0.5
+			label_temperature.text = "Temperatura %.1f °C" % [temperature_celsius]
 		
+		#Aumentar la humedad del ambiente
+		if event.keycode == KEY_K:
+			humidity_percentage += 0.5
+			label_humidity.text = "Porcetaje de Humedad: %.1f" % [humidity_percentage]
+			
+		if event.keycode == KEY_J:
+			humidity_percentage -= 0.5
+			label_humidity.text = "Porcetaje de Humedad: %.1f" % [humidity_percentage]
+			
 	elif event is InputEventKey and event.pressed:
 		#Aumentar temperatura
 		if event.keycode == KEY_O:
