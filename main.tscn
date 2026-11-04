@@ -6,12 +6,16 @@
 [ext_resource type="Script" uid="uid://dte0vf8di5tk6" path="res://Scripts/free_camera.gd" id="1_ryguw"]
 [ext_resource type="PackedScene" uid="uid://mb6w6585p6dm" path="res://TerrainData/terrain-col.glb" id="3_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://bqt8olamdj1ya" path="res://Scenes/AmanitaParticle.tscn" id="3_a6jrf"]
+[ext_resource type="Script" uid="uid://1ljm011jkb6" path="res://Scripts/sub_viewport_container.gd" id="4_kq58d"]
+[ext_resource type="PackedScene" uid="uid://ccvbm31lixoic" path="res://Models/vane_stick.glb" id="5_htxhm"]
 [ext_resource type="Shape3D" uid="uid://cf577kb00em57" path="res://TerrainData/terrain_shape.res" id="5_vivmo"]
 [ext_resource type="PackedScene" uid="uid://iku0ialhgi1d" path="res://Scenes/boulder_round_regular.tscn" id="5_w48qg"]
 [ext_resource type="PackedScene" uid="uid://tqn8o5la47kt" path="res://Nature/tree_chomp.glb" id="6_2cqfq"]
+[ext_resource type="Script" uid="uid://ywfrwdh23dno" path="res://Scripts/mini_camera_3d.gd" id="6_htxhm"]
 [ext_resource type="PackedScene" uid="uid://c727iedt40kse" path="res://Scenes/boulder_flat_regular.tscn" id="6_vivmo"]
 [ext_resource type="PackedScene" uid="uid://dhbwqwfmjatym" path="res://Nature/Grass_Large.gltf" id="7_2cqfq"]
 [ext_resource type="Material" uid="uid://v75bq343x5ib" path="res://Nature/material_0.tres" id="7_getpj"]
+[ext_resource type="PackedScene" uid="uid://bnsncj4ojagxy" path="res://Models/vane_directions.glb" id="7_jq2sk"]
 [ext_resource type="PackedScene" uid="uid://lycpeh102wcf" path="res://Nature/Grass_Small.gltf" id="8_yaehf"]
 [ext_resource type="PackedScene" uid="uid://d4kcypal4g20y" path="res://Nature/MapleTree_1.gltf" id="12_getpj"]
 [ext_resource type="Shader" uid="uid://cys8s4h4xuquu" path="res://Shaders/leaves.gdshader" id="13_d13ii"]
@@ -27,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://diqqvhin1op3o" path="res://Nature/stylized_dead_tree.glb" id="21_qsp4k"]
 [ext_resource type="Script" uid="uid://qbep2qt0lb06" path="res://Scripts/day_night.gd" id="22_ryguw"]
 [ext_resource type="PackedScene" uid="uid://decs1u87oylc" path="res://Scenes/MycenaParticle.tscn" id="26_a6jrf"]
+[ext_resource type="PackedScene" uid="uid://dgelwmes1qn23" path="res://Prefabs/Oysters Pearl/oyster_pearl_1.tscn" id="28_xuqvo"]
 
 [sub_resource type="Environment" id="Environment_82xsv"]
 background_mode = 2
@@ -119,12 +124,60 @@ shader_parameter/inner_darkness = 0.55
 shader_parameter/wind_strength = 0.03
 shader_parameter/wind_speed = 1.5
 
-[node name="Main" type="Node3D" unique_id=386580198]
+[node name="Main" type="Node3D" unique_id=386580198 node_paths=PackedStringArray("wind_pivot")]
 script = ExtResource("1_lswn8")
 mycena_scene = ExtResource("26_a6jrf")
 amanita_scene = ExtResource("3_a6jrf")
+wind_pivot = NodePath("CanvasLayer/SubViewportContainer/SubViewport/windControl")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=716843753]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer" unique_id=673622814 node_paths=PackedStringArray("pivot")]
+custom_minimum_size = Vector2(160, 160)
+custom_maximum_size = Vector2(160, 160)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -160.0
+offset_bottom = 160.0
+grow_horizontal = 0
+mouse_filter = 0
+stretch = true
+script = ExtResource("4_kq58d")
+pivot = NodePath("SubViewport/windControl")
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer" unique_id=1245967217]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+msaa_3d = 3
+screen_space_aa = 1
+size = Vector2i(160, 160)
+render_target_update_mode = 4
+
+[node name="windControl" type="Node3D" parent="CanvasLayer/SubViewportContainer/SubViewport" unique_id=1578158028]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.462166, 0, 0)
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="CanvasLayer/SubViewportContainer/SubViewport/windControl" unique_id=1316751735]
+transform = Transform3D(0.30222654, -0.144186, 0.94226813, 0.024452746, 0.9893414, 0.14354622, -0.95292234, -0.02034232, 0.302531, 5, 0, 5)
+light_energy = 0.5
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="CanvasLayer/SubViewportContainer/SubViewport/windControl" unique_id=377999227]
+transform = Transform3D(0.07234909, 0.5248999, -0.8480836, 0.9891275, -0.14691529, -0.006548105, -0.12803358, -0.838389, -0.52982205, -5, 0, -5)
+light_energy = 0.5
+
+[node name="vane_stick" parent="CanvasLayer/SubViewportContainer/SubViewport/windControl" unique_id=987426170 instance=ExtResource("5_htxhm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.021850586, 0, -0.0058260337)
+
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer/SubViewportContainer/SubViewport" unique_id=1732738637 node_paths=PackedStringArray("main_camera", "target")]
+transform = Transform3D(-0.9998595, -0.014505838, -0.008398472, -0.016592152, 0.7854643, 0.6186846, -0.0023778381, 0.61873704, -0.7855946, -45.462, 2.0349236, -1.5)
+script = ExtResource("6_htxhm")
+main_camera = NodePath("../../../../Camera3D")
+target = NodePath("../windControl")
+distance = 2.0
+
+[node name="vane_directions" parent="CanvasLayer/SubViewportContainer/SubViewport" unique_id=1600004787 instance=ExtResource("7_jq2sk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.462166, -0.38760802, 0)
 
 [node name="Control" type="Control" parent="CanvasLayer" unique_id=1140541992]
 layout_mode = 3
@@ -142,25 +195,26 @@ offset_right = 234.0
 offset_bottom = 646.0
 
 [node name="Label_Wind_Direction" type="Label" parent="CanvasLayer/Control" unique_id=994214744]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -234.0
+offset_bottom = 24.0
+grow_horizontal = 0
+
+[node name="Label_Temperature" type="Label" parent="CanvasLayer/Control" unique_id=391663648]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -234.0
+offset_left = -3.5440674
 offset_top = -24.0
 grow_horizontal = 0
 grow_vertical = 0
-
-[node name="Label_Temperature" type="Label" parent="CanvasLayer/Control" unique_id=391663648]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.99700004
-anchor_right = 1.0
-offset_left = -3.5440674
-offset_bottom = 24.0
-grow_horizontal = 0
 metadata/_edit_use_anchors_ = true
 
 [node name="Label_Humidity" type="Label" parent="CanvasLayer/Control" unique_id=630140159]
@@ -194,12 +248,12 @@ shadow_enabled = true
 environment = SubResource("Environment_82xsv")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1927646265]
-transform = Transform3D(1, 0, 0, 0, 0.99202764, 0.12602046, 0, -0.12602046, 0.99202764, 0, 6.980755, 20.723204)
+transform = Transform3D(-0.99999934, 0.00014892034, -0.0011723004, 6.202317e-10, 0.99202776, 0.12602046, 0.0011817217, 0.12602039, -0.99202704, 0, 6.980755, -21.8495)
 current = true
 script = ExtResource("1_ryguw")
 
 [node name="red" parent="." unique_id=949004234 instance=ExtResource("1_kek77")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.585623, 1.3783519, 0.1140109)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.3440037, 0.92533267, -6.6236486)
 
 [node name="environment" type="Node3D" parent="." unique_id=301460034]
 
@@ -1654,6 +1708,10 @@ day_length = 30.0
 saturation = 1.713
 night_energy = 1.2
 
+[node name="oyster_pearl_1" parent="." unique_id=1821651365 instance=ExtResource("28_xuqvo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.9147, 0.7860742, -5.4473014)
+
+[editable path="CanvasLayer/SubViewportContainer/SubViewport/windControl/vane_stick"]
 [editable path="environment/tree_chomp2"]
 [editable path="environment/terrain"]
 [editable path="environment/tree_chomp"]
