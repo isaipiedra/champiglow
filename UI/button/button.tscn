@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dkdwh8stuu0vt"]
+
+[ext_resource type="Texture2D" uid="uid://bw5qk14iy8ymk" path="res://UI/circle.png" id="1_1try3"]
+[ext_resource type="Texture2D" uid="uid://yi14hla1u0c" path="res://UI/circle-hover.png" id="2_nl3nx"]
+[ext_resource type="Script" uid="uid://dqac2s66xketf" path="res://Scripts/button.gd" id="3_nl3nx"]
+
+[node name="TextureButton" type="TextureButton" unique_id=1387809696]
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("1_1try3")
+texture_hover = ExtResource("2_nl3nx")
+script = ExtResource("3_nl3nx")
+
+[node name="icon" type="TextureRect" parent="." unique_id=2108226190]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2

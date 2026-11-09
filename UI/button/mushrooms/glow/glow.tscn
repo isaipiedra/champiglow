@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://c03aws8268v76"]
+
+[ext_resource type="PackedScene" uid="uid://dkdwh8stuu0vt" path="res://UI/button/button.tscn" id="1_4b6hh"]
+[ext_resource type="Texture2D" uid="uid://dgnw6e7uqcgu2" path="res://UI/button/mushrooms/glow/glow.png" id="2_8mlxe"]
+[ext_resource type="Script" uid="uid://cwp5h84a3w177" path="res://Scripts/mushroom_types.gd" id="2_vyoj8"]
+
+[node name="glow" unique_id=1387809696 instance=ExtResource("1_4b6hh")]
+toggle_mode = true
+stretch_mode = 0
+script = ExtResource("2_vyoj8")
+
+[node name="icon" parent="." index="0" unique_id=2108226190]
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+texture = ExtResource("2_8mlxe")
+expand_mode = 1

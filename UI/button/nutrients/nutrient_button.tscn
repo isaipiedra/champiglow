@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bgeugqbqrrfq"]
+
+[ext_resource type="PackedScene" uid="uid://dkdwh8stuu0vt" path="res://UI/button/button.tscn" id="1_yknbk"]
+[ext_resource type="Texture2D" uid="uid://tml004sboxyv" path="res://UI/button/nutrients/add.png" id="2_j0r14"]
+
+[node name="nutrient_button" unique_id=1387809696 instance=ExtResource("1_yknbk")]
+custom_maximum_size = Vector2(75, 75)
+stretch_mode = 0
+script = null
+
+[node name="TextureRect" type="TextureRect" parent="." index="1" unique_id=326638221]
+custom_maximum_size = Vector2(21, 21)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+texture = ExtResource("2_j0r14")

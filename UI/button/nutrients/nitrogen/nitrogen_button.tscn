@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://britb3mdg1xx2"]
+
+[ext_resource type="PackedScene" uid="uid://bgeugqbqrrfq" path="res://UI/button/nutrients/nutrient_button.tscn" id="1_51slr"]
+[ext_resource type="Texture2D" uid="uid://dbc4txt24wnr5" path="res://UI/button/nutrients/nitrogen/Nitrogen.png" id="2_54au4"]
+
+[node name="nitrogen_button" unique_id=1387809696 instance=ExtResource("1_51slr")]
+
+[node name="icon" parent="." index="0" unique_id=2108226190]
+offset_left = -19.0
+offset_top = -18.5
+offset_right = 15.5
+texture = ExtResource("2_54au4")

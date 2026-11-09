@@ -1,0 +1,209 @@
+[gd_scene format=3 uid="uid://jivdba2ge4s8"]
+
+[ext_resource type="Texture2D" uid="uid://cj8slp3cdae08" path="res://UI/shadow.png" id="1_4jbjk"]
+[ext_resource type="PackedScene" uid="uid://b26lkl36lqwpr" path="res://UI/bar/humidity/humidity_slider.tscn" id="1_yp72a"]
+[ext_resource type="PackedScene" uid="uid://x4k00o4wjssf" path="res://UI/bar/temperature/temperature-slider.tscn" id="2_yp72a"]
+[ext_resource type="PackedScene" uid="uid://dogf0ddvn6yau" path="res://UI/button/play/play_button.tscn" id="4_0bks8"]
+[ext_resource type="PackedScene" uid="uid://chjri4u4q2m3f" path="res://UI/button/forward/forward.tscn" id="5_mbs16"]
+[ext_resource type="PackedScene" uid="uid://bwg0e2dm0gn5v" path="res://UI/button/toggle/wind/wind_toggle.tscn" id="5_u8s32"]
+[ext_resource type="PackedScene" uid="uid://50txil4mmdib" path="res://UI/button/toggle/nutrients/nutrients_toggle.tscn" id="6_dxh85"]
+[ext_resource type="PackedScene" uid="uid://cx2u4n1mxuwyu" path="res://UI/button/toggle/roots/roots_toggle.tscn" id="7_mbs16"]
+[ext_resource type="PackedScene" uid="uid://bca58s7wtuvvg" path="res://UI/button/nutrients/carbon/carbon_button.tscn" id="9_1w5oa"]
+[ext_resource type="PackedScene" uid="uid://dq6a6jwp3cyk0" path="res://UI/button/mushrooms/red/red.tscn" id="9_kj7xo"]
+[ext_resource type="PackedScene" uid="uid://sh2xgurgbdv" path="res://UI/button/nutrients/metals/metals_button.tscn" id="10_jewjf"]
+[ext_resource type="Script" uid="uid://dqac2s66xketf" path="res://Scripts/button.gd" id="10_l0a8t"]
+[ext_resource type="PackedScene" uid="uid://c03aws8268v76" path="res://UI/button/mushrooms/glow/glow.tscn" id="10_r2hxe"]
+[ext_resource type="ButtonGroup" uid="uid://u2kv0ekt6jan" path="res://UI/button/button_group.tres" id="10_smsvh"]
+[ext_resource type="PackedScene" uid="uid://britb3mdg1xx2" path="res://UI/button/nutrients/nitrogen/nitrogen_button.tscn" id="11_l0a8t"]
+
+[node name="Interface" type="Control" unique_id=854874766]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label_Time" type="Label" parent="." unique_id=1343201412]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 679.0
+offset_right = 341.0
+offset_bottom = 702.0
+
+[node name="Label_Wind_Direction" type="Label" parent="." unique_id=156736945]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 793.0
+offset_right = 272.0
+offset_bottom = 816.0
+
+[node name="Label_Temperature" type="Label" parent="." unique_id=1588756689]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 572.0
+offset_right = 239.0
+offset_bottom = 595.0
+
+[node name="Label_Humidity" type="Label" parent="." unique_id=2051334456]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 623.0
+offset_right = 253.0
+offset_bottom = 646.0
+
+[node name="Label_Selected_Fungus" type="Label" parent="." unique_id=131445799]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 728.0
+offset_right = 239.0
+offset_bottom = 751.0
+
+[node name="upperShadow" type="TextureRect" parent="." unique_id=1326665692]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 210.0
+grow_horizontal = 2
+texture = ExtResource("1_4jbjk")
+expand_mode = 1
+flip_v = true
+
+[node name="lowerShadow" type="TextureRect" parent="." unique_id=653655146]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -210.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("1_4jbjk")
+expand_mode = 1
+
+[node name="sliders" type="HBoxContainer" parent="." unique_id=1368734423]
+layout_mode = 1
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 136.0
+offset_bottom = 273.0
+offset_transform_enabled = true
+theme_override_constants/separation = 15
+
+[node name="humidity-slider" parent="sliders" unique_id=262528074 instance=ExtResource("1_yp72a")]
+layout_mode = 2
+
+[node name="slider" parent="sliders" unique_id=1196639446 instance=ExtResource("2_yp72a")]
+layout_mode = 2
+
+[node name="time" type="HBoxContainer" parent="." unique_id=403649130]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -68.0
+offset_top = -186.0
+offset_right = 68.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="PlayButton" parent="time" unique_id=1387809696 instance=ExtResource("4_0bks8")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="forward_button" parent="time" unique_id=655031504 instance=ExtResource("5_mbs16")]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="views" type="HBoxContainer" parent="." unique_id=1972896847]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 50.0
+offset_right = 20.0
+offset_bottom = 90.0
+grow_horizontal = 2
+theme_override_constants/separation = 15
+
+[node name="WindToggle" parent="views" unique_id=1947285071 instance=ExtResource("5_u8s32")]
+custom_maximum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="nutrients_toggle" parent="views" unique_id=1525295719 instance=ExtResource("6_dxh85")]
+custom_maximum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="roots_toggle" parent="views" unique_id=521264019 instance=ExtResource("7_mbs16")]
+custom_maximum_size = Vector2(75, 75)
+layout_mode = 2
+
+[node name="mushrooms" type="HBoxContainer" parent="." unique_id=1499531997]
+propagate_maximum_size = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = -166.0
+offset_right = 337.0
+offset_bottom = -30.0
+grow_vertical = 0
+theme_override_constants/separation = 15
+
+[node name="Control" type="Control" parent="mushrooms" unique_id=255156764]
+layout_mode = 2
+
+[node name="red" parent="mushrooms/Control" unique_id=1650763651 instance=ExtResource("9_kj7xo")]
+layout_mode = 0
+offset_top = -21.0
+offset_right = 136.0
+offset_bottom = 115.0
+button_pressed = true
+button_group = ExtResource("10_smsvh")
+
+[node name="Control2" type="Control" parent="mushrooms" unique_id=614404901]
+layout_mode = 2
+
+[node name="glow" parent="mushrooms/Control2" unique_id=229712328 instance=ExtResource("10_r2hxe")]
+layout_mode = 0
+offset_left = 136.0
+offset_top = -21.0
+offset_right = 272.0
+offset_bottom = 115.0
+button_group = ExtResource("10_smsvh")
+
+[node name="nutrients" type="HBoxContainer" parent="." unique_id=873060650]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -283.0
+offset_top = -125.0
+offset_right = -50.0
+offset_bottom = -50.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = 15
+
+[node name="carbon_button" parent="nutrients" unique_id=1256097716 instance=ExtResource("9_1w5oa")]
+layout_mode = 2
+script = ExtResource("10_l0a8t")
+
+[node name="metals_button" parent="nutrients" unique_id=790371915 instance=ExtResource("10_jewjf")]
+layout_mode = 2
+script = ExtResource("10_l0a8t")
+
+[node name="nitrogen_button" parent="nutrients" unique_id=1949709557 instance=ExtResource("11_l0a8t")]
+layout_mode = 2
+script = ExtResource("10_l0a8t")

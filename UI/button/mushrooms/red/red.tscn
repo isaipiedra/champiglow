@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dq6a6jwp3cyk0"]
+
+[ext_resource type="PackedScene" uid="uid://dkdwh8stuu0vt" path="res://UI/button/button.tscn" id="1_v2qwe"]
+[ext_resource type="Script" uid="uid://cwp5h84a3w177" path="res://Scripts/mushroom_types.gd" id="2_4gvbu"]
+[ext_resource type="Texture2D" uid="uid://cpxmv282pqsf6" path="res://UI/button/mushrooms/red/red.png" id="2_x0v8d"]
+
+[node name="red" unique_id=1387809696 instance=ExtResource("1_v2qwe")]
+toggle_mode = true
+stretch_mode = 0
+script = ExtResource("2_4gvbu")
+
+[node name="icon" parent="." index="0" unique_id=2108226190]
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+texture = ExtResource("2_x0v8d")
+expand_mode = 1

@@ -1,0 +1,8 @@
+[gd_resource type="Theme" format=3 uid="uid://ck6ndctny1bda"]
+
+[ext_resource type="FontFile" uid="uid://qddyasjjmtg8" path="res://UI/fonts/BRLNSR.TTF" id="1_r0e5i"]
+
+[resource]
+default_font = ExtResource("1_r0e5i")
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/font_sizes/font_size = 11

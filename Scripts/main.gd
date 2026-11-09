@@ -2,14 +2,23 @@ extends Node3D
 
 @export var mycena_scene: PackedScene
 @export var amanita_scene: PackedScene
-@export var wind_pivot: Node3D   # asigna windControl en el Inspector
+@export var wind_pivot: Node3D
 
-@export var wind_force: Vector3 = Vector3.ZERO   # Fuerza del viento (se calcula desde el pivote)
+@export var wind_force: Vector3 = Vector3.ZERO   # (se calcula desde el pivote)
 
-@onready var label_time = $CanvasLayer/Control/Label_Time
-@onready var label_temperature = $CanvasLayer/Control/Label_Temperature
-@onready var label_humidity = $CanvasLayer/Control/Label_Humidity
-@onready var label_selected_fungus = $CanvasLayer/Control/Label_Selected_Fungus
+@onready var label_time = $CanvasLayer/Interface/Label_Time
+@onready var label_temperature = $CanvasLayer/Interface/Label_Temperature
+@onready var label_humidity = $CanvasLayer/Interface/Label_Humidity
+@onready var label_selected_fungus = $CanvasLayer/Interface/Label_Selected_Fungus
+
+# --- nodos de la interfaz ---
+@onready var ui: Node = $CanvasLayer/Interface
+@onready var temp_slider: Range = _find(ui.get_node("sliders/slider"), "Range")
+@onready var humidity_slider: Range = _find(ui.get_node("sliders/humidity-slider"), "Range")
+@onready var play_button: BaseButton = _find(ui.get_node("time/PlayButton"), "BaseButton")
+@onready var forward_button: BaseButton = _find(ui.get_node("time/forward_button"), "BaseButton")
+@onready var red_button: BaseButton = _find(ui.get_node("mushrooms/Control/red"), "BaseButton")
+@onready var glow_button: BaseButton = _find(ui.get_node("mushrooms/Control2/glow"), "BaseButton")
 
 var wind_value := 0.5
 var time_speed_mul := 1
@@ -26,26 +35,78 @@ var array_amanita_particles: Array = []
 var _last_wind_angle := INF
 
 
+# Busca el slider o botón dentro de la escena instanciada
+func _find(node: Node, type: String) -> Node:
+	if node.is_class(type):
+		return node
+	return node.find_children("*", type, true, false)[0]
+
+
 func _ready() -> void:
 	original_day_length = $sky.day_length
+
+	# Evita que la barra espaciadora presione el último botón tocado
+	for c in ui.find_children("*", "Control", true, false):
+		c.focus_mode = Control.FOCUS_NONE
+
+	temp_slider.value_changed.connect(_set_temperature)
+	humidity_slider.value_changed.connect(_set_humidity)
+	forward_button.pressed.connect(_cycle_speed)
+	play_button.pressed.connect(_toggle_time)
+	red_button.pressed.connect(_set_fungus.bind(0))    # Amanita
+	glow_button.pressed.connect(_set_fungus.bind(1))   # Mycena
+
+	_set_temperature(temperature_celsius)
+	_set_humidity(humidity_percentage)
 	_update_time_label()
-	label_temperature.text = "Temperatura %.1f °C" % temperature_celsius
-	label_humidity.text = "Porcentaje de Humedad: %.1f" % humidity_percentage
 	_update_fungus_label()
 
 
+# ---------- teclas e interfaz ----------
+func _set_temperature(v: float) -> void:
+	temperature_celsius = clampf(v, 0.0, 100.0)
+	label_temperature.text = "Temperatura %.1f °C" % temperature_celsius
+	temp_slider.value = temperature_celsius
+
+
+func _set_humidity(v: float) -> void:
+	humidity_percentage = clampf(v, 0.0, 100.0)
+	label_humidity.text = "Porcentaje de Humedad: %.1f" % humidity_percentage
+	humidity_slider.value = humidity_percentage
+
+
+func _cycle_speed() -> void:
+	if $sky.auto_advance:
+		time_speed_mul = time_speed_mul * 2 if time_speed_mul < 4 else 1
+		$sky.day_length = original_day_length / time_speed_mul
+		_update_time_label()
+
+
+func _toggle_time() -> void:
+	$sky.auto_advance = not $sky.auto_advance
+	_update_time_label()
+
+
+func _set_fungus(id: int) -> void:
+	chosen_fungus = id
+	_update_fungus_label()
+
+
+# ---------- labels  ----------
 func _update_time_label() -> void:
 	if $sky.auto_advance:
 		label_time.text = "Velocidad de día: x%d" % time_speed_mul
 	else:
 		label_time.text = "Velocidad de día: x0 - Tiempo detenido"
+	play_button.button_pressed = $sky.auto_advance  # pressed = tiempo corriendo
 
 
 func _update_fungus_label() -> void:
 	label_selected_fungus.text = "Amanita Muscaria" if chosen_fungus == 0 else "Mycena Chlorophos"
+	red_button.button_pressed = (chosen_fungus == 0)
+	glow_button.button_pressed = (chosen_fungus == 1)
 
-
-# Viento: rotación 0 del pivote = viento hacia el sur (+Z). Gira 360° con el pivote.
+# ---------- viento ----------
 func update_wind_from_pivot() -> void:
 	if not wind_pivot:
 		return
@@ -61,6 +122,7 @@ func update_wind_from_pivot() -> void:
 			particle.change_actual_wind(wind_force)
 
 
+# ---------- entrada ----------
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		generate_particle()
@@ -68,38 +130,22 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not (event is InputEventKey and event.pressed):
 		return
 
-	# Temperatura y humedad (permiten mantener la tecla)
 	match event.keycode:
-		KEY_O:
-			temperature_celsius += 0.5
-			label_temperature.text = "Temperatura %.1f °C" % temperature_celsius
-		KEY_I:
-			temperature_celsius -= 0.5
-			label_temperature.text = "Temperatura %.1f °C" % temperature_celsius
-		KEY_K:
-			humidity_percentage += 0.5
-			label_humidity.text = "Porcentaje de Humedad: %.1f" % humidity_percentage
-		KEY_J:
-			humidity_percentage -= 0.5
-			label_humidity.text = "Porcentaje de Humedad: %.1f" % humidity_percentage
+		KEY_O: _set_temperature(temperature_celsius + 1)
+		KEY_I: _set_temperature(temperature_celsius - 1)
+		KEY_K: _set_humidity(humidity_percentage + 1)
+		KEY_J: _set_humidity(humidity_percentage - 1)
 
 	if event.echo:
 		return
 
 	match event.keycode:
-		KEY_R:  # Acelerar el tiempo
-			if $sky.auto_advance:
-				time_speed_mul = time_speed_mul * 2 if time_speed_mul < 4 else 1
-				$sky.day_length = original_day_length / time_speed_mul
-				_update_time_label()
-		KEY_SPACE:  # Detener / reanudar el tiempo
-			$sky.auto_advance = not $sky.auto_advance
-			_update_time_label()
-		KEY_H:  # Cambiar hongo
-			chosen_fungus = 1 - chosen_fungus
-			_update_fungus_label()
+		KEY_R: forward_button.pressed.emit()
+		KEY_SPACE: _toggle_time()
+		KEY_H: _set_fungus(1 - chosen_fungus)
 
 
+# ---------- partículas ----------
 func generate_particle() -> void:
 	var scene := amanita_scene if chosen_fungus == 0 else mycena_scene
 	if not scene:
