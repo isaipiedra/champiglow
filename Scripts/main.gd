@@ -98,7 +98,7 @@ func _update_time_label() -> void:
 		label_time.text = "Velocidad de día: x%d" % time_speed_mul
 	else:
 		label_time.text = "Velocidad de día: x0 - Tiempo detenido"
-	play_button.button_pressed = $sky.auto_advance  # pressed = tiempo corriendo
+	play_button.button_pressed = not $sky.auto_advance  # pressed = tiempo corriendo
 
 
 func _update_fungus_label() -> void:
