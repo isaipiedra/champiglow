@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dogf0ddvn6yau"]
+
+[ext_resource type="PackedScene" uid="uid://dkdwh8stuu0vt" path="res://UI/button/button.tscn" id="1_obrys"]
+[ext_resource type="Script" uid="uid://bp4kli2nbmnyp" path="res://Scripts/play_button.gd" id="2_cupn6"]
+[ext_resource type="Texture2D" uid="uid://b11k6cf86hfhj" path="res://UI/button/play/play-icon.png" id="2_obrys"]
+[ext_resource type="Texture2D" uid="uid://f2xceo82hp5q" path="res://UI/button/play/pause-icon.png" id="4_v48vt"]
+
+[node name="TextureButton" unique_id=1387809696 instance=ExtResource("1_obrys")]
+toggle_mode = true
+script = ExtResource("2_cupn6")
+icon_normal = ExtResource("4_v48vt")
+icon_pressed = ExtResource("2_obrys")
+
+[node name="icon" parent="." index="0" unique_id=2108226190]
+offset_left = -42.5
+offset_top = -42.5
+offset_right = 42.5
+offset_bottom = 42.5
+texture = ExtResource("4_v48vt")

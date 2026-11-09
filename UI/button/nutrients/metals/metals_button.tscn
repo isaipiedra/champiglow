@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://sh2xgurgbdv"]
+
+[ext_resource type="PackedScene" uid="uid://bgeugqbqrrfq" path="res://UI/button/nutrients/nutrient_button.tscn" id="1_cm02i"]
+[ext_resource type="Texture2D" uid="uid://caa26xuar26jw" path="res://UI/button/nutrients/metals/Metals.png" id="2_535bf"]
+
+[node name="metals_button" unique_id=1387809696 instance=ExtResource("1_cm02i")]
+
+[node name="icon" parent="." index="0" unique_id=2108226190]
+texture = ExtResource("2_535bf")

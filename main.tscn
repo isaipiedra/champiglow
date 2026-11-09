@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dhbwqwfmjatym" path="res://Nature/Grass_Large.gltf" id="7_2cqfq"]
 [ext_resource type="Material" uid="uid://v75bq343x5ib" path="res://Nature/material_0.tres" id="7_getpj"]
 [ext_resource type="PackedScene" uid="uid://bnsncj4ojagxy" path="res://Models/vane_directions.glb" id="7_jq2sk"]
+[ext_resource type="PackedScene" uid="uid://jivdba2ge4s8" path="res://UI/interface.tscn" id="8_jq2sk"]
 [ext_resource type="PackedScene" uid="uid://lycpeh102wcf" path="res://Nature/Grass_Small.gltf" id="8_yaehf"]
 [ext_resource type="PackedScene" uid="uid://d4kcypal4g20y" path="res://Nature/MapleTree_1.gltf" id="12_getpj"]
 [ext_resource type="Shader" uid="uid://cys8s4h4xuquu" path="res://Shaders/leaves.gdshader" id="13_d13ii"]
@@ -132,14 +133,14 @@ wind_pivot = NodePath("CanvasLayer/SubViewportContainer/SubViewport/windControl"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=716843753]
 
+[node name="Interface" parent="CanvasLayer" unique_id=854874766 instance=ExtResource("8_jq2sk")]
+
 [node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer" unique_id=673622814 node_paths=PackedStringArray("pivot")]
-custom_minimum_size = Vector2(160, 160)
-custom_maximum_size = Vector2(160, 160)
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -160.0
-offset_bottom = 160.0
+offset_left = -250.0
+offset_bottom = 250.0
 grow_horizontal = 0
 mouse_filter = 0
 stretch = true
@@ -152,7 +153,7 @@ transparent_bg = true
 handle_input_locally = false
 msaa_3d = 3
 screen_space_aa = 1
-size = Vector2i(160, 160)
+size = Vector2i(250, 250)
 render_target_update_mode = 4
 
 [node name="windControl" type="Node3D" parent="CanvasLayer/SubViewportContainer/SubViewport" unique_id=1578158028]
@@ -178,59 +179,6 @@ distance = 2.0
 
 [node name="vane_directions" parent="CanvasLayer/SubViewportContainer/SubViewport" unique_id=1600004787 instance=ExtResource("7_jq2sk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.462166, -0.38760802, 0)
-
-[node name="Control" type="Control" parent="CanvasLayer" unique_id=1140541992]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="Label_Time" type="Label" parent="CanvasLayer/Control" unique_id=1409817525]
-layout_mode = 0
-offset_top = 622.0
-offset_right = 234.0
-offset_bottom = 646.0
-
-[node name="Label_Wind_Direction" type="Label" parent="CanvasLayer/Control" unique_id=994214744]
-visible = false
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -234.0
-offset_bottom = 24.0
-grow_horizontal = 0
-
-[node name="Label_Temperature" type="Label" parent="CanvasLayer/Control" unique_id=391663648]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -3.5440674
-offset_top = -24.0
-grow_horizontal = 0
-grow_vertical = 0
-metadata/_edit_use_anchors_ = true
-
-[node name="Label_Humidity" type="Label" parent="CanvasLayer/Control" unique_id=630140159]
-layout_mode = 1
-offset_right = 145.0
-offset_bottom = 24.0
-
-[node name="Label_Selected_Fungus" type="Label" parent="CanvasLayer/Control" unique_id=2024566807]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -3.125
-offset_right = 3.125
-offset_bottom = 24.0
-grow_horizontal = 2
 
 [node name="Moon" type="DirectionalLight3D" parent="." unique_id=1136552625]
 transform = Transform3D(-0.06506064, -0.95362943, 0.29386762, -0.9525469, -0.028404482, -0.30306396, 0.29735783, -0.29964018, -0.9065287, -9.92688, -1.101408, -25.094961)

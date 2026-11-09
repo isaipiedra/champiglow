@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bwg0e2dm0gn5v"]
+
+[ext_resource type="PackedScene" uid="uid://bn418gsjw3jom" path="res://UI/button/toggle/toggle_button.tscn" id="1_3uqgo"]
+[ext_resource type="Texture2D" uid="uid://cki6yj0cbdum0" path="res://UI/button/toggle/wind/wind.png" id="2_6xkuf"]
+
+[node name="WindToggle" unique_id=1387809696 instance=ExtResource("1_3uqgo")]
+
+[node name="icon" parent="." index="0" unique_id=2108226190]
+texture = ExtResource("2_6xkuf")
+expand_mode = 1
