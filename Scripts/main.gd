@@ -2,6 +2,7 @@ extends Node3D
 
 @export var mycena_scene: PackedScene
 @export var amanita_scene: PackedScene
+@export var mycena_model_scene: PackedScene #Modelo del cuerpod el hongo mycena
 @export var wind_pivot: Node3D
 
 @export var wind_force: Vector3 = Vector3.ZERO   # (se calcula desde el pivote)
@@ -45,9 +46,11 @@ var is_day := false
 var temperature_celsius := 0.0
 var humidity_percentage := 0.0
 var chosen_fungus := 0   # 0 = Amanita, 1 = Mycena
+var _last_time_of_day: float = 0.0
 
 var array_mycena_particles: Array = []
 var array_amanita_particles: Array = []
+var grown_mycenas: Array[Node3D] = [] #Lista de hongos mycena
 
 var _last_wind_angle := INF
 
@@ -62,6 +65,7 @@ func _find(node: Node, type: String) -> Node:
 
 func _ready() -> void:
 	original_day_length = $sky.day_length
+	_last_time_of_day = $sky.time_of_day
 
 	# Evita que la barra espaciadora presione el último botón tocado
 	for c in ui.find_children("*", "Control", true, false):
@@ -166,6 +170,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		KEY_SPACE: _toggle_time()
 		KEY_H: _set_fungus(1 - chosen_fungus)
 
+func weather_conditions() -> bool:
+	return temperature_celsius < 8.0 or temperature_celsius > 27.0
+	
 # ---------- Hongos -------------
 
 func _update_pending_mushrooms() -> void:
@@ -240,12 +247,21 @@ func generate_particle() -> void:
 	var ray_direction: Vector3 = $Camera3D.project_ray_normal(mouse_pos)
 
 	var new_particle = scene.instantiate()
+	new_particle.global_position = ray_origin + ray_direction * 5.0
+	if chosen_fungus == 1 and new_particle.has_signal("landed"):
+		new_particle.connect("landed", Callable(self, "_on_mycena_spore_landed"))
 	add_child(new_particle)
 	new_particle.global_position = ray_origin + ray_direction * 5.0
 	
 
 	if new_particle.has_method("fetch_environmental_factors"):
 		new_particle.fetch_environmental_factors(wind_force)
+		
+	if chosen_fungus == 1:
+		if $sky.time_of_day >= 18.0:
+			new_particle.its_night()
+		else:
+			new_particle.its_day()
 
 	if chosen_fungus == 0:
 		array_amanita_particles.append(new_particle)
@@ -253,9 +269,52 @@ func generate_particle() -> void:
 	else:
 		array_mycena_particles.append(new_particle)
 
+func _on_mycena_spore_landed(spore: Node3D, body: Node3D) -> void:
+	if not is_instance_valid(spore) or not is_instance_valid(body):
+		return
+
+	if not body.is_in_group("mycena_host"):
+		spore.queue_free()
+		return
+	
+	if weather_conditions():
+		spore.queue_free()
+		return
+
+	
+	if mycena_model_scene == null:
+		print("Falta mycena_model en el main")
+	
+	var spore_body := spore.get_node_or_null("RigidBody3D") as RigidBody3D
+	
+	if spore_body == null:
+		print("La espora no tiene hijo RigidBody3D")
+		return
+	
+	var mushroom := mycena_model_scene.instantiate() as Node3D
+	
+	if mushroom == null:
+		print("El modelo de mycena debe tener una raíz Node3D")
+		return
+	
+	add_child(mushroom)
+	
+	mushroom.global_position = (spore_body.global_position - Vector3.UP * 0.004)
+	
+	grown_mycenas.append(mushroom)
+	
+	spore.queue_free()
+	
+func _advance_mycena_growth_days() -> void:
+	for mushroom in grown_mycenas:
+		if (is_instance_valid(mushroom) and mushroom.has_method("advance_growth_day")):
+			mushroom.advance_growth_day()
 
 func _process(_delta: float) -> void:
 	update_wind_from_pivot()
+	
+	var current_time: float = $sky.time_of_day
+
 	_update_pending_mushrooms()
 	if wind_view.visible:
 		wind_view.update_arrows(wind_force)
@@ -274,3 +333,7 @@ func _process(_delta: float) -> void:
 			for particle in array_mycena_particles:
 				if is_instance_valid(particle):
 					particle.its_day()
+	
+	if current_time < _last_time_of_day:
+		_advance_mycena_growth_days()
+	_last_time_of_day = current_time
