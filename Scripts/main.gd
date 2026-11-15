@@ -2,7 +2,7 @@ extends Node3D
 
 @export var mycena_scene: PackedScene
 @export var amanita_scene: PackedScene
-@export var mycena_model_scene: PackedScene
+@export var mycena_model_scene: PackedScene #Modelo del cuerpod el hongo mycena
 @export var wind_pivot: Node3D
 
 @export var wind_force: Vector3 = Vector3.ZERO   # (se calcula desde el pivote)
@@ -33,7 +33,7 @@ var _last_time_of_day: float = 0.0
 
 var array_mycena_particles: Array = []
 var array_amanita_particles: Array = []
-var grown_mycenas: Array[Node3D] = []
+var grown_mycenas: Array[Node3D] = [] #Lista de hongos mycena
 
 var _last_wind_angle := INF
 
@@ -148,7 +148,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		KEY_SPACE: _toggle_time()
 		KEY_H: _set_fungus(1 - chosen_fungus)
 
-
+func weather_conditions() -> bool:
+	return temperature_celsius < 8.0 or temperature_celsius > 27.0
+	
 # ---------- partículas ----------
 func generate_particle() -> void:
 	var scene := amanita_scene if chosen_fungus == 0 else mycena_scene
@@ -168,6 +170,12 @@ func generate_particle() -> void:
 
 	if new_particle.has_method("fetch_environmental_factors"):
 		new_particle.fetch_environmental_factors(wind_force)
+		
+	if chosen_fungus == 1:
+		if $sky.time_of_day >= 18.0:
+			new_particle.its_night()
+		else:
+			new_particle.its_day()
 
 	if chosen_fungus == 0:
 		array_amanita_particles.append(new_particle)
@@ -179,16 +187,13 @@ func _on_mycena_spore_landed(spore: Node3D, body: Node3D) -> void:
 		return
 
 	if not body.is_in_group("mycena_host"):
-		print("La espora cayó en ", body.name, ". No puede germinar aquí.")
+		spore.queue_free()
+		return
+	
+	if weather_conditions():
 		spore.queue_free()
 		return
 
-	if temperature_celsius < 8.0 or temperature_celsius > 27.0:
-		print("Espora en el tronco, pero temperatura inadecuada: ", temperature_celsius, " °C")
-		spore.queue_free()
-		return
-
-	print("¡Condiciones aptas! Mycena puede iniciar su crecimiento.")
 	
 	if mycena_model_scene == null:
 		print("Falta mycena_model en el main")
@@ -211,7 +216,6 @@ func _on_mycena_spore_landed(spore: Node3D, body: Node3D) -> void:
 	
 	grown_mycenas.append(mushroom)
 	
-	print("Mycenita ha empezado su crecimiento")
 	spore.queue_free()
 	
 func _advance_mycena_growth_days() -> void:
