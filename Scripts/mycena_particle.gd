@@ -68,16 +68,6 @@ func _on_body_entered(body: Node3D) -> void:
 	rigid_body.freeze = true
 	
 	landed.emit(self, body)
-	
-	print("Cuerpo de colisión: ", body.get_path())
-	print("Grupos del cuerpo: ", body.get_groups())
-	print("¿Es huésped?: ", body.is_in_group("mycena_host"))
-
-	if body.is_in_group("mycena_host"):
-		print("¡Espora aterrizó en el tronco! Puede intentar germinar.")
-	else:
-		print("Espora aterrizó en otra superficie: ", body.name)
-
 
 
 
