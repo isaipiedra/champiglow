@@ -2,10 +2,21 @@ extends Node3D
 
 @export var mycena_scene: PackedScene
 @export var amanita_scene: PackedScene
-@export var mycena_model_scene: PackedScene #Modelo del cuerpod el hongo mycena
+@export var mycena_model_scene: PackedScene # Modelo del cuerpo del hongo Mycena
 @export var wind_pivot: Node3D
 
 @export var wind_force: Vector3 = Vector3.ZERO   # (se calcula desde el pivote)
+
+@export var amanita_mushroom_scenes: Array[PackedScene] = []
+@export var mushroom_scale := 1.0
+@export var mushroom_grow_time := 1.5
+@export var growth_days := 28.0
+
+@export var living_tree_models: PackedStringArray = ["MapleTree"]
+@export var tree_radius := 1.5
+var _living_tree_positions: Array[Vector2] = []
+
+@export_flags_3d_physics var mushroom_layer: int = 8
 
 @onready var label_time = $CanvasLayer/Interface/Label_Time
 @onready var label_temperature = $CanvasLayer/Interface/Label_Temperature
@@ -33,10 +44,10 @@ var _last_time_of_day: float = 0.0
 
 var array_mycena_particles: Array = []
 var array_amanita_particles: Array = []
-var grown_mycenas: Array[Node3D] = [] #Lista de hongos mycena
+var grown_mycenas: Array[Node3D] = []
 
 var _last_wind_angle := INF
-
+var _pending_mushrooms: Array[Dictionary] = []
 
 # Busca el slider o botón dentro de la escena instanciada
 func _find(node: Node, type: String) -> Node:
@@ -64,6 +75,7 @@ func _ready() -> void:
 	_set_humidity(humidity_percentage)
 	_update_time_label()
 	_update_fungus_label()
+	_collect_living_trees()
 
 
 # ---------- teclas e interfaz ----------
@@ -148,9 +160,74 @@ func _unhandled_input(event: InputEvent) -> void:
 		KEY_SPACE: _toggle_time()
 		KEY_H: _set_fungus(1 - chosen_fungus)
 
+
 func weather_conditions() -> bool:
 	return temperature_celsius < 8.0 or temperature_celsius > 27.0
-	
+
+
+# ---------- Hongos -------------
+func _update_pending_mushrooms() -> void:
+	var now: float = $sky.elapsed_days
+	for i in range(_pending_mushrooms.size() - 1, -1, -1):
+		if now >= _pending_mushrooms[i]["ready_at"]:
+			_grow_amanita(_pending_mushrooms[i]["pos"])
+			_pending_mushrooms.remove_at(i)
+
+
+func _on_amanita_landed(spore: Node3D, pos: Vector3) -> void:
+	array_amanita_particles.erase(spore)
+	var flat := Vector2(pos.x, pos.z)
+	var nearest := INF
+	for t in _living_tree_positions:
+		nearest = minf(nearest, flat.distance_to(t))
+	if _is_near_living_tree(pos):
+		_pending_mushrooms.append({"pos": pos, "ready_at": $sky.elapsed_days + growth_days})
+
+
+func _grow_amanita(pos: Vector3) -> void:
+	if amanita_mushroom_scenes.is_empty() || amanita_mushroom_scenes[0] == null:
+		push_warning("No hay estos hongos")
+		return
+
+	var mushroom := amanita_mushroom_scenes[0].instantiate() as Node3D
+	add_child(mushroom)
+	mushroom.global_transform = Transform3D(Basis(Vector3.UP, randf() * TAU), pos)
+
+	var body := mushroom as CollisionObject3D
+	if body:
+		body.collision_layer = mushroom_layer
+
+	var target := mushroom_scale * randf_range(0.9, 1.1)
+	mushroom.scale = Vector3.ONE * target * 0.01
+	create_tween().tween_property(mushroom, "scale", Vector3.ONE * target, mushroom_grow_time)
+
+
+func _collect_living_trees() -> void:
+	_living_tree_positions.clear()
+	for node in find_children("*", "Node3D", true, false):
+		var tree := node as Node3D
+		var file_name := tree.scene_file_path.get_file()
+		if file_name.is_empty():
+			continue
+		for model in living_tree_models:
+			if file_name.begins_with(model):
+				var origin := tree.global_position
+				var meshes := tree.find_children("*", "MeshInstance3D", true, false)
+				if not meshes.is_empty():
+					origin = (meshes[0] as Node3D).global_position
+				_living_tree_positions.append(Vector2(origin.x, origin.z))
+				break
+
+
+func _is_near_living_tree(pos: Vector3) -> bool:
+	var flat := Vector2(pos.x, pos.z)
+	var max_dist_sq := tree_radius * tree_radius
+	for tree_pos in _living_tree_positions:
+		if flat.distance_squared_to(tree_pos) <= max_dist_sq:
+			return true
+	return false
+
+
 # ---------- partículas ----------
 func generate_particle() -> void:
 	var scene := amanita_scene if chosen_fungus == 0 else mycena_scene
@@ -170,7 +247,7 @@ func generate_particle() -> void:
 
 	if new_particle.has_method("fetch_environmental_factors"):
 		new_particle.fetch_environmental_factors(wind_force)
-		
+
 	if chosen_fungus == 1:
 		if $sky.time_of_day >= 18.0:
 			new_particle.its_night()
@@ -179,8 +256,10 @@ func generate_particle() -> void:
 
 	if chosen_fungus == 0:
 		array_amanita_particles.append(new_particle)
+		new_particle.landed.connect(_on_amanita_landed)
 	else:
 		array_mycena_particles.append(new_particle)
+
 
 func _on_mycena_spore_landed(spore: Node3D, body: Node3D) -> void:
 	if not is_instance_valid(spore) or not is_instance_valid(body):
@@ -189,43 +268,41 @@ func _on_mycena_spore_landed(spore: Node3D, body: Node3D) -> void:
 	if not body.is_in_group("mycena_host"):
 		spore.queue_free()
 		return
-	
+
 	if weather_conditions():
 		spore.queue_free()
 		return
 
-	
 	if mycena_model_scene == null:
 		print("Falta mycena_model en el main")
-	
+		return
+
 	var spore_body := spore.get_node_or_null("RigidBody3D") as RigidBody3D
-	
 	if spore_body == null:
 		print("La espora no tiene hijo RigidBody3D")
 		return
-	
+
 	var mushroom := mycena_model_scene.instantiate() as Node3D
-	
 	if mushroom == null:
 		print("El modelo de mycena debe tener una raíz Node3D")
 		return
-	
+
 	add_child(mushroom)
-	
 	mushroom.global_position = (spore_body.global_position - Vector3.UP * 0.004)
-	
 	grown_mycenas.append(mushroom)
-	
 	spore.queue_free()
-	
+
+
 func _advance_mycena_growth_days() -> void:
 	for mushroom in grown_mycenas:
-		if (is_instance_valid(mushroom) and mushroom.has_method("advance_growth_day")):
+		if is_instance_valid(mushroom) and mushroom.has_method("advance_growth_day"):
 			mushroom.advance_growth_day()
+
 
 func _process(_delta: float) -> void:
 	update_wind_from_pivot()
-	
+	_update_pending_mushrooms()
+
 	var current_time: float = $sky.time_of_day
 
 	if $sky.time_of_day >= 18.0:
@@ -242,7 +319,7 @@ func _process(_delta: float) -> void:
 			for particle in array_mycena_particles:
 				if is_instance_valid(particle):
 					particle.its_day()
-	
+
 	if current_time < _last_time_of_day:
 		_advance_mycena_growth_days()
 	_last_time_of_day = current_time
