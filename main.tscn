@@ -40,6 +40,7 @@
 [ext_resource type="Script" uid="uid://qbep2qt0lb06" path="res://Scripts/day_night.gd" id="22_ryguw"]
 [ext_resource type="PackedScene" uid="uid://decs1u87oylc" path="res://Scenes/MycenaParticle.tscn" id="26_a6jrf"]
 [ext_resource type="PackedScene" uid="uid://dgelwmes1qn23" path="res://Prefabs/Oysters Pearl/oyster_pearl_1.tscn" id="28_xuqvo"]
+[ext_resource type="Script" uid="uid://bi6c57rluck8" path="res://Scripts/wind_view.gd" id="41_4lmeg"]
 
 [sub_resource type="Environment" id="Environment_82xsv"]
 background_mode = 2
@@ -221,7 +222,7 @@ transform = Transform3D(-0.288155, 0, -0.9575838, 0, 1, 0, 0.9575838, 0, -0.2881
 
 [node name="terrain" parent="environment" unique_id=188997738 instance=ExtResource("3_1bvp3")]
 
-[node name="Cube" parent="environment/terrain" index="0" unique_id=1627252874]
+[node name="Cube" parent="environment/terrain" index="0" unique_id=2046533814]
 surface_material_override/0 = SubResource("ShaderMaterial_4t226")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="environment/terrain/Cube" index="0" unique_id=291272868]
@@ -232,7 +233,7 @@ shape = ExtResource("5_vivmo")
 [node name="tree_chomp" parent="environment" unique_id=601769142 instance=ExtResource("6_2cqfq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.252376, 1.9844625, 1.7214355)
 
-[node name="Object_2" parent="environment/tree_chomp/Sketchfab_model/4a212aa4cd204a66b64df98f9b6a5a48_obj_cleaner_materialmerger_gles" parent_id_path=PackedInt32Array(601769142, 1468199036) index="0" unique_id=1338244371]
+[node name="Object_2" parent="environment/tree_chomp/Sketchfab_model/4a212aa4cd204a66b64df98f9b6a5a48_obj_cleaner_materialmerger_gles" parent_id_path=PackedInt32Array(601769142, 1061674104) index="0" unique_id=947063444]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.071167, -0.44222593)
 surface_material_override/0 = ExtResource("7_getpj")
 
@@ -1600,26 +1601,26 @@ transform = Transform3D(0.29788688, 0, -0.75323534, 0, 0.81, 0, 0.75323534, 0, 0
 [node name="MapleTree_12" parent="environment" unique_id=1698017192 instance=ExtResource("12_getpj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.553217, 0.889712, -1.7948688)
 
-[node name="MapleTree_1" parent="environment/MapleTree_12" index="0" unique_id=71084740]
+[node name="MapleTree_1" parent="environment/MapleTree_12" index="0" unique_id=11427297]
 transform = Transform3D(0.8889313, 0, -0.4580406, 0, 1, 0, 0.4580406, 0, 0.8889313, -0.95227146, -0.5751543, 8.635313)
 surface_material_override/1 = SubResource("ShaderMaterial_xnl7b")
 
 [node name="MapleTree_22" parent="environment" unique_id=691351441 instance=ExtResource("13_ryguw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.0885634, 0.5880065, 8.038151)
 
-[node name="MapleTree_2" parent="environment/MapleTree_22" index="0" unique_id=75791817]
+[node name="MapleTree_2" parent="environment/MapleTree_22" index="0" unique_id=817273467]
 surface_material_override/1 = SubResource("ShaderMaterial_ojax5")
 
 [node name="MapleTree_32" parent="environment" unique_id=2015085217 instance=ExtResource("14_d13ii")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.573721, 0.077257395, -7.2745886)
 
-[node name="MapleTree_3" parent="environment/MapleTree_32" index="0" unique_id=1967977458]
+[node name="MapleTree_3" parent="environment/MapleTree_32" index="0" unique_id=808398443]
 surface_material_override/1 = SubResource("ShaderMaterial_0odxb")
 
 [node name="DeadTree_32" parent="environment" unique_id=1734382756 instance=ExtResource("15_d13ii")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 2.140507, 1.4978994, -1.4339268)
 
-[node name="DeadTree_3" parent="environment/DeadTree_32" index="0" unique_id=1607091174]
+[node name="DeadTree_3" parent="environment/DeadTree_32" index="0" unique_id=919821424]
 transform = Transform3D(-0.46066618, 0, -0.8875735, 0, 1, 0, 0.8875735, 0, -0.46066618, -3.861672, -0.8057189, -0.40110147)
 
 [node name="DeadTree_42" parent="environment" unique_id=1466843891 instance=ExtResource("16_1u8w0")]
@@ -1658,7 +1659,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.694728, 0.87853557, 7.60846
 [node name="Sketchfab_Scene" parent="environment" unique_id=744121459 instance=ExtResource("21_qsp4k")]
 transform = Transform3D(0.4569549, 0.020126836, 0.20195818, -0.035922807, 0.49770063, 0.03167964, -0.19975425, -0.04346214, 0.45629948, 1.6796522, 1.089489, -3.723989)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="environment/Sketchfab_Scene/Sketchfab_model/4323d4fc9244453d8b946cb6e40945d6_fbx/RootNode/Cylinder/Cylinder__0" parent_id_path=PackedInt32Array(744121459, 932194686) index="0" unique_id=1871591604 groups=["mycena_host"]]
+[node name="StaticBody3D" type="StaticBody3D" parent="environment/Sketchfab_Scene/Sketchfab_model/4323d4fc9244453d8b946cb6e40945d6_fbx/RootNode/Cylinder/Cylinder__0" parent_id_path=PackedInt32Array(744121459, 1278997446) index="0" unique_id=1871591604 groups=["mycena_host"]]
 transform = Transform3D(1, 0, 0, 3.7252903e-09, 1, -2.9802322e-08, -7.450581e-09, 0, 1, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="environment/Sketchfab_Scene/Sketchfab_model/4323d4fc9244453d8b946cb6e40945d6_fbx/RootNode/Cylinder/Cylinder__0/StaticBody3D" unique_id=49255580]
@@ -1676,6 +1677,12 @@ night_energy = 1.2
 
 [node name="oyster_pearl_1" parent="." unique_id=1821651365 instance=ExtResource("28_xuqvo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.9147, 0.7860742, -5.4473014)
+
+[node name="WindView" type="Node3D" parent="." unique_id=498429393 node_paths=PackedStringArray("terrain")]
+script = ExtResource("41_4lmeg")
+terrain = NodePath("../environment/terrain/Cube")
+spacing = 2.0
+arrow_color = Color(0.5882353, 0.5882353, 0.5882353, 1)
 
 [editable path="CanvasLayer/SubViewportContainer/SubViewport/windControl/vane_stick"]
 [editable path="environment/tree_chomp2"]

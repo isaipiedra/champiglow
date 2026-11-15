@@ -32,6 +32,11 @@ var _living_tree_positions: Array[Vector2] = []
 @onready var red_button: BaseButton = _find(ui.get_node("mushrooms/Control/red"), "BaseButton")
 @onready var glow_button: BaseButton = _find(ui.get_node("mushrooms/Control2/glow"), "BaseButton")
 
+# --- nodos de las vistas ---
+@onready var wind_view: Node3D = $WindView
+@onready var wind_toggle: BaseButton = ui.get_node("views/WindToggle")
+
+
 var wind_value := 0.5
 var time_speed_mul := 1
 var original_day_length := 0.0
@@ -68,12 +73,14 @@ func _ready() -> void:
 	play_button.pressed.connect(_toggle_time)
 	red_button.pressed.connect(_set_fungus.bind(0))    # Amanita
 	glow_button.pressed.connect(_set_fungus.bind(1))   # Mycena
+	wind_toggle.toggled.connect(_on_wind_toggle)
 
 	_set_temperature(temperature_celsius)
 	_set_humidity(humidity_percentage)
 	_update_time_label()
 	_update_fungus_label()
 	_collect_living_trees()
+	
 
 # ---------- teclas e interfaz ----------
 func _set_temperature(v: float) -> void:
@@ -134,6 +141,8 @@ func update_wind_from_pivot() -> void:
 		if is_instance_valid(particle):
 			particle.change_actual_wind(wind_force)
 
+func _on_wind_toggle(toggled_on: bool) -> void:
+	wind_view.visible = toggled_on
 
 # ---------- entrada ----------
 func _unhandled_input(event: InputEvent) -> void:
@@ -248,7 +257,9 @@ func generate_particle() -> void:
 func _process(_delta: float) -> void:
 	update_wind_from_pivot()
 	_update_pending_mushrooms()
-
+	if wind_view.visible:
+		wind_view.update_arrows(wind_force)
+		
 	if $sky.time_of_day >= 18.0:
 		if not is_night:
 			is_night = true
