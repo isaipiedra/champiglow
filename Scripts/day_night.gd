@@ -5,6 +5,7 @@ extends Node
 @export var moon: DirectionalLight3D
 @export var sky_shader: Shader
 
+
 @export_range(0.0, 24.0) var time_of_day := 8.0:
 	set(v):
 		time_of_day = v
@@ -27,6 +28,7 @@ extends Node
 
 var _mat: ShaderMaterial
 var _env: Environment
+var elapsed_days := 0.0
 
 func _ready() -> void:
 	if world_environment == null:
@@ -74,6 +76,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if auto_advance:
 		time_of_day = fposmod(time_of_day + delta * 24.0 / day_length, 24.0)
+		elapsed_days += delta / day_length
 
 func _apply() -> void:
 	if _mat == null or sun == null:
