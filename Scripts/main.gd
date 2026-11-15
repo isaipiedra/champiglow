@@ -292,10 +292,7 @@ func _on_mycena_spore_landed(spore: Node3D, body: Node3D) -> void:
 		return
 	
 	var mushroom := mycena_model_scene.instantiate() as Node3D
-	
-	if mushroom == null:
-		print("El modelo de mycena debe tener una raíz Node3D")
-		return
+	mushroom.fruit_died.connect(_on_mycena_died)
 	
 	add_child(mushroom)
 	
@@ -310,6 +307,10 @@ func _advance_mycena_growth_days() -> void:
 		if (is_instance_valid(mushroom) and mushroom.has_method("advance_growth_day")):
 			mushroom.advance_growth_day()
 
+func _on_mycena_died(mushroom: Node3D) -> void:
+	grown_mycenas.erase(mushroom)
+	mushroom.queue_free()
+	
 func _process(_delta: float) -> void:
 	update_wind_from_pivot()
 	

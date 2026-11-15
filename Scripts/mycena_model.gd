@@ -3,6 +3,7 @@ extends Node3D
 
 @export var natural_color: Color = Color("#e8e3ce") #Color del hongo sin estar brillando
 @export var glow_color: Color = Color("#55ff33") #Color del honguito al brillar
+@export var rotten_color: Color = Color("#6b4f3b") # Marrón tierra desaturado
 
 @export_range(0.0, 5.0, 0.1) #valor mínimo de brillo, máximo, incremento
 var glow_strength: float = 1.0 #Valor incial de brillo
@@ -35,6 +36,13 @@ var has_glowed: bool = false #Bandera que indica si el honguito ha brillado una 
 var glow_days_elapsed: int = 0
 var glow_progress: float = 0.0 #Transición luminosa, la intensidad entre 0.0 y 1.0
 var _stem_material: StandardMaterial3D #Material para controlar el aspecto del tallo
+
+#Var rotten
+var rotten_days_elapsed: int = 0
+var rotten_progress: float = 0.0
+var rotten_has_started: bool = false
+var fruit_has_died: bool = false
+signal fruit_died(mushroom: Node3D)
 
 func _ready() -> void:
 	#Se guardan las medidas del tallo y sombrerillo originales
@@ -77,7 +85,14 @@ func _ready() -> void:
 
 func update_appearance() -> void:
 	#Interpolación lineal, mezcla el color natural con el luminoso
-	var current_color: Color = natural_color.lerp( glow_color,glow_progress)
+	var current_color: Color
+	if fruit_has_died:
+		current_color = rotten_color
+	elif not rotten_has_started:
+		current_color = natural_color.lerp( glow_color,glow_progress)
+	elif rotten_has_started:
+		current_color = natural_color.lerp(rotten_color, rotten_progress)
+		
 
 	# Material del tallo.
 	_stem_material.albedo_color = current_color
@@ -94,12 +109,6 @@ func update_appearance() -> void:
 	glow_light.light_energy = glow_strength * glow_progress
 
 
-#Activa o desactiva el estado de glowing
-func set_glowing(enabled: bool) -> void:
-	glowing = enabled
-	update_appearance()
-
-
 # Avanzar un día de crecimiento.
 func advance_growth_day() -> void:
 	growth_day += 1
@@ -111,11 +120,16 @@ func advance_growth_day() -> void:
 
 		update_appearance()
 
-	elif growth_day >= 17 and has_glowed and glowing:
+	elif growth_day >= 17 and growth_day < 18 and has_glowed and glowing:
 		glowing = false
 		glow_progress = 0.0
 
 		update_appearance()
+		
+	elif growth_day == 18 and not rotten_has_started:
+		rotten_has_started = true
+		rotten_progress = 0.0
+		update_appearance() 
 
 	_apply_growth_stage()
 
@@ -150,9 +164,6 @@ func _apply_growth_stage() -> void:
 	
 	
 func _process(delta: float) -> void:
-	if not has_glowed or not glowing:
-		return
-
 	var current_scene := get_tree().current_scene
 	if current_scene == null:
 		return
@@ -170,6 +181,7 @@ func _process(delta: float) -> void:
 		return
 
 	var previous_progress := glow_progress
+	var previous_rotten_progress := rotten_progress
 
 	match growth_day:
 		14:
@@ -180,6 +192,20 @@ func _process(delta: float) -> void:
 
 		16:
 			glow_progress = maxf(glow_progress - delta / day_duration, 0.0)
-
-	if not is_equal_approx(previous_progress, glow_progress):
+		18:
+			rotten_progress = minf(rotten_progress + delta / day_duration, 1.0)
+		19:
+			rotten_progress = 1.0
+		20:
+			fruit_has_died = true
+			rotten_progress = maxf(rotten_progress - delta / day_duration, 0.0)
+		22:
+			fruit_died.emit(self)
+			
+	
+	if not is_equal_approx(previous_progress, glow_progress) || not is_equal_approx(previous_rotten_progress, rotten_progress) :
 		update_appearance()
+		
+	if fruit_has_died:
+		update_appearance()
+		
