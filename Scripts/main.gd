@@ -12,6 +12,10 @@ extends Node3D
 @export var mushroom_grow_time := 1.5
 @export var growth_days := 28.0
 
+#Generación de esporas
+@export var spore_interval: float = 2
+var spore_timer: float = 0.0
+
 
 @export var living_tree_models: PackedStringArray = ["MapleTree"]
 @export var tree_radius := 1.5
@@ -43,7 +47,7 @@ var _living_tree_positions: Array[Vector2] = []
 @onready var metals_button: BaseButton = ui.get_node("nutrients/metals_button")
 
 
-var wind_value := 0.5
+var wind_value := 1
 var time_speed_mul := 1
 var original_day_length := 0.0
 var is_night := false
@@ -56,6 +60,7 @@ var _last_time_of_day: float = 0.0
 var array_mycena_particles: Array = []
 var array_amanita_particles: Array = []
 var grown_mycenas: Array[Node3D] = [] #Lista de hongos mycena
+var array_mushrooms_generating_mycenas: Array = []
 
 var _last_wind_angle := INF
 
@@ -101,17 +106,20 @@ func _set_temperature(v: float) -> void:
 	temperature_celsius = clampf(v, 0.0, 100.0)
 	label_temperature.text = "Temperatura %.1f °C" % temperature_celsius
 	temp_slider.value = temperature_celsius
+	_notify_mycenas_environment()
 
 
 func _set_humidity(v: float) -> void:
 	humidity_percentage = clampf(v, 0.0, 100.0)
 	label_humidity.text = "Porcentaje de Humedad: %.1f" % humidity_percentage
 	humidity_slider.value = humidity_percentage
+	_notify_mycenas_environment()
+
 
 
 func _cycle_speed() -> void:
 	if $sky.auto_advance:
-		time_speed_mul = time_speed_mul * 2 if time_speed_mul < 4 else 1
+		time_speed_mul = time_speed_mul * 2 if time_speed_mul < 16 else 1
 		$sky.day_length = original_day_length / time_speed_mul
 		_update_time_label()
 
@@ -180,8 +188,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		KEY_SPACE: _toggle_time()
 		KEY_H: _set_fungus(1 - chosen_fungus)
 
-func weather_conditions() -> bool:
-	return temperature_celsius < 8.0 or temperature_celsius > 27.0
+func are_mycena_conditions_optimal() -> bool:
+	return (temperature_celsius >= 8.0 and temperature_celsius <= 27.0 and humidity_percentage >= 70.0)
 	
 # ---------- Hongos -------------
 
@@ -287,7 +295,7 @@ func _on_mycena_spore_landed(spore: Node3D, body: Node3D) -> void:
 		spore.queue_free()
 		return
 	
-	if weather_conditions():
+	if not  are_mycena_conditions_optimal():
 		spore.queue_free()
 		return
 
@@ -302,16 +310,18 @@ func _on_mycena_spore_landed(spore: Node3D, body: Node3D) -> void:
 		return
 	
 	var mushroom := mycena_model_scene.instantiate() as Node3D
-	
-	if mushroom == null:
-		print("El modelo de mycena debe tener una raíz Node3D")
-		return
+	mushroom.fruit_died.connect(_on_mycena_died)
+	mushroom.spores_started.connect(_on_spores_started)
+	mushroom.spores_stopped.connect(_on_spores_stopped)
 	
 	add_child(mushroom)
 	
 	mushroom.global_position = (spore_body.global_position - Vector3.UP * 0.004)
 	
 	grown_mycenas.append(mushroom)
+	
+	mushroom.set_environment_conditions(temperature_celsius, humidity_percentage,
+		time_speed_mul)
 	
 	spore.queue_free()
 	
@@ -320,7 +330,63 @@ func _advance_mycena_growth_days() -> void:
 		if (is_instance_valid(mushroom) and mushroom.has_method("advance_growth_day")):
 			mushroom.advance_growth_day()
 
-func _process(_delta: float) -> void:
+#Funciones relacionadas a pudrirse y esparcir esporas
+func _on_spores_started(mushroom: Node3D) -> void:
+	if not array_mushrooms_generating_mycenas.has(mushroom):
+		array_mushrooms_generating_mycenas.append(mushroom)
+
+
+func _on_spores_stopped(mushroom: Node3D) -> void:
+	array_mushrooms_generating_mycenas.erase(mushroom)
+	
+	
+func _on_mycena_died(mushroom: Node3D) -> void:
+	grown_mycenas.erase(mushroom)
+	mushroom.queue_free()
+
+func _generate_mycena_spore(mushroom: Node3D) -> void:
+	
+	if not mushroom.can_generate_spores():
+		array_mushrooms_generating_mycenas.erase(mushroom)
+		return
+	
+	if mycena_scene == null:
+		return
+	var cap := mushroom.get_node_or_null("Cap") as Node3D
+	var spore := mycena_scene.instantiate() as Node3D
+	
+	add_child(spore)
+	spore.global_position.x = cap.global_position.x
+	spore.global_position.y = cap.global_position.y + 0.2
+	spore.global_position.z = cap.global_position.z
+	
+	var direction := Vector3(randf_range(-0.3, 0.3), 1.0, randf_range(-0.3, 0.3)).normalized()
+
+	
+	if spore.has_signal("landed"):
+		spore.landed.connect(_on_mycena_spore_landed)
+	
+	if spore.has_method("fetch_environmental_factors"):
+		spore.fetch_environmental_factors(wind_force)
+	
+	if $sky.time_of_day >= 18.0:
+		spore.its_night()
+	else:
+		spore.its_day()
+		
+	spore.init_shot(direction) 
+
+
+	array_mycena_particles.append(spore)
+	mushroom.register_spore_generation()
+
+#Podrirse
+func _notify_mycenas_environment() -> void:
+	for mushroom in grown_mycenas:
+		if is_instance_valid(mushroom):
+			mushroom.set_environment_conditions(temperature_celsius, humidity_percentage, time_speed_mul)
+	
+func _process(delta: float) -> void:
 	update_wind_from_pivot()
 	
 	var current_time: float = $sky.time_of_day
@@ -339,11 +405,24 @@ func _process(_delta: float) -> void:
 	else:
 		if not is_day:
 			is_day = true
+			is_day = true
 			is_night = false
 			for particle in array_mycena_particles:
 				if is_instance_valid(particle):
 					particle.its_day()
 	
+	if not array_mushrooms_generating_mycenas.is_empty():
+		spore_timer += delta * time_speed_mul
+
+		if spore_timer >= spore_interval:
+			spore_timer -= spore_interval
+
+			for mushroom in array_mushrooms_generating_mycenas.duplicate():
+				if is_instance_valid(mushroom):
+					_generate_mycena_spore(mushroom)
+				else:
+					array_mushrooms_generating_mycenas.erase(mushroom)
+				
 	if current_time < _last_time_of_day:
 		_advance_mycena_growth_days()
 	_last_time_of_day = current_time

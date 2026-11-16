@@ -3,6 +3,7 @@ extends Node3D
 
 @export var natural_color: Color = Color("#e8e3ce") #Color del hongo sin estar brillando
 @export var glow_color: Color = Color("#55ff33") #Color del honguito al brillar
+@export var rotten_color: Color = Color("#6b4f3b") # Marrón tierra desaturado
 
 @export_range(0.0, 5.0, 0.1) #valor mínimo de brillo, máximo, incremento
 var glow_strength: float = 1.0 #Valor incial de brillo
@@ -11,14 +12,34 @@ var glow_strength: float = 1.0 #Valor incial de brillo
 @export_range(0.0, 0.4, 0.01) #Variacion entre los tamaños de los honguitos
 var size_variation: float = 0.18
 
+@export var max_spores: int = 20
+var spores_generated: int = 0
+
 @onready var stem: Node3D = $Stem #Nodo del tallo
 @onready var stem_mesh: MeshInstance3D = $Stem/MeshInstance3D #Nodo de la malla del tayo
 @onready var cap: Node3D = $Cap #Nodo del sombrerillo del hongo para hacerlo crecer
 @onready var glow_light: OmniLight3D = $GlowLight #Nodo del brillo del hongo
 
+#Variables de estrés
+@export var min_temp: float = 8.0
+@export var max_temp: float = 27.0
+@export var min_humidity: float = 70.0
+
+@export var stress_tolerance: float = 20.0
+@export var rot_duration: float = 15.0
+@export var recovery_rate: float = 0.5
+
+var environment_ok: bool = true
+var environmental_stress: float = 0.0
+var is_rotting: bool = false
+var rot_elapsed: float = 0.0
+var game_time_scale: float = 1.0
+
+#Variables de brillo
 var glowing: bool = false #Honguito iluminando si o no
 var growth_day: int = 1 #Dia de crecimiento
 
+#Variables de escala
 var _adult_stem_scale: Vector3 #Escala original del hongo adulto
 var _adult_cap_position: Vector3 #Posicion original del sombrero adulto
 var _stem_base_y: float #Altura de la base del tallo para que se mantenga igual mientras crece el hongo
@@ -35,6 +56,16 @@ var has_glowed: bool = false #Bandera que indica si el honguito ha brillado una 
 var glow_days_elapsed: int = 0
 var glow_progress: float = 0.0 #Transición luminosa, la intensidad entre 0.0 y 1.0
 var _stem_material: StandardMaterial3D #Material para controlar el aspecto del tallo
+
+#Var rotten
+var rotten_days_elapsed: int = 0
+var rotten_progress: float = 0.0
+var rotten_has_started: bool = false
+var fruit_has_died: bool = false
+signal fruit_died(mushroom: Node3D)
+
+signal spores_started(mushroom:Node3D)
+signal spores_stopped(mushroom: Node3D)
 
 func _ready() -> void:
 	#Se guardan las medidas del tallo y sombrerillo originales
@@ -74,10 +105,16 @@ func _ready() -> void:
 
 
 # Control de apariencia.
-
 func update_appearance() -> void:
 	#Interpolación lineal, mezcla el color natural con el luminoso
-	var current_color: Color = natural_color.lerp( glow_color,glow_progress)
+	var current_color: Color
+	if fruit_has_died:
+		current_color = rotten_color
+	elif not rotten_has_started:
+		current_color = natural_color.lerp( glow_color,glow_progress)
+	elif rotten_has_started:
+		current_color = natural_color.lerp(rotten_color, rotten_progress)
+		
 
 	# Material del tallo.
 	_stem_material.albedo_color = current_color
@@ -94,12 +131,6 @@ func update_appearance() -> void:
 	glow_light.light_energy = glow_strength * glow_progress
 
 
-#Activa o desactiva el estado de glowing
-func set_glowing(enabled: bool) -> void:
-	glowing = enabled
-	update_appearance()
-
-
 # Avanzar un día de crecimiento.
 func advance_growth_day() -> void:
 	growth_day += 1
@@ -108,17 +139,28 @@ func advance_growth_day() -> void:
 		has_glowed = true
 		glowing = true
 		glow_progress = 0.0
+		spores_started.emit(self)
 
 		update_appearance()
 
-	elif growth_day >= 17 and has_glowed and glowing:
+	elif growth_day >= 17 and growth_day < 18 and has_glowed and glowing:
 		glowing = false
 		glow_progress = 0.0
-
+		spores_stopped.emit(self)
 		update_appearance()
+		
+	elif growth_day == 18 and not rotten_has_started:
+		rotten_has_started = true
+		rotten_progress = 0.0
+		update_appearance() 
 
 	_apply_growth_stage()
 
+#Condiciones ambientales
+func set_environment_conditions(temperature: float,humidity: float, speed: float) -> void:
+	environment_ok = (temperature >= min_temp and temperature <= max_temp and humidity >= min_humidity)
+
+	game_time_scale = maxf(speed, 0.0)
 
 func _apply_growth_stage() -> void:
 	# El tallo crece durante los días 1 al 9.
@@ -147,12 +189,25 @@ func _apply_growth_stage() -> void:
 	var cap_factor: float = lerpf( 0.18, 1.0, cap_progress)
 
 	cap.scale = _adult_cap_scale * _cap_variation * cap_factor
-	
+
+#Control de esporas
+func can_generate_spores() -> bool:
+	return spores_generated < max_spores
+
+func register_spore_generation() -> void:
+	spores_generated += 1
+
+	if spores_generated >= max_spores:
+		spores_stopped.emit(self)
+
+#Control de pudricion
+func _start_rot() -> void:
+	if is_rotting:
+		return
+	is_rotting = true
+	spores_stopped.emit(self)
 	
 func _process(delta: float) -> void:
-	if not has_glowed or not glowing:
-		return
-
 	var current_scene := get_tree().current_scene
 	if current_scene == null:
 		return
@@ -170,6 +225,7 @@ func _process(delta: float) -> void:
 		return
 
 	var previous_progress := glow_progress
+	var previous_rotten_progress := rotten_progress
 
 	match growth_day:
 		14:
@@ -180,6 +236,38 @@ func _process(delta: float) -> void:
 
 		16:
 			glow_progress = maxf(glow_progress - delta / day_duration, 0.0)
-
-	if not is_equal_approx(previous_progress, glow_progress):
+		18:
+			rotten_progress = minf(rotten_progress + delta / day_duration, 1.0)
+		19:
+			rotten_progress = 1.0
+		20:
+			fruit_has_died = true
+			rotten_progress = maxf(rotten_progress - delta / day_duration, 0.0)
+		22:
+			fruit_died.emit(self)
+			
+	
+	if not is_equal_approx(previous_progress, glow_progress) || not is_equal_approx(previous_rotten_progress, rotten_progress) :
 		update_appearance()
+		
+	if fruit_has_died:
+		update_appearance()
+	
+	#Simulacion de pudrirse
+	var sim_delta := delta * game_time_scale
+	if is_rotting:
+		rot_elapsed += sim_delta
+
+		if rot_elapsed >= rot_duration:
+			fruit_died.emit(self)
+			set_process(false)
+
+		return
+
+	if environment_ok: 
+		environmental_stress = maxf(0.0, environmental_stress - sim_delta * recovery_rate)
+	else:
+		environmental_stress += sim_delta
+	if environmental_stress >= stress_tolerance:
+		_start_rot()
+		
