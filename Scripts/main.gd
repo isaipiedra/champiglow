@@ -45,6 +45,8 @@ var _living_tree_positions: Array[Vector2] = []
 @onready var carbon_button: BaseButton = ui.get_node("nutrients/carbon_button")
 @onready var nitrogen_button: BaseButton = ui.get_node("nutrients/nitrogen_button")
 @onready var metals_button: BaseButton = ui.get_node("nutrients/metals_button")
+@onready var roots_toggle: BaseButton = ui.get_node("views/roots_toggle")
+@export var environment_root: Node3D
 
 
 var wind_value := 1
@@ -90,6 +92,7 @@ func _ready() -> void:
 	glow_button.pressed.connect(_set_fungus.bind(1))   # Mycena
 	wind_toggle.toggled.connect(_on_wind_toggle)
 	nutrients_toggle.toggled.connect(_on_nutrients_toggle)
+	roots_toggle.toggled.connect(_on_roots_toggle)
 	
 	carbon_button.pressed.connect(_on_add_nutrient.bind("carbon", 10.0))
 	nitrogen_button.pressed.connect(_on_add_nutrient.bind("nitrogen", 10.0))
@@ -252,6 +255,14 @@ func _is_near_living_tree(pos: Vector3) -> bool:
 		if flat.distance_squared_to(tree_pos) <= max_dist_sq:
 			return true
 	return false
+	
+func _on_roots_toggle(toggled_on: bool) -> void:
+	if environment_root:
+		environment_root.visible = not toggled_on
+	
+	if toggled_on:
+		if wind_toggle.button_pressed: wind_toggle.button_pressed = false
+		if nutrients_toggle.button_pressed: nutrients_toggle.button_pressed = false
 
 # ---------- partículas ----------
 func generate_particle() -> void:
