@@ -3,8 +3,16 @@ extends Node3D
 ## Cuando la espora toca el suelo.
 signal landed(spore: Node3D, position: Vector3)
 
-## La capa del suelo
+
 @export_flags_3d_physics var ground_mask: int = 1
+
+## Resistencia del aire y gravedad según la hora
+@export_group("Día y noche")
+@export var day_air_drag: float = 0.5
+@export var night_air_drag: float = 1.0
+@export var day_gravity_scale: float = 0.05
+@export var night_gravity_scale: float = 0.5
+@export_group("")
 
 @onready var rigid_body: RigidBody3D = $RigidBody3D
 
@@ -17,12 +25,20 @@ var _has_landed := false
 
 func _ready() -> void:
 	rigid_body.gravity_scale = 0.1
-	# La espora solo choca con el suelo
 	rigid_body.collision_layer = 1 << 1 
 	rigid_body.collision_mask = ground_mask
 	rigid_body.contact_monitor = true
 	rigid_body.max_contacts_reported = 1
 	rigid_body.body_entered.connect(_on_body_entered)
+
+
+## Fuerza con la que la disparan
+@export var initial_impulse: float = 0.5
+
+
+## Empujón cuando sale del hongo
+func init_shot(direction: Vector3) -> void:
+	rigid_body.apply_central_impulse(direction.normalized() * initial_impulse)
 
 
 func fetch_environmental_factors(wind: Vector3) -> void:
@@ -34,11 +50,13 @@ func change_actual_wind(wind: Vector3) -> void:
 
 
 func its_night() -> void:
-	rigid_body.gravity_scale = 0.1
+	rigid_body.gravity_scale = night_gravity_scale
+	rigid_body.linear_damp = night_air_drag
 
 
 func its_day() -> void:
-	rigid_body.gravity_scale = 0.0001
+	rigid_body.gravity_scale = day_gravity_scale
+	rigid_body.linear_damp = day_air_drag
 
 
 func _on_body_entered(_body: Node) -> void:
