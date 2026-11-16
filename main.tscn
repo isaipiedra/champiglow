@@ -1704,10 +1704,10 @@ terrain = NodePath("../environment/terrain/Cube")
 spacing = 2.0
 arrow_color = Color(0.5882353, 0.5882353, 0.5882353, 1)
 
-[node name="NutrientView" type="Node3D" parent="." unique_id=610843241 node_paths=PackedStringArray("terrain", "tree_chomp")]
+[node name="NutrientView" type="Node3D" parent="." unique_id=610843241 node_paths=PackedStringArray("terrain", "ignored_bodies")]
 script = ExtResource("43_d2t1y")
 terrain = NodePath("../environment/terrain/Cube")
-tree_chomp = NodePath("../environment/Sketchfab_Scene/Sketchfab_model/4323d4fc9244453d8b946cb6e40945d6_fbx/RootNode/Cylinder/Cylinder__0")
+ignored_bodies = [NodePath("../environment/Sketchfab_Scene/Sketchfab_model/4323d4fc9244453d8b946cb6e40945d6_fbx/RootNode/Cylinder/Cylinder__0/StaticBody3D"), NodePath("../environment/tree_chomp2/Sketchfab_model/4a212aa4cd204a66b64df98f9b6a5a48_obj_cleaner_materialmerger_gles/Object_2/StaticBody3D"), NodePath("../environment/tree_chomp/Sketchfab_model/4a212aa4cd204a66b64df98f9b6a5a48_obj_cleaner_materialmerger_gles/Object_2/StaticBody3D"), NodePath("../environment/Boulder Flat Regular")]
 
 [editable path="CanvasLayer/SubViewportContainer/SubViewport/windControl/vane_stick"]
 [editable path="environment/tree_chomp2"]

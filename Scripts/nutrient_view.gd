@@ -1,19 +1,18 @@
 extends Node3D
 
 @export var terrain: MeshInstance3D
-@export var tree_chomp: Node3D
-@export var spacing: float = 2.0
+@export var spacing: float = 1.0
+@export var ignored_bodies: Array[Node3D] = [] 
 
 # Colores de los nutrientes
 @export var color_carbon: Color = Color(0.2, 0.4, 1.0)
 @export var color_nitrogen: Color = Color(1.0, 0.4, 0.8)
 @export var color_metals: Color = Color(1.0, 0.9, 0.2)
 
-@export var max_items_per_cell: int = 20 
+@export var max_items_per_cell: int = 15 
 
 var grid_data: Dictionary = {}
 var _grid_positions: Dictionary = {}
-# Diccionario para almacenar los tipos de nutrientes
 var _scatter_transforms: Dictionary = {}
 
 var _multi_carbon: MultiMeshInstance3D
@@ -42,9 +41,12 @@ func _build_grid() -> void:
 	var start_z := center.z - (count_z * spacing) * 0.5
 
 	var space_state = get_world_3d().direct_space_state
-	var chomp_aabb = null
-	if tree_chomp:
-		chomp_aabb = tree_chomp.global_transform * tree_chomp.get_aabb()
+
+	# Preparamos la lista de objetos a ignorar (RIDs)
+	var exclude_rids: Array[RID] = []
+	for body in ignored_bodies:
+		if body is CollisionObject3D:
+			exclude_rids.append(body.get_rid())
 
 	for i in range(count_x + 1):
 		for j in range(count_z + 1):
@@ -53,19 +55,20 @@ func _build_grid() -> void:
 			
 			var ray_origin := Vector3(pos_x, 100.0, pos_z)
 			var ray_end := Vector3(pos_x, -100.0, pos_z)
+			
 			var query := PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
+			query.exclude = exclude_rids # AQUÍ LE DECIMOS AL RAYO QUE IGNORE EL TRONCO
+			
 			var result := space_state.intersect_ray(query)
 			
 			if result:
-				var ground_y = result.position.y
-				if chomp_aabb and chomp_aabb.has_point(Vector3(pos_x, ground_y, pos_z)):
-					ground_y = chomp_aabb.position.y + chomp_aabb.size.y + 0.1
+				# Ahora el rayo siempre chocará con el pasto, sin importar lo que haya encima
+				var hit_pos = result.position + (Vector3.UP * 0.15)
 				
 				var cell_key = Vector2i(i, j)
-				_grid_positions[cell_key] = to_local(Vector3(pos_x, ground_y + 0.1, pos_z))
+				_grid_positions[cell_key] = to_local(hit_pos)
 				grid_data[cell_key] = {"carbon": 0.0, "nitrogen": 0.0, "metals": 0.0}
 				
-				# Aleatorizar las posiciones de los nutrientes 
 				var scatter_c = []
 				var scatter_n = []
 				var scatter_m = []
@@ -80,17 +83,17 @@ func _build_grid() -> void:
 					"metals": scatter_m
 				}
 
-# Función que genera la posición y rotación aleatorias
 func _get_random_transform() -> Transform3D:
 	var offset = Vector3(
 		randf_range(-spacing * 0.4, spacing * 0.4),
-		randf_range(0.0, 0.05),
+		0.0, 
 		randf_range(-spacing * 0.4, spacing * 0.4)
 	)
-	var rot = Basis(Vector3.UP, randf() * TAU)
+	var spin_basis = Basis(Vector3.UP, randf() * TAU)
 	var s = randf_range(0.8, 1.2)
-	return Transform3D(rot.scaled(Vector3(s, s, s)), offset)
-
+	var final_basis = spin_basis.scaled(Vector3(s, s, s))
+	return Transform3D(final_basis, offset)
+	
 func _build_multimeshes() -> void:
 	var total_instances = _grid_positions.size() * max_items_per_cell
 	_multi_carbon = _create_multimesh(_make_triangle_mesh(color_carbon), total_instances)
