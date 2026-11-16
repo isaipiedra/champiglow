@@ -5,12 +5,14 @@ signal landed(spore: Node3D, body: Node3D)
 
 @onready var rigid_body: RigidBody3D = $RigidBody3D
 @export var lifetime_after_landing: float = 15.0
-@export var day_air_drag: float = 1
-@export var night_air_drag: float = 0.0
+@export var day_air_drag: float = 0.5
+@export var night_air_drag: float = 1
+@export var initial_impulse: float = 50
 
 var actual_wind: Vector3 = Vector3.ZERO
 var humidity: float = 0.0
 var has_landed: bool = false
+var isDay: bool = false;
 
 
 func _ready() -> void:
@@ -31,25 +33,27 @@ func fetch_environmental_factors(wind: Vector3) -> void:
 func change_actual_wind(wind: Vector3) -> void:
 	actual_wind = wind
 
-
 func its_night() -> void:
-	rigid_body.gravity_scale = 0.1
+	rigid_body.gravity_scale = 0.5
 	rigid_body.linear_damp = night_air_drag
-	print("NOCHE | Gravedad: ", rigid_body.gravity_scale,
-		  " | Amortiguación: ", rigid_body.linear_damp)
+	isDay = false
 
 
 func its_day() -> void:
-	rigid_body.gravity_scale = 0.001
+	rigid_body.gravity_scale = 0.05
 	rigid_body.linear_damp = day_air_drag
-	print("DÍA | Gravedad: ", rigid_body.gravity_scale,
-		  " | Amortiguación: ", rigid_body.linear_damp)
-
+	isDay = true
 
 func _physics_process(_delta: float) -> void:
 	if not has_landed and actual_wind != Vector3.ZERO:
 		rigid_body.apply_central_force(actual_wind)
 
+func init_shot(direction: Vector3) -> void:
+	if isDay:
+		initial_impulse = 0.5
+	else:
+		initial_impulse = 1
+	rigid_body.apply_central_impulse(direction.normalized() * initial_impulse)
 
 
 func _on_body_entered(body: Node3D) -> void:

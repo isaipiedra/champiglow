@@ -15,9 +15,6 @@ albedo_color = Color(0.47843137, 0.9647059, 0, 0.2627451)
 
 [node name="MycenaParticle" type="Node3D" unique_id=1893368077]
 script = ExtResource("1_pfkpa")
-lifetime_after_landing = null
-day_air_drag = null
-night_air_drag = null
 
 [node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=2005609609]
 

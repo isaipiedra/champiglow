@@ -12,14 +12,34 @@ var glow_strength: float = 1.0 #Valor incial de brillo
 @export_range(0.0, 0.4, 0.01) #Variacion entre los tamaños de los honguitos
 var size_variation: float = 0.18
 
+@export var max_spores: int = 20
+var spores_generated: int = 0
+
 @onready var stem: Node3D = $Stem #Nodo del tallo
 @onready var stem_mesh: MeshInstance3D = $Stem/MeshInstance3D #Nodo de la malla del tayo
 @onready var cap: Node3D = $Cap #Nodo del sombrerillo del hongo para hacerlo crecer
 @onready var glow_light: OmniLight3D = $GlowLight #Nodo del brillo del hongo
 
+#Variables de estrés
+@export var min_temp: float = 8.0
+@export var max_temp: float = 27.0
+@export var min_humidity: float = 70.0
+
+@export var stress_tolerance: float = 20.0
+@export var rot_duration: float = 15.0
+@export var recovery_rate: float = 0.5
+
+var environment_ok: bool = true
+var environmental_stress: float = 0.0
+var is_rotting: bool = false
+var rot_elapsed: float = 0.0
+var game_time_scale: float = 1.0
+
+#Variables de brillo
 var glowing: bool = false #Honguito iluminando si o no
 var growth_day: int = 1 #Dia de crecimiento
 
+#Variables de escala
 var _adult_stem_scale: Vector3 #Escala original del hongo adulto
 var _adult_cap_position: Vector3 #Posicion original del sombrero adulto
 var _stem_base_y: float #Altura de la base del tallo para que se mantenga igual mientras crece el hongo
@@ -43,6 +63,9 @@ var rotten_progress: float = 0.0
 var rotten_has_started: bool = false
 var fruit_has_died: bool = false
 signal fruit_died(mushroom: Node3D)
+
+signal spores_started(mushroom:Node3D)
+signal spores_stopped(mushroom: Node3D)
 
 func _ready() -> void:
 	#Se guardan las medidas del tallo y sombrerillo originales
@@ -82,7 +105,6 @@ func _ready() -> void:
 
 
 # Control de apariencia.
-
 func update_appearance() -> void:
 	#Interpolación lineal, mezcla el color natural con el luminoso
 	var current_color: Color
@@ -117,13 +139,14 @@ func advance_growth_day() -> void:
 		has_glowed = true
 		glowing = true
 		glow_progress = 0.0
+		spores_started.emit(self)
 
 		update_appearance()
 
 	elif growth_day >= 17 and growth_day < 18 and has_glowed and glowing:
 		glowing = false
 		glow_progress = 0.0
-
+		spores_stopped.emit(self)
 		update_appearance()
 		
 	elif growth_day == 18 and not rotten_has_started:
@@ -133,6 +156,11 @@ func advance_growth_day() -> void:
 
 	_apply_growth_stage()
 
+#Condiciones ambientales
+func set_environment_conditions(temperature: float,humidity: float, speed: float) -> void:
+	environment_ok = (temperature >= min_temp and temperature <= max_temp and humidity >= min_humidity)
+
+	game_time_scale = maxf(speed, 0.0)
 
 func _apply_growth_stage() -> void:
 	# El tallo crece durante los días 1 al 9.
@@ -161,7 +189,23 @@ func _apply_growth_stage() -> void:
 	var cap_factor: float = lerpf( 0.18, 1.0, cap_progress)
 
 	cap.scale = _adult_cap_scale * _cap_variation * cap_factor
-	
+
+#Control de esporas
+func can_generate_spores() -> bool:
+	return spores_generated < max_spores
+
+func register_spore_generation() -> void:
+	spores_generated += 1
+
+	if spores_generated >= max_spores:
+		spores_stopped.emit(self)
+
+#Control de pudricion
+func _start_rot() -> void:
+	if is_rotting:
+		return
+	is_rotting = true
+	spores_stopped.emit(self)
 	
 func _process(delta: float) -> void:
 	var current_scene := get_tree().current_scene
@@ -208,4 +252,22 @@ func _process(delta: float) -> void:
 		
 	if fruit_has_died:
 		update_appearance()
+	
+	#Simulacion de pudrirse
+	var sim_delta := delta * game_time_scale
+	if is_rotting:
+		rot_elapsed += sim_delta
+
+		if rot_elapsed >= rot_duration:
+			fruit_died.emit(self)
+			set_process(false)
+
+		return
+
+	if environment_ok: 
+		environmental_stress = maxf(0.0, environmental_stress - sim_delta * recovery_rate)
+	else:
+		environmental_stress += sim_delta
+	if environmental_stress >= stress_tolerance:
+		_start_rot()
 		
