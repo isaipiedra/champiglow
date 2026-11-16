@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://bjg8qbyqsev1p"]
+
+[ext_resource type="Script" uid="uid://cmkonnlekvwsc" path="res://Scripts/amanita_model.gd" id="1_amanita"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_stem"]
+radius = 0.0267
+height = 0.25
+
+[sub_resource type="SphereMesh" id="SphereMesh_cap"]
+radius = 0.125
+height = 0.25
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ring"]
+top_radius = 0.038
+bottom_radius = 0.038
+height = 0.01
+
+[sub_resource type="SphereMesh" id="SphereMesh_spot"]
+radius = 0.0167
+height = 0.0334
+
+[node name="AmanitaModel" type="Node3D" unique_id=141358940]
+script = ExtResource("1_amanita")
+
+[node name="Stem" type="MeshInstance3D" parent="." unique_id=1799578973]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+mesh = SubResource("CapsuleMesh_stem")
+
+[node name="Cap" type="MeshInstance3D" parent="." unique_id=1425903124]
+transform = Transform3D(1, 0, 0, 0, 0.35, 0, 0, 0, 1, 0, 0.25, 0)
+mesh = SubResource("SphereMesh_cap")
+
+[node name="Ring" type="MeshInstance3D" parent="." unique_id=489427285]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.175, 0)
+mesh = SubResource("CylinderMesh_ring")
+
+[node name="Spots" type="Node3D" parent="." unique_id=1255267872]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+
+[node name="Spot1" type="MeshInstance3D" parent="Spots" unique_id=1174606692]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04275, 0.04111, 0)
+mesh = SubResource("SphereMesh_spot")
+
+[node name="Spot2" type="MeshInstance3D" parent="Spots" unique_id=22671423]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0.05681, 0.03094, 0.06771)
+mesh = SubResource("SphereMesh_spot")
+
+[node name="Spot3" type="MeshInstance3D" parent="Spots" unique_id=641153758]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, -0.02138, 0.03789, 0.05873)
+mesh = SubResource("SphereMesh_spot")
+
+[node name="Spot4" type="MeshInstance3D" parent="Spots" unique_id=1958406748]
+transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, -0.0943, 0.02812, 0.01663)
+mesh = SubResource("SphereMesh_spot")
+
+[node name="Spot5" type="MeshInstance3D" parent="Spots" unique_id=67726975]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, -0.05492, 0.03584, -0.04609)
+mesh = SubResource("SphereMesh_spot")
+
+[node name="Spot6" type="MeshInstance3D" parent="Spots" unique_id=1185458161]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.02509, -0.10239)
+mesh = SubResource("SphereMesh_spot")
+
+[node name="Spot7" type="MeshInstance3D" parent="Spots" unique_id=165820964]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.04047, 0.03965, -0.03396)
+mesh = SubResource("SphereMesh_spot")
