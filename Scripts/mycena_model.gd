@@ -36,6 +36,8 @@ var is_rotting: bool = false #Indica si ya empezó a pudrirse
 var rot_elapsed: float = 0.0 #Tiempo pudiriendose
 var game_time_scale: float = 1.0 
 
+var actual_temperature = 0.0
+
 #Variables de brillo
 var glowing: bool = false #Honguito iluminando si o no
 var growth_day: int = 1 #Dia de crecimiento
@@ -65,8 +67,13 @@ var rotten_has_started: bool = false
 var fruit_has_died: bool = false
 signal fruit_died(mushroom: Node3D)
 
+#Bandera de dia
+var is_night: bool = false;
+var second_half_night: bool = false;
+
 signal spores_started(mushroom:Node3D)
 signal spores_stopped(mushroom: Node3D)
+
 
 func _ready() -> void:
 	#Se guardan las medidas del tallo y sombrerillo originales
@@ -104,7 +111,19 @@ func _ready() -> void:
 	update_appearance()
 	_apply_growth_stage()
 
+#Funciones encargas del día
+func its_night() -> void:
+	is_night = true
+	
+func its_day() -> void:
+	is_night = false
 
+func its_second_half_night() -> void:
+	second_half_night = true
+	
+func its_not_second_half_night() -> void:
+	second_half_night = false
+	
 # Control de apariencia.
 func update_appearance() -> void:
 	#Interpolación lineal, mezcla el color natural con el luminoso
@@ -137,7 +156,7 @@ func update_appearance() -> void:
 func advance_growth_day() -> void:
 	growth_day += 1
 	if not is_rotting:
-		if growth_day == 14 and not has_glowed:
+		if growth_day == 14 and not has_glowed and is_night:
 			has_glowed = true
 			glowing = true
 			glow_progress = 0.0
@@ -145,7 +164,7 @@ func advance_growth_day() -> void:
 
 			update_appearance()
 
-		elif growth_day >= 17 and growth_day < 18 and has_glowed and glowing:
+		elif growth_day >= 17 and growth_day < 18 and has_glowed and glowing and not is_night:
 			glowing = false
 			glow_progress = 0.0
 			spores_stopped.emit(self)
@@ -160,6 +179,7 @@ func advance_growth_day() -> void:
 
 #Condiciones ambientales
 func set_environment_conditions(temperature: float,humidity: float, speed: float) -> void:
+	actual_temperature = temperature
 	environment_ok = (temperature >= min_temp and temperature <= max_temp and humidity >= min_humidity)
 
 	game_time_scale = maxf(speed, 0.0)
@@ -224,6 +244,7 @@ func _process(delta: float) -> void:
 	if not bool(sky.get("auto_advance")):
 		return
 
+	var glow_duration := 6
 	var day_duration := float(sky.get("day_length"))
 	if day_duration <= 0.0:
 		return
@@ -232,15 +253,45 @@ func _process(delta: float) -> void:
 	var previous_rotten_progress := rotten_progress
 	if not is_rotting:
 		match growth_day:
-			14:
-				glow_progress = minf(glow_progress + delta / day_duration,1.0)
+			14:	
+				if is_night and not second_half_night and actual_temperature >= 21 and actual_temperature <=22:
+					glow_progress = minf(glow_progress + delta / glow_duration,1.0)
+				elif is_night and second_half_night and actual_temperature >= 21 and actual_temperature <=22:
+					glow_progress = maxf(glow_progress - delta / glow_duration, 0.0)
+				else:
+					glowing = false
+					glow_progress = 0.0
+
 
 			15:
-				glow_progress = 1.0
+				if is_night and not second_half_night and actual_temperature >= 21 and actual_temperature <=22:
+					glowing = true
+					glow_progress = minf(glow_progress + delta / glow_duration,1.0)
+				elif is_night and second_half_night and actual_temperature >= 21 and actual_temperature <=22:
+					glow_progress = maxf(glow_progress - delta / glow_duration, 0.0)
+				else:
+					glowing = false
+					glow_progress = 0.0
 
 			16:
-				glow_progress = maxf(glow_progress - delta / day_duration, 0.0)
+				if is_night and not second_half_night and actual_temperature >= 21 and actual_temperature <=22:
+					glowing = true
+					glow_progress = minf(glow_progress + delta / glow_duration,1.0)
+				elif is_night and second_half_night:
+					glow_progress = maxf(glow_progress - delta / glow_duration, 0.0)
+				else:
+					glowing = false
+					glow_progress = 0.0
+			17:
+				if is_night and second_half_night:
+					glow_progress = maxf(glow_progress - delta / glow_duration, 0.0)
+					
+				elif not second_half_night and glowing:
+					glowing = false
+					glow_progress = 0.0
 			18:
+				glowing = false
+				glow_progress = 0.0
 				rotten_progress = minf(rotten_progress + delta / day_duration, 1.0)
 			19:
 				rotten_progress = 1.0

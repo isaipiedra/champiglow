@@ -406,13 +406,21 @@ func _process(delta: float) -> void:
 	if wind_view.visible:
 		wind_view.update_arrows(wind_force)
 		
-	if $sky.time_of_day >= 18.0:
+	if $sky.time_of_day >= 18.0 or $sky.time_of_day < 6.0:
 		if not is_night:
 			is_night = true
 			is_day = false
 			for particle in array_mycena_particles:
 				if is_instance_valid(particle):
 					particle.its_night()
+			for mycena in grown_mycenas:
+				if is_instance_valid(mycena):
+					mycena.its_night()
+		print("Es media noche ", $sky.time_of_day)
+		if $sky.time_of_day >= 0.0 and $sky.time_of_day < 1.0:
+				for mycena in grown_mycenas:
+					if is_instance_valid(mycena):
+						mycena.its_second_half_night()	
 	else:
 		if not is_day:
 			is_day = true
@@ -421,6 +429,13 @@ func _process(delta: float) -> void:
 			for particle in array_mycena_particles:
 				if is_instance_valid(particle):
 					particle.its_day()
+			for mycena in grown_mycenas:
+				if is_instance_valid(mycena):
+					mycena.its_day()
+			if $sky.time_of_day >= 6.0 and $sky.time_of_day < 7.0:
+				for mycena in grown_mycenas:
+					if is_instance_valid(mycena):
+						mycena.its_not_second_half_night()
 	
 	if not array_mushrooms_generating_mycenas.is_empty():
 		spore_timer += delta * time_speed_mul
