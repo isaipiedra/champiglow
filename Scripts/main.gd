@@ -7,10 +7,12 @@ extends Node3D
 
 @export var wind_force: Vector3 = Vector3.ZERO   # (se calcula desde el pivote)
 
-@export var amanita_mushroom_scenes: Array[PackedScene] = []
+@export var amanita_model_scene: PackedScene   # Modelo del cuerpo del hongo Amanita
 @export var mushroom_scale := 1.0
-@export var mushroom_grow_time := 1.5
-@export var growth_days := 28.0
+@export var growth_days := 0.0  
+
+
+@export_group("")
 
 #Generación de esporas
 @export var spore_interval: float = 2
@@ -20,8 +22,6 @@ var spore_timer: float = 0.0
 @export var living_tree_models: PackedStringArray = ["MapleTree"]
 @export var tree_radius := 1.5
 var _living_tree_positions: Array[Vector2] = []
-
-@export_flags_3d_physics var mushroom_layer: int = 8
 
 @onready var label_time = $CanvasLayer/Interface/Label_Time
 @onready var label_temperature = $CanvasLayer/Interface/Label_Temperature
@@ -62,6 +62,7 @@ var _last_time_of_day: float = 0.0
 var array_mycena_particles: Array = []
 var array_amanita_particles: Array = []
 var grown_mycenas: Array[Node3D] = [] #Lista de hongos mycena
+var grown_amanitas: Array[Node3D] = [] #Lista de hongos amanita
 var array_mushrooms_generating_mycenas: Array = []
 var array_mushrooms_generating_amanita: Array = []
 
@@ -111,6 +112,7 @@ func _set_temperature(v: float) -> void:
 	label_temperature.text = "Temperatura %.1f °C" % temperature_celsius
 	temp_slider.value = temperature_celsius
 	_notify_mycenas_environment()
+	_notify_amanitas_environment()
 
 
 func _set_humidity(v: float) -> void:
@@ -118,6 +120,7 @@ func _set_humidity(v: float) -> void:
 	label_humidity.text = "Porcentaje de Humedad: %.1f" % humidity_percentage
 	humidity_slider.value = humidity_percentage
 	_notify_mycenas_environment()
+	_notify_amanitas_environment()
 
 
 
@@ -193,6 +196,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func are_mycena_conditions_optimal() -> bool:
 	return (temperature_celsius >= 8.0 and temperature_celsius <= 27.0 and humidity_percentage >= 70.0)
+
+func are_amanita_conditions_optimal() -> bool:
+	return (temperature_celsius >= 18.0 and temperature_celsius <= 24.0 and humidity_percentage >= 80.0)
 	
 # ---------- Hongos -------------
 
@@ -205,30 +211,75 @@ func _update_pending_mushrooms() -> void:
 
 func _on_amanita_landed(spore: Node3D, pos: Vector3) -> void:
 	array_amanita_particles.erase(spore)
-	var flat := Vector2(pos.x, pos.z)
-	var nearest := INF
-	for t in _living_tree_positions:
-		nearest = minf(nearest, flat.distance_to(t))
+	if not are_amanita_conditions_optimal():
+		return
 	if _is_near_living_tree(pos):
 		_pending_mushrooms.append({"pos": pos, "ready_at": $sky.elapsed_days + growth_days})
 
 
 func _grow_amanita(pos: Vector3) -> void:
-	if amanita_mushroom_scenes.is_empty() || amanita_mushroom_scenes[0] == null:
-		push_warning("No hay estos hongos")
+	if amanita_model_scene == null:
+		push_warning("Falta asignar amanita_model_scene en el Inspector")
 		return
 
-	var mushroom := amanita_mushroom_scenes[0].instantiate() as Node3D
+	var mushroom = amanita_model_scene.instantiate()
+	mushroom.fruit_died.connect(_on_amanita_died)
+	mushroom.spores_started.connect(_on_amanita_spores_started)
+	mushroom.spores_stopped.connect(_on_amanita_spores_stopped)
+
 	add_child(mushroom)
 	mushroom.global_transform = Transform3D(Basis(Vector3.UP, randf() * TAU), pos)
+	mushroom.setup($sky, mushroom_scale)
+	mushroom.set_environment_conditions(temperature_celsius, humidity_percentage)
+	grown_amanitas.append(mushroom)
 
-	var body := mushroom as CollisionObject3D
-	if body:
-		body.collision_layer = mushroom_layer
 
-	var target := mushroom_scale * randf_range(0.9, 1.1)
-	mushroom.scale = Vector3.ONE * target * 0.01
-	create_tween().tween_property(mushroom, "scale", Vector3.ONE * target, mushroom_grow_time)
+# Funciones de la Amanita adulta
+func _on_amanita_spores_started(mushroom: Node3D) -> void:
+	if not array_mushrooms_generating_amanita.has(mushroom):
+		array_mushrooms_generating_amanita.append(mushroom)
+
+
+func _on_amanita_spores_stopped(mushroom: Node3D) -> void:
+	array_mushrooms_generating_amanita.erase(mushroom)
+
+
+func _on_amanita_died(mushroom: Node3D) -> void:
+	grown_amanitas.erase(mushroom)
+	array_mushrooms_generating_amanita.erase(mushroom)
+	mushroom.queue_free()
+
+
+func _generate_amanita_spore(mushroom: Node3D) -> void:
+	if not mushroom.can_generate_spores():
+		array_mushrooms_generating_amanita.erase(mushroom)
+		return
+
+	if amanita_scene == null:
+		return
+
+	var spore = amanita_scene.instantiate()
+	add_child(spore)
+	spore.global_position = mushroom.get_spore_origin()
+
+	var direction := Vector3(randf_range(-0.3, 0.3), 1.0, randf_range(-0.3, 0.3)).normalized()
+
+	spore.landed.connect(_on_amanita_landed)
+	spore.fetch_environmental_factors(wind_force)
+	if $sky.time_of_day >= 18.0:
+		spore.its_night()
+	else:
+		spore.its_day()
+	spore.init_shot(direction)
+
+	array_amanita_particles.append(spore)
+	mushroom.register_spore_generation()
+
+
+func _notify_amanitas_environment() -> void:
+	for mushroom in grown_amanitas:
+		if is_instance_valid(mushroom):
+			mushroom.set_environment_conditions(temperature_celsius, humidity_percentage)
 
 func _collect_living_trees() -> void:
 	_living_tree_positions.clear()
@@ -276,7 +327,6 @@ func generate_particle() -> void:
 	var ray_direction: Vector3 = $Camera3D.project_ray_normal(mouse_pos)
 
 	var new_particle = scene.instantiate()
-	new_particle.global_position = ray_origin + ray_direction * 5.0
 	if chosen_fungus == 1 and new_particle.has_signal("landed"):
 		new_particle.connect("landed", Callable(self, "_on_mycena_spore_landed"))
 	add_child(new_particle)
@@ -286,11 +336,10 @@ func generate_particle() -> void:
 	if new_particle.has_method("fetch_environmental_factors"):
 		new_particle.fetch_environmental_factors(wind_force)
 		
-	if chosen_fungus == 1:
-		if $sky.time_of_day >= 18.0:
-			new_particle.its_night()
-		else:
-			new_particle.its_day()
+	if $sky.time_of_day >= 18.0:
+		new_particle.its_night()
+	else:
+		new_particle.its_day()
 
 	if chosen_fungus == 0:
 		array_amanita_particles.append(new_particle)
@@ -410,7 +459,7 @@ func _process(delta: float) -> void:
 		if not is_night:
 			is_night = true
 			is_day = false
-			for particle in array_mycena_particles:
+			for particle in array_mycena_particles + array_amanita_particles:
 				if is_instance_valid(particle):
 					particle.its_night()
 			for mycena in grown_mycenas:
@@ -437,7 +486,7 @@ func _process(delta: float) -> void:
 					if is_instance_valid(mycena):
 						mycena.its_not_second_half_night()
 	
-	if not array_mushrooms_generating_mycenas.is_empty():
+	if not array_mushrooms_generating_mycenas.is_empty() or not array_mushrooms_generating_amanita.is_empty():
 		spore_timer += delta * time_speed_mul
 
 		if spore_timer >= spore_interval:
@@ -448,6 +497,12 @@ func _process(delta: float) -> void:
 					_generate_mycena_spore(mushroom)
 				else:
 					array_mushrooms_generating_mycenas.erase(mushroom)
+
+			for mushroom in array_mushrooms_generating_amanita.duplicate():
+				if is_instance_valid(mushroom):
+					_generate_amanita_spore(mushroom)
+				else:
+					array_mushrooms_generating_amanita.erase(mushroom)
 				
 	if current_time < _last_time_of_day:
 		_advance_mycena_growth_days()
