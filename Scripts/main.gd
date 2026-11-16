@@ -178,8 +178,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		KEY_SPACE: _toggle_time()
 		KEY_H: _set_fungus(1 - chosen_fungus)
 
-func weather_conditions() -> bool:
-	return (temperature_celsius < 8.0 or temperature_celsius > 27.0) && humidity_percentage >= 70 
+func are_mycena_conditions_optimal() -> bool:
+	return (temperature_celsius >= 8.0 and temperature_celsius <= 27.0 and humidity_percentage >= 70.0)
 	
 # ---------- Hongos -------------
 
@@ -285,7 +285,7 @@ func _on_mycena_spore_landed(spore: Node3D, body: Node3D) -> void:
 		spore.queue_free()
 		return
 	
-	if weather_conditions():
+	if not  are_mycena_conditions_optimal():
 		spore.queue_free()
 		return
 
