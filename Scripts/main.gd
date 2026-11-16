@@ -36,6 +36,11 @@ var _living_tree_positions: Array[Vector2] = []
 # --- nodos de las vistas ---
 @onready var wind_view: Node3D = $WindView
 @onready var wind_toggle: BaseButton = ui.get_node("views/WindToggle")
+@onready var nutrient_view: Node3D = $NutrientView
+@onready var nutrients_toggle: BaseButton = ui.get_node("views/nutrients_toggle")
+@onready var carbon_button: BaseButton = ui.get_node("nutrients/carbon_button")
+@onready var nitrogen_button: BaseButton = ui.get_node("nutrients/nitrogen_button")
+@onready var metals_button: BaseButton = ui.get_node("nutrients/metals_button")
 
 
 var wind_value := 0.5
@@ -78,6 +83,11 @@ func _ready() -> void:
 	red_button.pressed.connect(_set_fungus.bind(0))    # Amanita
 	glow_button.pressed.connect(_set_fungus.bind(1))   # Mycena
 	wind_toggle.toggled.connect(_on_wind_toggle)
+	nutrients_toggle.toggled.connect(_on_nutrients_toggle)
+	
+	carbon_button.pressed.connect(_on_add_nutrient.bind("carbon", 10.0))
+	nitrogen_button.pressed.connect(_on_add_nutrient.bind("nitrogen", 10.0))
+	metals_button.pressed.connect(_on_add_nutrient.bind("metals", 10.0))
 
 	_set_temperature(temperature_celsius)
 	_set_humidity(humidity_percentage)
@@ -337,3 +347,13 @@ func _process(_delta: float) -> void:
 	if current_time < _last_time_of_day:
 		_advance_mycena_growth_days()
 	_last_time_of_day = current_time
+
+# ---------- nutrientes ----------
+func _on_nutrients_toggle(toggled_on: bool) -> void:
+	nutrient_view.visible = toggled_on
+	if toggled_on:
+		# Obligamos a que actualice los tamaños al encenderse
+		nutrient_view.call_deferred("_update_visuals")
+
+func _on_add_nutrient(nutrient_type: String, amount: float) -> void:
+	nutrient_view.add_nutrient(nutrient_type, amount)

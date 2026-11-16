@@ -42,6 +42,7 @@
 [ext_resource type="PackedScene" uid="uid://decs1u87oylc" path="res://Scenes/MycenaParticle.tscn" id="26_a6jrf"]
 [ext_resource type="PackedScene" uid="uid://dgelwmes1qn23" path="res://Prefabs/Oysters Pearl/oyster_pearl_1.tscn" id="28_xuqvo"]
 [ext_resource type="Script" uid="uid://bi6c57rluck8" path="res://Scripts/wind_view.gd" id="41_4lmeg"]
+[ext_resource type="Script" uid="uid://bxmr7gy6633hs" path="res://Scripts/nutrient_view.gd" id="43_d2t1y"]
 
 [sub_resource type="Environment" id="Environment_82xsv"]
 background_mode = 2
@@ -228,7 +229,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.3440037, 0.92533267, -6.623
 [node name="tree_chomp2" parent="environment" unique_id=801472906 instance=ExtResource("6_2cqfq")]
 transform = Transform3D(-0.288155, 0, -0.9575838, 0, 1, 0, 0.9575838, 0, -0.288155, -6.52233, 1.2133138, -4.8080544)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="environment/tree_chomp2/Sketchfab_model/4a212aa4cd204a66b64df98f9b6a5a48_obj_cleaner_materialmerger_gles/Object_2" parent_id_path=PackedInt32Array(801472906, 1237637878) index="0" unique_id=1838636383 groups=["mycena_host"]]
+[node name="StaticBody3D" type="StaticBody3D" parent="environment/tree_chomp2/Sketchfab_model/4a212aa4cd204a66b64df98f9b6a5a48_obj_cleaner_materialmerger_gles/Object_2" parent_id_path=PackedInt32Array(801472906, 947063444) index="0" unique_id=1838636383 groups=["mycena_host"]]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="environment/tree_chomp2/Sketchfab_model/4a212aa4cd204a66b64df98f9b6a5a48_obj_cleaner_materialmerger_gles/Object_2/StaticBody3D" unique_id=2132791414]
 transform = Transform3D(1, 0, 0, 0, 1, 4.9630837e-24, 0, 4.9630837e-24, 1, 0, 0, 0)
@@ -1702,6 +1703,11 @@ script = ExtResource("41_4lmeg")
 terrain = NodePath("../environment/terrain/Cube")
 spacing = 2.0
 arrow_color = Color(0.5882353, 0.5882353, 0.5882353, 1)
+
+[node name="NutrientView" type="Node3D" parent="." unique_id=610843241 node_paths=PackedStringArray("terrain", "ignored_bodies")]
+script = ExtResource("43_d2t1y")
+terrain = NodePath("../environment/terrain/Cube")
+ignored_bodies = [NodePath("../environment/Sketchfab_Scene/Sketchfab_model/4323d4fc9244453d8b946cb6e40945d6_fbx/RootNode/Cylinder/Cylinder__0/StaticBody3D"), NodePath("../environment/tree_chomp2/Sketchfab_model/4a212aa4cd204a66b64df98f9b6a5a48_obj_cleaner_materialmerger_gles/Object_2/StaticBody3D"), NodePath("../environment/tree_chomp/Sketchfab_model/4a212aa4cd204a66b64df98f9b6a5a48_obj_cleaner_materialmerger_gles/Object_2/StaticBody3D"), NodePath("../environment/Boulder Flat Regular")]
 
 [editable path="CanvasLayer/SubViewportContainer/SubViewport/windControl/vane_stick"]
 [editable path="environment/tree_chomp2"]
