@@ -26,15 +26,15 @@ var spores_generated: int = 0
 @export var max_temp: float = 27.0
 @export var min_humidity: float = 70.0
 
-@export var stress_tolerance: float = 20.0
-@export var rot_duration: float = 15.0
-@export var recovery_rate: float = 0.5
+@export var stress_tolerance: float = 20.0 #Cuanto estres acumula antes de pudrirse
+@export var rot_duration: float = 15.0 #Tiempo simulado antes de morir
+@export var recovery_rate: float = 0.5 #Mejora del estres
 
-var environment_ok: bool = true
-var environmental_stress: float = 0.0
-var is_rotting: bool = false
-var rot_elapsed: float = 0.0
-var game_time_scale: float = 1.0
+var environment_ok: bool = true #Temperatura y humedad adecuadas
+var environmental_stress: float = 0.0 #Estres acumulado
+var is_rotting: bool = false #Indica si ya empezó a pudrirse
+var rot_elapsed: float = 0.0 #Tiempo pudiriendose
+var game_time_scale: float = 1.0 
 
 #Variables de brillo
 var glowing: bool = false #Honguito iluminando si o no

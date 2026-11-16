@@ -48,6 +48,7 @@ func its_day() -> void:
 func _physics_process(_delta: float) -> void:
 	if not has_landed and actual_wind != Vector3.ZERO:
 		rigid_body.apply_central_force(actual_wind)
+		
 #Impulso inicial
 func init_shot(direction: Vector3) -> void:
 	if isDay:
