@@ -4,7 +4,7 @@ extends TextureButton
 
 @onready var label: Label = $detail/Label
 
-var multipliers := [1, 2, 4]
+var multipliers := [1, 2, 4, 8, 16]
 var index := 0
 
 func _ready() -> void:
