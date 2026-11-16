@@ -12,6 +12,7 @@ var glow_strength: float = 1.0 #Valor incial de brillo
 @export_range(0.0, 0.4, 0.01) #Variacion entre los tamaños de los honguitos
 var size_variation: float = 0.18
 
+#Cnatiadd de esporas
 @export var max_spores: int = 20
 var spores_generated: int = 0
 
@@ -163,9 +164,10 @@ func set_environment_conditions(temperature: float,humidity: float, speed: float
 	game_time_scale = maxf(speed, 0.0)
 
 func _apply_growth_stage() -> void:
+	
 	# El tallo crece durante los días 1 al 9.
 	#Progreso del tallo entre los 9 días representado por un valor entre 0 y 1
-	var stem_progress: float = clampf(float(growth_day - 1) / 8.0, 0.0, 1.0)
+	var stem_progress: float = clampf(float(growth_day - 1) / 8.0, 0.0, 1.0) #Para mycenas el tallo crece hasta el dia 8
 	
 	
 	var stem_factor: float = lerpf(0.08, 1.0, stem_progress)
@@ -261,7 +263,6 @@ func _process(delta: float) -> void:
 		if rot_elapsed >= rot_duration:
 			fruit_died.emit(self)
 			set_process(false)
-
 		return
 
 	if environment_ok: 

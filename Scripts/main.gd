@@ -61,6 +61,7 @@ var array_mycena_particles: Array = []
 var array_amanita_particles: Array = []
 var grown_mycenas: Array[Node3D] = [] #Lista de hongos mycena
 var array_mushrooms_generating_mycenas: Array = []
+var array_mushrooms_generating_amanita: Array = []
 
 var _last_wind_angle := INF
 

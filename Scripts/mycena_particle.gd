@@ -44,10 +44,11 @@ func its_day() -> void:
 	rigid_body.linear_damp = day_air_drag
 	isDay = true
 
+
 func _physics_process(_delta: float) -> void:
 	if not has_landed and actual_wind != Vector3.ZERO:
 		rigid_body.apply_central_force(actual_wind)
-
+#Impulso inicial
 func init_shot(direction: Vector3) -> void:
 	if isDay:
 		initial_impulse = 0.5
