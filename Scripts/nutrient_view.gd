@@ -42,7 +42,7 @@ func _build_grid() -> void:
 
 	var space_state = get_world_3d().direct_space_state
 
-	# Preparamos la lista de objetos a ignorar (RIDs)
+	# Lista de objetos a ignorar (RIDs)
 	var exclude_rids: Array[RID] = []
 	for body in ignored_bodies:
 		if body is CollisionObject3D:
@@ -57,12 +57,11 @@ func _build_grid() -> void:
 			var ray_end := Vector3(pos_x, -100.0, pos_z)
 			
 			var query := PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
-			query.exclude = exclude_rids # AQUÍ LE DECIMOS AL RAYO QUE IGNORE EL TRONCO
+			query.exclude = exclude_rids #Ignora los obstáculos del terreno
 			
 			var result := space_state.intersect_ray(query)
 			
 			if result:
-				# Ahora el rayo siempre chocará con el pasto, sin importar lo que haya encima
 				var hit_pos = result.position + (Vector3.UP * 0.15)
 				
 				var cell_key = Vector2i(i, j)
@@ -166,8 +165,7 @@ func _make_triangle_mesh(color: Color) -> ArrayMesh:
 	var st = SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 	
-	# REDUCIDO: De 0.25 a 0.1
-	var r_out = 0.09
+	var r_out = 0.07
 	var r_in = 0.04
 	var v = [Vector3(0, 0, r_out), Vector3(-r_out * 0.866, 0, -r_out * 0.5), Vector3(r_out * 0.866, 0, -r_out * 0.5)]
 	var i = [Vector3(0, 0, r_in), Vector3(-r_in * 0.866, 0, -r_in * 0.5), Vector3(r_in * 0.866, 0, -r_in * 0.5)]
@@ -191,8 +189,8 @@ func _make_square_mesh(color: Color) -> ArrayMesh:
 	var st = SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 	
-	var r_out = 0.1
-	var r_in = 0.05
+	var r_out = 0.04
+	var r_in = 0.03
 	var v = [Vector3(-r_out, 0, -r_out), Vector3(r_out, 0, -r_out), Vector3(r_out, 0, r_out), Vector3(-r_out, 0, r_out)]
 	var i = [Vector3(-r_in, 0, -r_in), Vector3(r_in, 0, -r_in), Vector3(r_in, 0, r_in), Vector3(-r_in, 0, r_in)]
 	
@@ -216,8 +214,8 @@ func _make_circle_mesh(color: Color) -> ArrayMesh:
 	var st = SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 	
-	var r_out = 0.1
-	var r_in = 0.05
+	var r_out = 0.05
+	var r_in = 0.04
 	var segments = 16
 	var v_out = []
 	var v_in = []
