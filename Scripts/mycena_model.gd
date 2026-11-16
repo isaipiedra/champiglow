@@ -111,10 +111,11 @@ func update_appearance() -> void:
 	var current_color: Color
 	if fruit_has_died:
 		current_color = rotten_color
-	elif not rotten_has_started:
-		current_color = natural_color.lerp( glow_color,glow_progress)
-	elif rotten_has_started:
+	elif rotten_has_started or is_rotting:
 		current_color = natural_color.lerp(rotten_color, rotten_progress)
+	else:
+		current_color = natural_color.lerp( glow_color,glow_progress)
+
 		
 
 	# Material del tallo.
@@ -135,27 +136,27 @@ func update_appearance() -> void:
 # Avanzar un día de crecimiento.
 func advance_growth_day() -> void:
 	growth_day += 1
+	if not is_rotting:
+		if growth_day == 14 and not has_glowed:
+			has_glowed = true
+			glowing = true
+			glow_progress = 0.0
+			spores_started.emit(self)
 
-	if growth_day == 14 and not has_glowed:
-		has_glowed = true
-		glowing = true
-		glow_progress = 0.0
-		spores_started.emit(self)
+			update_appearance()
 
-		update_appearance()
+		elif growth_day >= 17 and growth_day < 18 and has_glowed and glowing:
+			glowing = false
+			glow_progress = 0.0
+			spores_stopped.emit(self)
+			update_appearance()
+			
+		elif growth_day == 18 and not rotten_has_started:
+			rotten_has_started = true
+			rotten_progress = 0.0
+			update_appearance() 
 
-	elif growth_day >= 17 and growth_day < 18 and has_glowed and glowing:
-		glowing = false
-		glow_progress = 0.0
-		spores_stopped.emit(self)
-		update_appearance()
-		
-	elif growth_day == 18 and not rotten_has_started:
-		rotten_has_started = true
-		rotten_progress = 0.0
-		update_appearance() 
-
-	_apply_growth_stage()
+		_apply_growth_stage()
 
 #Condiciones ambientales
 func set_environment_conditions(temperature: float,humidity: float, speed: float) -> void:
@@ -207,6 +208,7 @@ func _start_rot() -> void:
 	if is_rotting:
 		return
 	is_rotting = true
+	rotten_progress = 0.0
 	spores_stopped.emit(self)
 	
 func _process(delta: float) -> void:
@@ -228,45 +230,49 @@ func _process(delta: float) -> void:
 
 	var previous_progress := glow_progress
 	var previous_rotten_progress := rotten_progress
+	if not is_rotting:
+		match growth_day:
+			14:
+				glow_progress = minf(glow_progress + delta / day_duration,1.0)
 
-	match growth_day:
-		14:
-			glow_progress = minf(glow_progress + delta / day_duration,1.0)
+			15:
+				glow_progress = 1.0
 
-		15:
-			glow_progress = 1.0
-
-		16:
-			glow_progress = maxf(glow_progress - delta / day_duration, 0.0)
-		18:
-			rotten_progress = minf(rotten_progress + delta / day_duration, 1.0)
-		19:
-			rotten_progress = 1.0
-		20:
-			fruit_has_died = true
-			rotten_progress = maxf(rotten_progress - delta / day_duration, 0.0)
-		22:
-			fruit_died.emit(self)
+			16:
+				glow_progress = maxf(glow_progress - delta / day_duration, 0.0)
+			18:
+				rotten_progress = minf(rotten_progress + delta / day_duration, 1.0)
+			19:
+				rotten_progress = 1.0
+			20:
+				fruit_has_died = true
+				rotten_progress = maxf(rotten_progress - delta / day_duration, 0.0)
+			22:
+				fruit_died.emit(self)
+				
+	
+		if not is_equal_approx(previous_progress, glow_progress) || not is_equal_approx(previous_rotten_progress, rotten_progress) :
+			update_appearance()
 			
-	
-	if not is_equal_approx(previous_progress, glow_progress) || not is_equal_approx(previous_rotten_progress, rotten_progress) :
-		update_appearance()
+		if fruit_has_died:
+			update_appearance()
 		
-	if fruit_has_died:
-		update_appearance()
-	
 	#Simulacion de pudrirse
 	var sim_delta := delta * game_time_scale
 	if is_rotting:
 		rot_elapsed += sim_delta
-
+		rotten_progress = clampf(rot_elapsed / rot_duration, 0.0, 1.0)
 		if rot_elapsed >= rot_duration:
 			fruit_died.emit(self)
 			set_process(false)
+		update_appearance()
 		return
 
 	if environment_ok: 
 		environmental_stress = maxf(0.0, environmental_stress - sim_delta * recovery_rate)
+		if environmental_stress == 0.0:
+			is_rotting = false
+			rot_elapsed = 0.0
 	else:
 		environmental_stress += sim_delta
 	if environmental_stress >= stress_tolerance:
