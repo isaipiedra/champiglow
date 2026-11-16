@@ -119,10 +119,9 @@ func _set_humidity(v: float) -> void:
 
 
 func _cycle_speed() -> void:
-	if $sky.auto_advance:
-		time_speed_mul = time_speed_mul * 2 if time_speed_mul < 16 else 1
-		$sky.day_length = original_day_length / time_speed_mul
-		_update_time_label()
+	time_speed_mul = time_speed_mul * 2 if time_speed_mul < 16 else 1
+	$sky.day_length = original_day_length / time_speed_mul
+	_update_time_label()
 
 
 func _toggle_time() -> void:

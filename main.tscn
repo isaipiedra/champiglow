@@ -40,7 +40,6 @@
 [ext_resource type="PackedScene" uid="uid://diqqvhin1op3o" path="res://Nature/stylized_dead_tree.glb" id="21_qsp4k"]
 [ext_resource type="Script" uid="uid://qbep2qt0lb06" path="res://Scripts/day_night.gd" id="22_ryguw"]
 [ext_resource type="PackedScene" uid="uid://decs1u87oylc" path="res://Scenes/MycenaParticle.tscn" id="26_a6jrf"]
-[ext_resource type="PackedScene" uid="uid://dgelwmes1qn23" path="res://Prefabs/Oysters Pearl/oyster_pearl_1.tscn" id="28_xuqvo"]
 [ext_resource type="Script" uid="uid://bi6c57rluck8" path="res://Scripts/wind_view.gd" id="41_4lmeg"]
 [ext_resource type="Script" uid="uid://bxmr7gy6633hs" path="res://Scripts/nutrient_view.gd" id="43_d2t1y"]
 
@@ -220,9 +219,6 @@ environment = SubResource("Environment_82xsv")
 transform = Transform3D(-0.99999934, 0.00014892034, -0.0011723004, 6.202317e-10, 0.99202776, 0.12602046, 0.0011817217, 0.12602039, -0.99202704, 0, 6.980755, -21.8495)
 current = true
 script = ExtResource("1_ryguw")
-
-[node name="red" parent="." unique_id=949004234 instance=ExtResource("1_kek77")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.3440037, 0.92533267, -6.6236486)
 
 [node name="environment" type="Node3D" parent="." unique_id=301460034]
 
@@ -1694,9 +1690,6 @@ moon = NodePath("../Moon")
 day_length = 30.0
 saturation = 1.713
 night_energy = 1.2
-
-[node name="oyster_pearl_1" parent="." unique_id=1821651365 instance=ExtResource("28_xuqvo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.9147, 0.7860742, -5.4473014)
 
 [node name="WindView" type="Node3D" parent="." unique_id=498429393 node_paths=PackedStringArray("terrain")]
 script = ExtResource("41_4lmeg")
