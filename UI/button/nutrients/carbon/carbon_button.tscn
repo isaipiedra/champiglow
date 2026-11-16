@@ -1,9 +1,13 @@
 [gd_scene format=3 uid="uid://bca58s7wtuvvg"]
 
 [ext_resource type="PackedScene" uid="uid://bgeugqbqrrfq" path="res://UI/button/nutrients/nutrient_button.tscn" id="1_eox4d"]
+[ext_resource type="Texture2D" uid="uid://cc37oui1udmxq" path="res://UI/button/nutrients/carbon/Circle.png" id="2_2sfvl"]
 [ext_resource type="Texture2D" uid="uid://bnkk64h42u2kn" path="res://UI/button/nutrients/carbon/Carbon.png" id="2_t3f0g"]
+[ext_resource type="Texture2D" uid="uid://dnkkb5q0fhwc1" path="res://UI/button/nutrients/carbon/Circle-hover.png" id="3_vwvce"]
 
 [node name="carbon_button" unique_id=1387809696 instance=ExtResource("1_eox4d")]
+texture_normal = ExtResource("2_2sfvl")
+texture_hover = ExtResource("3_vwvce")
 
 [node name="icon" parent="." index="0" unique_id=2108226190]
 texture = ExtResource("2_t3f0g")
