@@ -229,7 +229,7 @@ func _grow_amanita(pos: Vector3) -> void:
 
 	add_child(mushroom)
 	mushroom.global_transform = Transform3D(Basis(Vector3.UP, randf() * TAU), pos)
-	mushroom.setup($sky, mushroom_scale)
+	mushroom.setup($sky, mushroom_scale, nutrient_view)
 	mushroom.set_environment_conditions(temperature_celsius, humidity_percentage)
 	grown_amanitas.append(mushroom)
 
@@ -389,6 +389,9 @@ func _advance_mycena_growth_days() -> void:
 	for mushroom in grown_mycenas:
 		if (is_instance_valid(mushroom) and mushroom.has_method("advance_growth_day")):
 			mushroom.advance_growth_day()
+	for mushroom in grown_amanitas:
+		if is_instance_valid(mushroom):
+			mushroom.advance_growth_day()
 
 #Funciones relacionadas a pudrirse y esparcir esporas
 func _on_spores_started(mushroom: Node3D) -> void:
@@ -465,7 +468,7 @@ func _process(delta: float) -> void:
 			for mycena in grown_mycenas:
 				if is_instance_valid(mycena):
 					mycena.its_night()
-		print("Es media noche ", $sky.time_of_day)
+		#print("Es media noche ", $sky.time_of_day)
 		if $sky.time_of_day >= 0.0 and $sky.time_of_day < 1.0:
 				for mycena in grown_mycenas:
 					if is_instance_valid(mycena):

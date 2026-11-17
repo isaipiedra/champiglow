@@ -18,32 +18,40 @@ signal spores_stopped(mushroom: Node3D)
 @export var amanita_max_temp: float = 24.0
 @export var amanita_min_humidity: float = 80.0
 
-## Días desde que nace
+# Días desde que nace
 @export_group("Crecimiento")
 @export var stem_growth_days := 28.0
 @export var cap_start_day := 10.0
 @export var cap_full_day := 28.0
 
+@export_group("Nutrientes")
+# Cuánto consume del suelo cada día
+@export var carbon_per_day := 0.1
+@export var nitrogen_per_day := 0.1
+@export var metals_per_day := 0.2
+# Días seguidos sin poder comer antes de empezar a morir
+@export var starvation_days := 2
+
 @export_group("Esporas")
-## Día en que empieza a soltar esporas 
+# Día en que empieza a soltar esporas 
 @export var spores_start_day := 31.0
-## Día en que deja de soltarlas
+# Día en que deja de soltarlas
 @export var spores_end_day := 32.0
-## Esporas máximas que suelta cada hongo
+# Esporas máximas que suelta cada hongo
 @export var max_spores := 10
 
 @export_group("Pudrición")
-## Edad en días a la que empieza a pudrirse
+# Edad en días a la que empieza a pudrirse
 @export var lifespan_days := 33.0
-## Días que dura pudriendose hasta morir
+# Días que dura pudriendose hasta morir
 @export var rot_days := 4.0
-## Días que dura pudirnedose por estrés ambiental.
+# Días que dura pudirnedose por estrés ambiental.
 @export var stress_rot_days := 1.0
 
 @export_group("Estrés ambiental")
-## Días acumulados con condiciones malas antes de empezar a pudrirse
+# Días acumulados con condiciones malas antes de empezar a pudrirse
 @export var stress_tolerance_days := 0.7
-## lo rápido se recupera del estrés
+# lo rápido se recupera del estrés
 @export var recovery_rate := 0.5
 
 # Altura del tallo adulto
@@ -59,6 +67,10 @@ var environmental_stress := 0.0
 var is_releasing_spores := false
 var spores_generated := 0
 
+var nutrient_view: Node3D
+var hungry_days := 0
+var is_fed := true
+
 var _sky: Node
 var _birth_day := 0.0
 var _last_day := 0.0
@@ -69,6 +81,7 @@ var _cap_variation := 1.0
 var _adult_cap_scale := Vector3.ONE
 var _stem_material: StandardMaterial3D
 var _cap_material: StandardMaterial3D
+var growth_day: int = 1 #Dia de crecimiento
 
 @onready var stem: MeshInstance3D = $Stem
 @onready var cap: MeshInstance3D = $Cap
@@ -103,23 +116,33 @@ func _ready() -> void:
 
 	_apply_growth(0.0)
 
+# Main la llama a medianoche
+func advance_growth_day() -> void:
+	if is_rotting or is_dead:
+		return
+	_eat()
+	if is_rotting:
+		return
+	growth_day += 1
+	_apply_growth(float(growth_day - 1))
 
-## La llama Main justo después de añadir el hongo a la escena.
-func setup(sky: Node, size: float) -> void:
+# La llama Main justo después de añadir el hongo a la escena.
+func setup(sky: Node, size: float, nutrients: Node3D = null) -> void:
 	_sky = sky
+	nutrient_view = nutrients
 	_birth_day = _sky.elapsed_days
 	_last_day = _birth_day
 	scale = Vector3.ONE * size
 	_apply_growth(0.0)
 
 
-## Revisa si están buenas la temperatura y humedad
+# Revisa si están buenas la temperatura y humedad
 func set_environment_conditions(temperature: float, humidity: float) -> void:
 	environment_ok = (temperature >= amanita_min_temp and temperature <= amanita_max_temp
 		and humidity >= amanita_min_humidity)
 
 
-# --- Esporas ---
+#  Esporas 
 func can_generate_spores() -> bool:
 	return spores_generated < max_spores
 
@@ -128,10 +151,30 @@ func register_spore_generation() -> void:
 	spores_generated += 1
 
 
-## Punto desde donde salen las esporas
+# Punto desde donde salen las esporas
 func get_spore_origin() -> Vector3:
 	return cap.global_position + Vector3.UP * 0.05 * scale.y
 
+# Come del suelo bajo el hongo. Se llama una vez por día.
+func _eat() -> void:
+	if nutrient_view == null:
+		return
+	var needs := {"carbon": carbon_per_day, "nitrogen": nitrogen_per_day, "metals": metals_per_day}
+	var fed := true
+	for type in needs:
+		var need: float = needs[type]
+		if need <= 0.0:
+			continue
+		var got: float = nutrient_view.consume_nutrient_at(global_position, type, need)
+		if got < need - 0.001:
+			fed = false
+	is_fed = fed
+	if fed:
+		hungry_days = 0
+	else:
+		hungry_days += 1
+		if hungry_days >= starvation_days:
+			start_rot(true)
 
 # --- Pudrición ---
 func start_rot(from_stress := false) -> void:
@@ -158,7 +201,7 @@ func _process(_delta: float) -> void:
 		return
 
 	var age := now - _birth_day
-	_apply_growth(age)
+	_update_spore_phase(age)
 	_update_spore_phase(age)
 	_update_stress(dt)
 

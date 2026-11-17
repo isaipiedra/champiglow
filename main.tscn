@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bqt8olamdj1ya" path="res://Scenes/AmanitaParticle.tscn" id="3_a6jrf"]
 [ext_resource type="PackedScene" uid="uid://mexuuiybjsgy" path="res://Scenes/mycena_model.tscn" id="4_4k2k6"]
 [ext_resource type="Script" uid="uid://1ljm011jkb6" path="res://Scripts/sub_viewport_container.gd" id="4_kq58d"]
-[ext_resource type="PackedScene" path="res://Scenes/AmanitaModel.tscn" id="5_0rl1p"]
+[ext_resource type="PackedScene" uid="uid://bjg8qbyqsev1p" path="res://Scenes/AmanitaModel.tscn" id="5_0rl1p"]
 [ext_resource type="PackedScene" uid="uid://ccvbm31lixoic" path="res://Models/vane_stick.glb" id="5_htxhm"]
 [ext_resource type="Shape3D" uid="uid://cf577kb00em57" path="res://TerrainData/terrain_shape.res" id="5_vivmo"]
 [ext_resource type="PackedScene" uid="uid://iku0ialhgi1d" path="res://Scenes/boulder_round_regular.tscn" id="5_w48qg"]
