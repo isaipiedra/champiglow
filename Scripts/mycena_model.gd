@@ -21,6 +21,13 @@ var spores_generated: int = 0
 @onready var cap: Node3D = $Cap #Nodo del sombrerillo del hongo para hacerlo crecer
 @onready var glow_light: OmniLight3D = $GlowLight #Nodo del brillo del hongo
 
+#Variables de nutrientes y metales
+@export var carbon_per_day := 0.2
+@export var nitrogen_per_day := 0.2
+@export var metals_per_day := 0.2
+# Días seguidos sin poder comer antes de empezar a pudrirse
+@export var starvation_days := 2
+
 #Variables de estrés
 @export var min_temp: float = 8.0
 @export var max_temp: float = 27.0
@@ -37,6 +44,10 @@ var rot_elapsed: float = 0.0 #Tiempo pudiriendose
 var game_time_scale: float = 1.0 
 
 var actual_temperature = 0.0
+
+var nutrient_view: Node3D
+var hungry_days := 0
+var is_fed := true
 
 #Variables de brillo
 var glowing: bool = false #Honguito iluminando si o no
@@ -151,9 +162,30 @@ func update_appearance() -> void:
 	glow_light.visible = glow_progress > 0.001
 	glow_light.light_energy = glow_strength * glow_progress
 
+func _eat() -> void:
+	if nutrient_view == null:
+		return
+	var needs := {"carbon": carbon_per_day, "nitrogen": nitrogen_per_day, "metals": metals_per_day}
+	var fed := true
+	for type in needs:
+		var need: float = needs[type]
+		if need <= 0.0:
+			continue
+		var got: float = nutrient_view.consume_nutrient_at(global_position, type, need)
+		if got < need - 0.001:
+			fed = false
+	is_fed = fed
+	if fed:
+		hungry_days = 0
+	else:
+		hungry_days += 1
+		if hungry_days >= starvation_days:
+			_start_rot()
 
 # Avanzar un día de crecimiento.
 func advance_growth_day() -> void:
+	if not is_rotting:
+		_eat()
 	growth_day += 1
 	if not is_rotting:
 		if growth_day == 14 and not has_glowed and is_night:

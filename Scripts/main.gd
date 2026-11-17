@@ -16,6 +16,11 @@ extends Node3D
 @export var amanita_min_nitrogen := 0.1
 @export var amanita_min_metals := 0.2
 
+# Nutriente mínimo en el suelo para que una espora de mycena viva
+@export var mycena_min_carbon := 0.2
+@export var mycena_min_nitrogen := 0.2
+@export var mycena_min_metals := 0.2
+
 @export_group("")
 
 #Generación de esporas
@@ -206,12 +211,7 @@ func are_amanita_conditions_optimal() -> bool:
 	
 # ---------- Hongos -------------
 
-func _soil_allows_germination_amanita(pos: Vector3) -> bool:
-	var mins := {
-		"carbon": amanita_min_carbon,
-		"nitrogen": amanita_min_nitrogen,
-		"metals": amanita_min_metals,
-	}
+func _soil_allows_germination(pos: Vector3, mins: Dictionary) -> bool:
 	for type in mins:
 		var need: float = mins[type]
 		if need > 0.0 and nutrient_view.get_nutrient_at(pos, type) < need:
@@ -229,7 +229,7 @@ func _on_amanita_landed(spore: Node3D, pos: Vector3) -> void:
 	array_amanita_particles.erase(spore)
 	if not are_amanita_conditions_optimal():
 		return
-	if not _soil_allows_germination_amanita(pos):
+	if not _soil_allows_germination(pos, {"carbon": amanita_min_carbon, "nitrogen": amanita_min_nitrogen, "metals": amanita_min_metals}):
 		return
 	if _is_near_living_tree(pos):
 		_pending_mushrooms.append({"pos": pos, "ready_at": $sky.elapsed_days + growth_days})
@@ -386,6 +386,9 @@ func _on_mycena_spore_landed(spore: Node3D, body: Node3D) -> void:
 	if spore_body == null:
 		print("La espora no tiene hijo RigidBody3D")
 		return
+	if not _soil_allows_germination(spore_body.global_position, {"carbon": mycena_min_carbon, "nitrogen": mycena_min_nitrogen, "metals": mycena_min_metals}):
+		spore.queue_free()
+		return
 	
 	var mushroom := mycena_model_scene.instantiate() as Node3D
 	mushroom.fruit_died.connect(_on_mycena_died)
@@ -393,6 +396,7 @@ func _on_mycena_spore_landed(spore: Node3D, body: Node3D) -> void:
 	mushroom.spores_stopped.connect(_on_spores_stopped)
 	
 	add_child(mushroom)
+	mushroom.nutrient_view = nutrient_view
 	
 	mushroom.global_position = (spore_body.global_position - Vector3.UP * 0.004)
 	

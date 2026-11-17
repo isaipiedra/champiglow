@@ -120,7 +120,8 @@ func consume_nutrient_at(world_pos: Vector3, nutrient_type: String, amount: floa
 	var closest_key = Vector2i.ZERO
 	var min_dist = INF
 	for key in _grid_positions.keys():
-		var dist = _grid_positions[key].distance_squared_to(local_pos)
+		var cell_pos: Vector3 = _grid_positions[key]
+		var dist = Vector2(cell_pos.x - local_pos.x, cell_pos.z - local_pos.z).length_squared()
 		if dist < min_dist:
 			min_dist = dist
 			closest_key = key
@@ -139,7 +140,8 @@ func get_nutrient_at(world_pos: Vector3, nutrient_type: String) -> float:
 	var closest_key = Vector2i.ZERO
 	var min_dist = INF
 	for key in _grid_positions.keys():
-		var dist = _grid_positions[key].distance_squared_to(local_pos)
+		var cell_pos: Vector3 = _grid_positions[key]
+		var dist = Vector2(cell_pos.x - local_pos.x, cell_pos.z - local_pos.z).length_squared()
 		if dist < min_dist:
 			min_dist = dist
 			closest_key = key
