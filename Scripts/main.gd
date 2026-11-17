@@ -11,6 +11,10 @@ extends Node3D
 @export var mushroom_scale := 1.0
 @export var growth_days := 0.0  
 
+# Nutriente mínimo en el suelo para que una espora de amanita viva
+@export var amanita_min_carbon := 0.1
+@export var amanita_min_nitrogen := 0.1
+@export var amanita_min_metals := 0.2
 
 @export_group("")
 
@@ -202,6 +206,18 @@ func are_amanita_conditions_optimal() -> bool:
 	
 # ---------- Hongos -------------
 
+func _soil_allows_germination_amanita(pos: Vector3) -> bool:
+	var mins := {
+		"carbon": amanita_min_carbon,
+		"nitrogen": amanita_min_nitrogen,
+		"metals": amanita_min_metals,
+	}
+	for type in mins:
+		var need: float = mins[type]
+		if need > 0.0 and nutrient_view.get_nutrient_at(pos, type) < need:
+			return false
+	return true
+
 func _update_pending_mushrooms() -> void:
 	var now: float = $sky.elapsed_days
 	for i in range(_pending_mushrooms.size() - 1, -1, -1):
@@ -212,6 +228,8 @@ func _update_pending_mushrooms() -> void:
 func _on_amanita_landed(spore: Node3D, pos: Vector3) -> void:
 	array_amanita_particles.erase(spore)
 	if not are_amanita_conditions_optimal():
+		return
+	if not _soil_allows_germination_amanita(pos):
 		return
 	if _is_near_living_tree(pos):
 		_pending_mushrooms.append({"pos": pos, "ready_at": $sky.elapsed_days + growth_days})

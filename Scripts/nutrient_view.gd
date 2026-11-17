@@ -133,6 +133,21 @@ func consume_nutrient_at(world_pos: Vector3, nutrient_type: String, amount: floa
 		return consumed
 	return 0.0
 
+# Devuelve cuánto nutriente hay cerca de una posición
+func get_nutrient_at(world_pos: Vector3, nutrient_type: String) -> float:
+	var local_pos = to_local(world_pos)
+	var closest_key = Vector2i.ZERO
+	var min_dist = INF
+	for key in _grid_positions.keys():
+		var dist = _grid_positions[key].distance_squared_to(local_pos)
+		if dist < min_dist:
+			min_dist = dist
+			closest_key = key
+
+	if min_dist < (spacing * spacing):
+		return grid_data[closest_key][nutrient_type]
+	return 0.0
+
 func _update_visuals() -> void:
 	if not visible: return
 	
