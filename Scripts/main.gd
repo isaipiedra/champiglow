@@ -67,6 +67,7 @@ var temperature_celsius := 0.0
 var humidity_percentage := 0.0
 var chosen_fungus := 0   # 0 = Amanita, 1 = Mycena
 var _last_time_of_day: float = 0.0
+var roots_view_on := false
 
 var array_mycena_particles: Array = []
 var array_amanita_particles: Array = []
@@ -248,6 +249,7 @@ func _grow_amanita(pos: Vector3) -> void:
 	add_child(mushroom)
 	mushroom.global_transform = Transform3D(Basis(Vector3.UP, randf() * TAU), pos)
 	mushroom.setup($sky, mushroom_scale, nutrient_view)
+	mushroom.set_mycelium_visible(roots_view_on)
 	mushroom.set_environment_conditions(temperature_celsius, humidity_percentage)
 	grown_amanitas.append(mushroom)
 
@@ -326,13 +328,16 @@ func _is_near_living_tree(pos: Vector3) -> bool:
 	return false
 	
 func _on_roots_toggle(toggled_on: bool) -> void:
+	roots_view_on = toggled_on
+	get_tree().call_group("mycelium", "set_visible", toggled_on)
+
 	if environment_root:
 		environment_root.visible = not toggled_on
-	
+
 	if toggled_on:
 		if wind_toggle.button_pressed: wind_toggle.button_pressed = false
 		if nutrients_toggle.button_pressed: nutrients_toggle.button_pressed = false
-
+		
 # ---------- partículas ----------
 func generate_particle() -> void:
 	var scene := amanita_scene if chosen_fungus == 0 else mycena_scene

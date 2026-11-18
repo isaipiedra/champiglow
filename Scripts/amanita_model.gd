@@ -10,6 +10,13 @@ signal spores_stopped(mushroom: Node3D)
 @export var spots_color := Color("#ffffff")
 @export var rotten_color := Color("#665044")
 
+@export_group("Micelio")
+# Días de vida a los que el micelio alcanza su tamaño completo
+@export var mycelium_full_day := 20.0
+# Repeticiones del sistema ele
+@export var mycelium_iterations := 2
+@export_group("")
+
 @export_group("Variación natural")
 @export_range(0.0, 0.4, 0.01) var size_variation := 0.18
 
@@ -71,6 +78,9 @@ var nutrient_view: Node3D
 var hungry_days := 0
 var is_fed := true
 
+var _mycelium: MyceliumNetwork
+var _mycelium_growth := 0.0
+
 var _sky: Node
 var _birth_day := 0.0
 var _last_day := 0.0
@@ -125,6 +135,7 @@ func advance_growth_day() -> void:
 		return
 	growth_day += 1
 	_apply_growth(float(growth_day - 1))
+	_update_mycelium()
 
 # La llama Main justo después de añadir el hongo a la escena.
 func setup(sky: Node, size: float, nutrients: Node3D = null) -> void:
@@ -134,6 +145,7 @@ func setup(sky: Node, size: float, nutrients: Node3D = null) -> void:
 	_last_day = _birth_day
 	scale = Vector3.ONE * size
 	_apply_growth(0.0)
+	_spawn_mycelium()
 
 
 # Revisa si están buenas la temperatura y humedad
@@ -187,6 +199,31 @@ func start_rot(from_stress := false) -> void:
 		is_releasing_spores = false
 		spores_stopped.emit(self)
 
+func _spawn_mycelium() -> void:
+	_mycelium = MyceliumNetwork.new()
+	_mycelium.iterations = mycelium_iterations
+	_mycelium.top_level = true  
+	_mycelium.add_to_group("mycelium")
+	add_child(_mycelium)
+	_mycelium.global_position = global_position
+	_mycelium.build()
+	_mycelium.set_growth(0.0)
+	_mycelium.visible = false    # la vista de raíces lo activa desde main
+
+
+#La llama main para respetar si la vista de raíces ya está encendida.
+func set_mycelium_visible(value: bool) -> void:
+	if _mycelium != null:
+		_mycelium.visible = value
+
+
+#Tamaño del micelio según los días que lleva vivo el hongo.
+func _update_mycelium() -> void:
+	if _mycelium == null:
+		return
+	var days_alive := float(growth_day - 1)
+	_mycelium_growth = clampf(days_alive / maxf(mycelium_full_day, 0.001), 0.0, 1.0)
+	_mycelium.set_growth(_mycelium_growth)
 
 func _process(_delta: float) -> void:
 	if _sky == null or is_dead:
@@ -231,6 +268,8 @@ func _update_stress(dt: float) -> void:
 
 func _update_rot(now: float) -> void:
 	rot_progress = clampf((now - _rot_start_day) / maxf(_rot_duration, 0.001), 0.0, 1.0)
+	if _mycelium != null:
+		_mycelium.set_growth(_mycelium_growth * (1.0 - rot_progress))
 	_stem_material.albedo_color = stem_color.lerp(rotten_color, rot_progress)
 	_cap_material.albedo_color = cap_color.lerp(rotten_color, rot_progress)
 	if rot_progress >= 1.0:
