@@ -21,6 +21,19 @@ var spores_generated: int = 0
 @onready var cap: Node3D = $Cap #Nodo del sombrerillo del hongo para hacerlo crecer
 @onready var glow_light: OmniLight3D = $GlowLight #Nodo del brillo del hongo
 
+@export_group("Micelio")
+#Días de vida hasta que el micelio deja de crecer
+@export var mycelium_full_day := 3.0
+# Repeticiones del sistema L
+@export var mycelium_iterations := 3
+# Cuánto baja cada coso
+@export var mycelium_sink := 0.08
+@export var mycelium_scale := 0.4
+@export_group("")
+
+var _mycelium: MyceliumNetwork
+var _mycelium_growth := 0.0	
+
 #Variables de nutrientes y metales
 @export var carbon_per_day := 0.2
 @export var nitrogen_per_day := 0.2
@@ -135,6 +148,31 @@ func its_second_half_night() -> void:
 func its_not_second_half_night() -> void:
 	second_half_night = false
 	
+# La llama main después de poner el hongo
+func spawn_mycelium() -> void:
+	_mycelium = MyceliumNetwork.new()
+	_mycelium.iterations = mycelium_iterations
+	_mycelium.segment_length *= mycelium_scale
+	_mycelium.base_radius *= mycelium_scale
+	_mycelium.min_radius *= mycelium_scale
+	_mycelium.sink_per_segment = mycelium_sink * mycelium_scale
+	_mycelium.top_level = true
+	_mycelium.add_to_group("mycelium")
+	add_child(_mycelium)
+	_mycelium.global_position = to_global(Vector3(0.0, _stem_base_y, 0.0))
+	_mycelium.build()
+	_mycelium.set_growth(0.0)
+	_mycelium.visible = false
+
+
+# Tamaño del micelio según los días que lleva vivo el hongo
+func _update_mycelium() -> void:
+	if _mycelium == null:
+		return
+	var days_alive := float(growth_day - 1)
+	_mycelium_growth = clampf(days_alive / maxf(mycelium_full_day, 0.001), 0.0, 1.0)
+	_mycelium.set_growth(_mycelium_growth)	
+
 # Control de apariencia.
 func update_appearance() -> void:
 	#Interpolación lineal, mezcla el color natural con el luminoso
@@ -157,6 +195,8 @@ func update_appearance() -> void:
 
 	# Material del sombrero.
 	if cap.has_method("set_mushroom_appearance"): cap.set_mushroom_appearance(current_color, glow_strength * glow_progress)
+	
+	
 	
 	#Brillo del omniLight
 	glow_light.visible = glow_progress > 0.001
@@ -181,6 +221,10 @@ func _eat() -> void:
 		hungry_days += 1
 		if hungry_days >= starvation_days:
 			_start_rot()
+
+func set_mycelium_visible(value: bool) -> void:
+	if _mycelium != null:
+		_mycelium.visible = value
 
 # Avanzar un día de crecimiento.
 func advance_growth_day() -> void:
@@ -208,6 +252,7 @@ func advance_growth_day() -> void:
 			update_appearance() 
 
 		_apply_growth_stage()
+		_update_mycelium()
 
 #Condiciones ambientales
 func set_environment_conditions(temperature: float,humidity: float, speed: float) -> void:
@@ -345,6 +390,8 @@ func _process(delta: float) -> void:
 	if is_rotting:
 		rot_elapsed += sim_delta
 		rotten_progress = clampf(rot_elapsed / rot_duration, 0.0, 1.0)
+		if _mycelium != null:
+			_mycelium.set_growth(_mycelium_growth * (1.0 - rotten_progress))
 		if rot_elapsed >= rot_duration:
 			fruit_died.emit(self)
 			set_process(false)

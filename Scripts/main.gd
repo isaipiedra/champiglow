@@ -330,7 +330,6 @@ func _is_near_living_tree(pos: Vector3) -> bool:
 func _on_roots_toggle(toggled_on: bool) -> void:
 	roots_view_on = toggled_on
 	get_tree().call_group("mycelium", "set_visible", toggled_on)
-
 	if environment_root:
 		environment_root.visible = not toggled_on
 
@@ -404,7 +403,8 @@ func _on_mycena_spore_landed(spore: Node3D, body: Node3D) -> void:
 	mushroom.nutrient_view = nutrient_view
 	
 	mushroom.global_position = (spore_body.global_position - Vector3.UP * 0.004)
-	
+	mushroom.spawn_mycelium()
+	mushroom.set_mycelium_visible(roots_view_on)
 	grown_mycenas.append(mushroom)
 	
 	mushroom.set_environment_conditions(temperature_celsius, humidity_percentage,

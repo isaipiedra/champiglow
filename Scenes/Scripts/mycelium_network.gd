@@ -13,13 +13,13 @@ extends Node3D
 @export_group("Forma (metros)")
 @export var segment_length := 0.1
 #Cuánto baja cada segmento
-@export var sink_per_segment := 0.03
+@export var sink_per_segment := 0.05
 @export var base_radius := 0.008
 @export var min_radius := 0.003
 @export var width_factor := 0.93
 
 @export_group("Apariencia")
-@export var color := Color("#e8cd96")
+@export var color := Color("ac8e4dff")
 
 #8 hifas radiales 
 const AXIOM := "[HA][<<HA][<<<<HA][<<<<<<HA][<<<<<<<<HA][<<<<<<<<<<HA][<<<<<<<<<<<<HA][<<<<<<<<<<<<<<HA]"
@@ -64,7 +64,7 @@ func build() -> void:
 
 	var material := StandardMaterial3D.new()
 	material.albedo_color = color
-	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	material.roughness = 1.0
 	mesh.material = material
 
 	_multi = MultiMesh.new()

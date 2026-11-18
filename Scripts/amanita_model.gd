@@ -208,7 +208,7 @@ func _spawn_mycelium() -> void:
 	_mycelium.global_position = global_position
 	_mycelium.build()
 	_mycelium.set_growth(0.0)
-	_mycelium.visible = false    # la vista de raíces lo activa desde main
+	_mycelium.visible = false
 
 
 #La llama main para respetar si la vista de raíces ya está encendida.
