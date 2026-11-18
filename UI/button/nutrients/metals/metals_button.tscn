@@ -11,3 +11,17 @@ texture_hover = ExtResource("3_2aqfr")
 
 [node name="icon" parent="." index="0" unique_id=2108226190]
 texture = ExtResource("2_535bf")
+
+[node name="Label" type="Label" parent="." index="2" unique_id=1925519327]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -31.0
+offset_top = -23.0
+offset_right = 31.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Metales"
