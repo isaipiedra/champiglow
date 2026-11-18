@@ -57,6 +57,7 @@ var _living_tree_positions: Array[Vector2] = []
 @onready var roots_toggle: BaseButton = ui.get_node("views/roots_toggle")
 @export var environment_root: Node3D
 
+@onready var spore_sound: AudioStreamPlayer = $SporeSound
 
 var wind_value := 1
 var time_speed_mul := 1
@@ -79,6 +80,10 @@ var array_mushrooms_generating_amanita: Array = []
 var _last_wind_angle := INF
 
 var _pending_mushrooms: Array[Dictionary] = []
+
+func _play_spore_sound() -> void:
+	spore_sound.pitch_scale = randf_range(0.9, 1.1)  # variación para que no suene repetido
+	spore_sound.play()
 
 # Busca el slider o botón dentro de la escena instanciada
 func _find(node: Node, type: String) -> Node:
@@ -352,6 +357,7 @@ func generate_particle() -> void:
 	if chosen_fungus == 1 and new_particle.has_signal("landed"):
 		new_particle.connect("landed", Callable(self, "_on_mycena_spore_landed"))
 	add_child(new_particle)
+	_play_spore_sound()
 	new_particle.global_position = ray_origin + ray_direction * 5.0
 	
 
