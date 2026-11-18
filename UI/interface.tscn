@@ -26,6 +26,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Label_Time" type="Label" parent="." unique_id=1343201412]
+visible = false
 layout_mode = 0
 offset_left = 50.0
 offset_top = 679.0
@@ -33,6 +34,7 @@ offset_right = 341.0
 offset_bottom = 702.0
 
 [node name="Label_Wind_Direction" type="Label" parent="." unique_id=156736945]
+visible = false
 layout_mode = 0
 offset_left = 50.0
 offset_top = 793.0
@@ -40,6 +42,7 @@ offset_right = 272.0
 offset_bottom = 816.0
 
 [node name="Label_Temperature" type="Label" parent="." unique_id=1588756689]
+visible = false
 layout_mode = 0
 offset_left = 50.0
 offset_top = 572.0
@@ -47,6 +50,7 @@ offset_right = 239.0
 offset_bottom = 595.0
 
 [node name="Label_Humidity" type="Label" parent="." unique_id=2051334456]
+visible = false
 layout_mode = 0
 offset_left = 50.0
 offset_top = 623.0
@@ -54,6 +58,7 @@ offset_right = 253.0
 offset_bottom = 646.0
 
 [node name="Label_Selected_Fungus" type="Label" parent="." unique_id=131445799]
+visible = false
 layout_mode = 0
 offset_left = 50.0
 offset_top = 728.0

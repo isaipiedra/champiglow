@@ -154,7 +154,6 @@ max_polyphony = 4
 
 [node name="ForestSound" type="AudioStreamPlayer" parent="." unique_id=786195839]
 stream = ExtResource("6_ok6jj")
-volume_db = -50.0
 autoplay = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=716843753]

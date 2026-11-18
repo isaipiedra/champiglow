@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dnkkb5q0fhwc1" path="res://UI/button/nutrients/carbon/Circle-hover.png" id="3_vwvce"]
 
 [node name="carbon_button" unique_id=1387809696 instance=ExtResource("1_eox4d")]
+tooltip_text = "Carbono"
 texture_normal = ExtResource("2_2sfvl")
 texture_hover = ExtResource("3_vwvce")
 
@@ -13,6 +14,7 @@ texture_hover = ExtResource("3_vwvce")
 texture = ExtResource("2_t3f0g")
 
 [node name="Label" type="Label" parent="." index="2" unique_id=405010524]
+visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
