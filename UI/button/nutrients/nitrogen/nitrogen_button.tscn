@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://dbc4txt24wnr5" path="res://UI/button/nutrients/nitrogen/Nitrogen.png" id="2_54au4"]
 [ext_resource type="Texture2D" uid="uid://sqscxkmssp1k" path="res://UI/button/nutrients/nitrogen/Circle.png" id="2_faiev"]
 [ext_resource type="Texture2D" uid="uid://cpxs1jxu0jhh5" path="res://UI/button/nutrients/nitrogen/Circle-hover.png" id="3_y6wps"]
-[ext_resource type="Script" uid="uid://cwp5h84a3w177" path="res://Scripts/toggle_buttons.gd" id="4_y6wps"]
 
 [node name="nitrogen_button" unique_id=1387809696 instance=ExtResource("1_51slr")]
 custom_maximum_size = Vector2(136, 136)
@@ -13,7 +12,6 @@ toggle_mode = true
 texture_normal = ExtResource("2_faiev")
 texture_pressed = ExtResource("3_y6wps")
 texture_hover = ExtResource("3_y6wps")
-script = ExtResource("4_y6wps")
 
 [node name="icon" parent="." index="0" unique_id=2108226190]
 offset_left = -29.5

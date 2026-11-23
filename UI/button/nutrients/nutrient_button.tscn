@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dkdwh8stuu0vt" path="res://UI/button/button.tscn" id="1_yknbk"]
 [ext_resource type="Texture2D" uid="uid://tml004sboxyv" path="res://UI/button/nutrients/add.png" id="2_j0r14"]
-[ext_resource type="Script" uid="uid://cwp5h84a3w177" path="res://Scripts/toggle_buttons.gd" id="2_tldq8"]
+[ext_resource type="Script" uid="uid://cwp5h84a3w177" path="res://Scripts/toggle_scale_buttons.gd" id="2_tldq8"]
 
 [node name="nutrient_button" unique_id=1387809696 instance=ExtResource("1_yknbk")]
 custom_maximum_size = Vector2(75, 75)

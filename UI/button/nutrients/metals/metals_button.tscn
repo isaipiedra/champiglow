@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://caa26xuar26jw" path="res://UI/button/nutrients/metals/Metals.png" id="2_535bf"]
 [ext_resource type="Texture2D" uid="uid://o2gvmyrpa56x" path="res://UI/button/nutrients/metals/Circle.png" id="2_egth0"]
 [ext_resource type="Texture2D" uid="uid://dxd76s21fcr78" path="res://UI/button/nutrients/metals/Circle-hover.png" id="3_2aqfr"]
-[ext_resource type="Script" uid="uid://cwp5h84a3w177" path="res://Scripts/toggle_buttons.gd" id="4_2aqfr"]
 
 [node name="metals_button" unique_id=1387809696 instance=ExtResource("1_cm02i")]
 custom_maximum_size = Vector2(136, 136)
@@ -13,7 +12,6 @@ toggle_mode = true
 texture_normal = ExtResource("2_egth0")
 texture_pressed = ExtResource("3_2aqfr")
 texture_hover = ExtResource("3_2aqfr")
-script = ExtResource("4_2aqfr")
 
 [node name="icon" parent="." index="0" unique_id=2108226190]
 offset_left = -31.0
