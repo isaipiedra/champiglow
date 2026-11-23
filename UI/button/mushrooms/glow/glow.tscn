@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dkdwh8stuu0vt" path="res://UI/button/button.tscn" id="1_4b6hh"]
 [ext_resource type="Texture2D" uid="uid://dgnw6e7uqcgu2" path="res://UI/button/mushrooms/glow/glow.png" id="2_8mlxe"]
-[ext_resource type="Script" uid="uid://cwp5h84a3w177" path="res://Scripts/mushroom_types.gd" id="2_vyoj8"]
+[ext_resource type="Script" uid="uid://cwp5h84a3w177" path="res://Scripts/toggle_buttons.gd" id="2_vyoj8"]
 
 [node name="glow" unique_id=1387809696 instance=ExtResource("1_4b6hh")]
 toggle_mode = true

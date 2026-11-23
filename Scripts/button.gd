@@ -1,15 +1,15 @@
 extends TextureButton
 
-@export var icon_normal: Texture2D
-
-const SCALE_NORMAL := Vector2.ONE
-const SCALE_PRESSED := Vector2(0.9, 0.9)
+const SCALE_UNPRESSED := Vector2(0.60, 0.60)
+const SCALE_PRESSED := Vector2.ONE
 
 func _ready() -> void:
-	pivot_offset = size / 2.0  # escala desde el centro
-	button_down.connect(func(): _animate_scale(SCALE_PRESSED))
-	button_up.connect(func(): _animate_scale(SCALE_NORMAL))
+	toggle_mode = true 
+	resized.connect(func(): pivot_offset = size / 2.0)
+	pivot_offset = size / 2.0
+	scale = SCALE_PRESSED if button_pressed else SCALE_UNPRESSED
+	toggled.connect(_on_toggled)
 
-func _animate_scale(target: Vector2) -> void:
+func _on_toggled(on: bool) -> void:
 	var tween := create_tween()
-	tween.tween_property(self, "scale", target, 0.08)
+	tween.tween_property(self, "scale", SCALE_PRESSED if on else SCALE_UNPRESSED, 0.08)

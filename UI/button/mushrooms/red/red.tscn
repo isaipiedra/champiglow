@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dq6a6jwp3cyk0"]
 
 [ext_resource type="PackedScene" uid="uid://dkdwh8stuu0vt" path="res://UI/button/button.tscn" id="1_v2qwe"]
-[ext_resource type="Script" uid="uid://cwp5h84a3w177" path="res://Scripts/mushroom_types.gd" id="2_4gvbu"]
+[ext_resource type="Script" uid="uid://cwp5h84a3w177" path="res://Scripts/toggle_buttons.gd" id="2_4gvbu"]
 [ext_resource type="Texture2D" uid="uid://cpxmv282pqsf6" path="res://UI/button/mushrooms/red/red.png" id="2_x0v8d"]
 
 [node name="red" unique_id=1387809696 instance=ExtResource("1_v2qwe")]

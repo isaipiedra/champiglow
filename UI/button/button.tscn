@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dkdwh8stuu0vt"]
 
-[ext_resource type="Texture2D" uid="uid://bw5qk14iy8ymk" path="res://UI/circle.png" id="1_1try3"]
+[ext_resource type="Texture2D" uid="uid://cg3fgmqan6rub" path="res://UI/circle.png" id="1_1try3"]
 [ext_resource type="Texture2D" uid="uid://yi14hla1u0c" path="res://UI/circle-hover.png" id="2_nl3nx"]
 [ext_resource type="Script" uid="uid://dqac2s66xketf" path="res://Scripts/button.gd" id="3_nl3nx"]
 
