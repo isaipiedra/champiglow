@@ -8,7 +8,12 @@ func _ready() -> void:
 	resized.connect(func(): pivot_offset = size / 2.0)
 	pivot_offset = size / 2.0
 	toggled.connect(_on_toggled)
-	await get_tree().process_frame
+	_apply_scale()
+	var parent := get_parent()
+	if parent is Container:
+		parent.sort_children.connect(_apply_scale)
+
+func _apply_scale() -> void:
 	scale = SCALE_PRESSED if button_pressed else SCALE_UNPRESSED
 
 func _on_toggled(on: bool) -> void:

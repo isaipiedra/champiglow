@@ -9,7 +9,7 @@ extends Node3D
 
 @export var amanita_model_scene: PackedScene   # Modelo del cuerpo del hongo Amanita
 @export var mushroom_scale := 1.0
-@export var growth_days := 0.0  
+@export var growth_days := 0.0
 
 # Nutriente mínimo en el suelo para que una espora de amanita viva
 @export var amanita_min_carbon := 0.1
@@ -34,13 +34,16 @@ var spore_timer: float = 0.0
 @export var tree_radius := 1.5
 var _living_tree_positions: Array[Vector2] = []
 
+@onready var wind_control: CanvasItem = $CanvasLayer/SubViewportContainer
+
 @onready var label_time = $CanvasLayer/Interface/Label_Time
 @onready var label_temperature = $CanvasLayer/Interface/Label_Temperature
 @onready var label_humidity = $CanvasLayer/Interface/Label_Humidity
 @onready var label_selected_fungus = $CanvasLayer/Interface/Label_Selected_Fungus
 
 # --- nodos de la interfaz ---
-@onready var ui: Node = $CanvasLayer/Interface
+@onready var ui: CanvasItem = $CanvasLayer/Interface
+@onready var main_menu: Control = $CanvasLayer/MainMenu
 @onready var temp_slider: Range = _find(ui.get_node("sliders/slider"), "Range")
 @onready var humidity_slider: Range = _find(ui.get_node("sliders/humidity-slider"), "Range")
 @onready var play_button: BaseButton = _find(ui.get_node("time/PlayButton"), "BaseButton")
@@ -59,6 +62,7 @@ var _living_tree_positions: Array[Vector2] = []
 @onready var roots_toggle: BaseButton = ui.get_node("views/roots_toggle")
 @export var environment_root: Node3D
 
+@onready var forest_sound: AudioStreamPlayer = $ForestSound
 @onready var spore_sound: AudioStreamPlayer = $SporeSound
 @onready var spray_sound: AudioStreamPlayer = $SpraySound
 
@@ -89,6 +93,8 @@ var is_spraying := false
 var original_spray_stream: AudioStreamWAV
 var spray_cooldown := 0.0
 
+var _forest_sound_started = false
+
 func _play_spore_sound() -> void:
 	spore_sound.pitch_scale = randf_range(0.9, 1.1)  # variación para que no suene repetido
 	spore_sound.play()
@@ -102,7 +108,7 @@ func _find(node: Node, type: String) -> Node:
 func _ready() -> void:
 	original_day_length = $sky.day_length
 	_last_time_of_day = $sky.time_of_day
-	
+
 	if spray_sound and spray_sound.stream is AudioStreamWAV:
 		original_spray_stream = (spray_sound.stream as AudioStreamWAV).duplicate()
 		spray_sound.stream = original_spray_stream
@@ -124,17 +130,46 @@ func _ready() -> void:
 	wind_toggle.toggled.connect(_on_wind_toggle)
 	nutrients_toggle.toggled.connect(_on_nutrients_toggle)
 	roots_toggle.toggled.connect(_on_roots_toggle)
-	
+
 	carbon_button.toggled.connect(_on_nutrient_tool_toggled.bind("carbon"))
 	nitrogen_button.toggled.connect(_on_nutrient_tool_toggled.bind("nitrogen"))
 	metals_button.toggled.connect(_on_nutrient_tool_toggled.bind("metals"))
-	
+
 	_set_temperature(temperature_celsius)
 	_set_humidity(humidity_percentage)
 	_update_time_label()
 	_update_fungus_label()
 	_collect_living_trees()
-	
+
+	main_menu.start_requested.connect(_hide_menu)
+	main_menu.toggle_requested.connect(_toggle_menu)
+	_show_menu()
+
+
+# ---------- menú principal ----------
+func _show_menu() -> void:
+	is_spraying = false
+	_stop_spray_sound()
+	main_menu.show()
+	ui.hide()
+	wind_control.hide()
+	get_tree().paused = true
+
+func _hide_menu() -> void:
+	main_menu.hide()
+	ui.show()
+	wind_control.show()
+	get_tree().paused = false
+	if not _forest_sound_started:
+		forest_sound.play()
+		_forest_sound_started = true
+
+func _toggle_menu() -> void:
+	if main_menu.visible:
+		_hide_menu()
+	else:
+		_show_menu()
+
 
 # ---------- teclas e interfaz ----------
 func _set_temperature(v: float) -> void:
@@ -177,6 +212,8 @@ func _update_time_label() -> void:
 	else:
 		label_time.text = "Velocidad de día: x0 - Tiempo detenido"
 	play_button.button_pressed = not $sky.auto_advance  # pressed = tiempo corriendo
+	forest_sound.stream_paused = not $sky.auto_advance
+	forest_sound.pitch_scale = 1.0 + log(time_speed_mul) / log(2.0) * 0.15 #more natural sound
 
 
 func _update_fungus_label() -> void:
@@ -221,7 +258,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			if is_spraying:
 				_stop_spray_sound()
 			is_spraying = false
-	
+
 	if not (event is InputEventKey and event.pressed):
 		return
 
@@ -245,7 +282,7 @@ func are_mycena_conditions_optimal() -> bool:
 
 func are_amanita_conditions_optimal() -> bool:
 	return (temperature_celsius >= 18.0 and temperature_celsius <= 24.0 and humidity_percentage >= 80.0)
-	
+
 # ---------- Hongos -------------
 
 func _soil_allows_germination(pos: Vector3, mins: Dictionary) -> bool:
@@ -353,7 +390,7 @@ func _collect_living_trees() -> void:
 				_living_tree_positions.append(Vector2(origin.x, origin.z))
 				#print("Árbol vivo: ", tree.name, " en ", origin)
 				break
-	
+
 
 func _is_near_living_tree(pos: Vector3) -> bool:
 	var flat := Vector2(pos.x, pos.z)
@@ -362,7 +399,7 @@ func _is_near_living_tree(pos: Vector3) -> bool:
 		if flat.distance_squared_to(tree_pos) <= max_dist_sq:
 			return true
 	return false
-	
+
 func _on_roots_toggle(toggled_on: bool) -> void:
 	roots_view_on = toggled_on
 	get_tree().call_group("mycelium", "set_visible", toggled_on)
@@ -372,7 +409,7 @@ func _on_roots_toggle(toggled_on: bool) -> void:
 	if toggled_on:
 		if wind_toggle.button_pressed: wind_toggle.button_pressed = false
 		if nutrients_toggle.button_pressed: nutrients_toggle.button_pressed = false
-		
+
 # ---------- partículas ----------
 func generate_particle() -> void:
 	var scene := amanita_scene if chosen_fungus == 0 else mycena_scene
@@ -390,11 +427,10 @@ func generate_particle() -> void:
 	add_child(new_particle)
 	_play_spore_sound()
 	new_particle.global_position = ray_origin + ray_direction * 5.0
-	
 
 	if new_particle.has_method("fetch_environmental_factors"):
 		new_particle.fetch_environmental_factors(wind_force)
-		
+
 	if $sky.time_of_day >= 18.0:
 		new_particle.its_night()
 	else:
@@ -413,42 +449,41 @@ func _on_mycena_spore_landed(spore: Node3D, body: Node3D) -> void:
 	if not body.is_in_group("mycena_host"):
 		spore.queue_free()
 		return
-	
-	if not  are_mycena_conditions_optimal():
+
+	if not are_mycena_conditions_optimal():
 		spore.queue_free()
 		return
 
-	
 	if mycena_model_scene == null:
 		print("Falta mycena_model en el main")
-	
+
 	var spore_body := spore.get_node_or_null("RigidBody3D") as RigidBody3D
-	
+
 	if spore_body == null:
 		print("La espora no tiene hijo RigidBody3D")
 		return
 	if not _soil_allows_germination(spore_body.global_position, {"carbon": mycena_min_carbon, "nitrogen": mycena_min_nitrogen, "metals": mycena_min_metals}):
 		spore.queue_free()
 		return
-	
+
 	var mushroom := mycena_model_scene.instantiate() as Node3D
 	mushroom.fruit_died.connect(_on_mycena_died)
 	mushroom.spores_started.connect(_on_spores_started)
 	mushroom.spores_stopped.connect(_on_spores_stopped)
-	
+
 	add_child(mushroom)
 	mushroom.nutrient_view = nutrient_view
-	
+
 	mushroom.global_position = (spore_body.global_position - Vector3.UP * 0.004)
 	mushroom.spawn_mycelium()
 	mushroom.set_mycelium_visible(roots_view_on)
 	grown_mycenas.append(mushroom)
-	
+
 	mushroom.set_environment_conditions(temperature_celsius, humidity_percentage,
 		time_speed_mul)
-	
+
 	spore.queue_free()
-	
+
 func _advance_mycena_growth_days() -> void:
 	for mushroom in grown_mycenas:
 		if (is_instance_valid(mushroom) and mushroom.has_method("advance_growth_day")):
@@ -465,44 +500,42 @@ func _on_spores_started(mushroom: Node3D) -> void:
 
 func _on_spores_stopped(mushroom: Node3D) -> void:
 	array_mushrooms_generating_mycenas.erase(mushroom)
-	
-	
+
+
 func _on_mycena_died(mushroom: Node3D) -> void:
 	grown_mycenas.erase(mushroom)
 	mushroom.queue_free()
 
 func _generate_mycena_spore(mushroom: Node3D) -> void:
-	
+
 	if not mushroom.can_generate_spores():
 		array_mushrooms_generating_mycenas.erase(mushroom)
 		return
-	
+
 	if mycena_scene == null:
 		return
 	var cap := mushroom.get_node_or_null("Cap") as Node3D
 	var spore := mycena_scene.instantiate() as Node3D
-	
+
 	add_child(spore)
 	spore.global_position.x = cap.global_position.x
 	spore.global_position.y = cap.global_position.y + 0.2
 	spore.global_position.z = cap.global_position.z
-	
+
 	var direction := Vector3(randf_range(-0.3, 0.3), 1.0, randf_range(-0.3, 0.3)).normalized()
 
-	
 	if spore.has_signal("landed"):
 		spore.landed.connect(_on_mycena_spore_landed)
-	
+
 	if spore.has_method("fetch_environmental_factors"):
 		spore.fetch_environmental_factors(wind_force)
-	
+
 	if $sky.time_of_day >= 18.0:
 		spore.its_night()
 	else:
 		spore.its_day()
-		
-	spore.init_shot(direction) 
 
+	spore.init_shot(direction)
 
 	array_mycena_particles.append(spore)
 	mushroom.register_spore_generation()
@@ -512,10 +545,10 @@ func _notify_mycenas_environment() -> void:
 	for mushroom in grown_mycenas:
 		if is_instance_valid(mushroom):
 			mushroom.set_environment_conditions(temperature_celsius, humidity_percentage, time_speed_mul)
-	
+
 func _process(delta: float) -> void:
 	update_wind_from_pivot()
-	
+
 	if is_spraying:
 		if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or active_nutrient_tool == "":
 			is_spraying = false
@@ -531,7 +564,7 @@ func _process(delta: float) -> void:
 	_update_pending_mushrooms()
 	if wind_view.visible:
 		wind_view.update_arrows(wind_force)
-		
+
 	if $sky.time_of_day >= 18.0 or $sky.time_of_day < 6.0:
 		if not is_night:
 			is_night = true
@@ -549,7 +582,6 @@ func _process(delta: float) -> void:
 	else:
 		if not is_day:
 			is_day = true
-			is_day = true
 			is_night = false
 			for particle in array_mycena_particles:
 				if is_instance_valid(particle):
@@ -561,7 +593,7 @@ func _process(delta: float) -> void:
 				for mycena in grown_mycenas:
 					if is_instance_valid(mycena):
 						mycena.its_not_second_half_night()
-	
+
 	if not array_mushrooms_generating_mycenas.is_empty() or not array_mushrooms_generating_amanita.is_empty():
 		spore_timer += delta * time_speed_mul
 
@@ -579,7 +611,7 @@ func _process(delta: float) -> void:
 					_generate_amanita_spore(mushroom)
 				else:
 					array_mushrooms_generating_amanita.erase(mushroom)
-				
+
 	if current_time < _last_time_of_day:
 		_advance_mycena_growth_days()
 	_last_time_of_day = current_time
@@ -607,11 +639,11 @@ func _spray_nutrient_at_mouse(type: String) -> void:
 	var mouse_pos := get_viewport().get_mouse_position()
 	var ray_origin: Vector3 = $Camera3D.project_ray_origin(mouse_pos)
 	var ray_direction: Vector3 = $Camera3D.project_ray_normal(mouse_pos)
-	
+
 	var space_state = get_world_3d().direct_space_state
 	var query = PhysicsRayQueryParameters3D.create(ray_origin, ray_origin + ray_direction * 100.0)
 	var result = space_state.intersect_ray(query)
-	
+
 	if result:
 		nutrient_view.spray_nutrients(result.position, type)
 
