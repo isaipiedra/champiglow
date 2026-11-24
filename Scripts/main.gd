@@ -27,6 +27,8 @@ extends Node3D
 @export var spore_interval: float = 2
 var spore_timer: float = 0.0
 
+@export_range(0.0, 1.0) var spray_loop_start_ratio := 0.00
+@export_range(0.0, 1.0) var spray_loop_end_ratio := 0.35
 
 @export var living_tree_models: PackedStringArray = ["MapleTree"]
 @export var tree_radius := 1.5
@@ -58,6 +60,7 @@ var _living_tree_positions: Array[Vector2] = []
 @export var environment_root: Node3D
 
 @onready var spore_sound: AudioStreamPlayer = $SporeSound
+@onready var spray_sound: AudioStreamPlayer = $SpraySound
 
 var wind_value := 1
 var time_speed_mul := 1
@@ -81,6 +84,11 @@ var _last_wind_angle := INF
 
 var _pending_mushrooms: Array[Dictionary] = []
 
+var active_nutrient_tool := ""
+var is_spraying := false
+var original_spray_stream: AudioStreamWAV
+var spray_cooldown := 0.0
+
 func _play_spore_sound() -> void:
 	spore_sound.pitch_scale = randf_range(0.9, 1.1)  # variación para que no suene repetido
 	spore_sound.play()
@@ -91,10 +99,17 @@ func _find(node: Node, type: String) -> Node:
 		return node
 	return node.find_children("*", type, true, false)[0]
 
-
 func _ready() -> void:
 	original_day_length = $sky.day_length
 	_last_time_of_day = $sky.time_of_day
+	
+	if spray_sound and spray_sound.stream is AudioStreamWAV:
+		original_spray_stream = (spray_sound.stream as AudioStreamWAV).duplicate()
+		spray_sound.stream = original_spray_stream
+		var total_frames := int(original_spray_stream.get_length() * original_spray_stream.mix_rate)
+		original_spray_stream.loop_begin = int(total_frames * spray_loop_start_ratio)
+		original_spray_stream.loop_end = int(total_frames * spray_loop_end_ratio)
+		original_spray_stream.loop_mode = AudioStreamWAV.LOOP_DISABLED
 
 	# Evita que la barra espaciadora presione el último botón tocado
 	for c in ui.find_children("*", "Control", true, false):
@@ -110,10 +125,10 @@ func _ready() -> void:
 	nutrients_toggle.toggled.connect(_on_nutrients_toggle)
 	roots_toggle.toggled.connect(_on_roots_toggle)
 	
-	carbon_button.pressed.connect(_on_add_nutrient.bind("carbon", 10.0))
-	nitrogen_button.pressed.connect(_on_add_nutrient.bind("nitrogen", 10.0))
-	metals_button.pressed.connect(_on_add_nutrient.bind("metals", 10.0))
-
+	carbon_button.toggled.connect(_on_nutrient_tool_toggled.bind("carbon"))
+	nitrogen_button.toggled.connect(_on_nutrient_tool_toggled.bind("nitrogen"))
+	metals_button.toggled.connect(_on_nutrient_tool_toggled.bind("metals"))
+	
 	_set_temperature(temperature_celsius)
 	_set_humidity(humidity_percentage)
 	_update_time_label()
@@ -189,9 +204,24 @@ func _on_wind_toggle(toggled_on: bool) -> void:
 
 # ---------- entrada ----------
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		generate_particle()
-
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			if active_nutrient_tool != "":
+				is_spraying = true
+				spray_cooldown = 0.0
+				if spray_sound:
+					spray_sound.stop()
+					spray_sound.pitch_scale = randf_range(1.95, 2.05)
+					original_spray_stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
+					spray_sound.play()
+				_spray_nutrient_at_mouse(active_nutrient_tool)
+			else:
+				generate_particle()
+		else:
+			if is_spraying:
+				_stop_spray_sound()
+			is_spraying = false
+	
 	if not (event is InputEventKey and event.pressed):
 		return
 
@@ -208,6 +238,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		KEY_R: forward_button.pressed.emit()
 		KEY_SPACE: _toggle_time()
 		KEY_H: _set_fungus(1 - chosen_fungus)
+
 
 func are_mycena_conditions_optimal() -> bool:
 	return (temperature_celsius >= 8.0 and temperature_celsius <= 27.0 and humidity_percentage >= 70.0)
@@ -485,6 +516,16 @@ func _notify_mycenas_environment() -> void:
 func _process(delta: float) -> void:
 	update_wind_from_pivot()
 	
+	if is_spraying:
+		if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or active_nutrient_tool == "":
+			is_spraying = false
+			_stop_spray_sound()
+		else:
+			spray_cooldown -= delta
+			if spray_cooldown <= 0:
+				_spray_nutrient_at_mouse(active_nutrient_tool)
+				spray_cooldown = 0.05
+
 	var current_time: float = $sky.time_of_day
 
 	_update_pending_mushrooms()
@@ -501,11 +542,10 @@ func _process(delta: float) -> void:
 			for mycena in grown_mycenas:
 				if is_instance_valid(mycena):
 					mycena.its_night()
-		#print("Es media noche ", $sky.time_of_day)
 		if $sky.time_of_day >= 0.0 and $sky.time_of_day < 1.0:
 				for mycena in grown_mycenas:
 					if is_instance_valid(mycena):
-						mycena.its_second_half_night()	
+						mycena.its_second_half_night()
 	else:
 		if not is_day:
 			is_day = true
@@ -548,8 +588,33 @@ func _process(delta: float) -> void:
 func _on_nutrients_toggle(toggled_on: bool) -> void:
 	nutrient_view.visible = toggled_on
 	if toggled_on:
-		# Obligamos a que actualice los tamaños al encenderse
 		nutrient_view.call_deferred("_update_visuals")
 
 func _on_add_nutrient(nutrient_type: String, amount: float) -> void:
 	nutrient_view.add_nutrient(nutrient_type, amount)
+
+func _on_nutrient_tool_toggled(toggled_on: bool, type: String) -> void:
+	if toggled_on:
+		active_nutrient_tool = type
+		if type != "carbon": carbon_button.button_pressed = false
+		if type != "nitrogen": nitrogen_button.button_pressed = false
+		if type != "metals": metals_button.button_pressed = false
+	else:
+		if active_nutrient_tool == type:
+			active_nutrient_tool = ""
+
+func _spray_nutrient_at_mouse(type: String) -> void:
+	var mouse_pos := get_viewport().get_mouse_position()
+	var ray_origin: Vector3 = $Camera3D.project_ray_origin(mouse_pos)
+	var ray_direction: Vector3 = $Camera3D.project_ray_normal(mouse_pos)
+	
+	var space_state = get_world_3d().direct_space_state
+	var query = PhysicsRayQueryParameters3D.create(ray_origin, ray_origin + ray_direction * 100.0)
+	var result = space_state.intersect_ray(query)
+	
+	if result:
+		nutrient_view.spray_nutrients(result.position, type)
+
+func _stop_spray_sound() -> void:
+	if original_spray_stream:
+		original_spray_stream.loop_mode = AudioStreamWAV.LOOP_DISABLED
