@@ -42,7 +42,6 @@ func _build_grid() -> void:
 
 	var space_state = get_world_3d().direct_space_state
 
-	# Lista de objetos a ignorar (RIDs)
 	var exclude_rids: Array[RID] = []
 	for body in ignored_bodies:
 		if body is CollisionObject3D:
@@ -57,7 +56,7 @@ func _build_grid() -> void:
 			var ray_end := Vector3(pos_x, -100.0, pos_z)
 			
 			var query := PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
-			query.exclude = exclude_rids #Ignora los obstáculos del terreno
+			query.exclude = exclude_rids
 			
 			var result := space_state.intersect_ray(query)
 			
@@ -109,11 +108,36 @@ func _create_multimesh(mesh: Mesh, count: int) -> MultiMeshInstance3D:
 	add_child(mmi)
 	return mmi
 
-func add_nutrient(nutrient_type: String, amount: float) -> void:
-	for key in grid_data.keys():
-		var current = grid_data[key][nutrient_type]
-		grid_data[key][nutrient_type] = clampf(current + amount, 0.0, 100.0)
-	_update_visuals()
+func add_nutrient_at(world_pos: Vector3, nutrient_type: String, amount: float) -> void:
+	var local_pos = to_local(world_pos)
+	var closest_key = Vector2i.ZERO
+	var min_dist = INF
+	for key in _grid_positions.keys():
+		var cell_pos: Vector3 = _grid_positions[key]
+		var dist = Vector2(cell_pos.x - local_pos.x, cell_pos.z - local_pos.z).length_squared()
+		if dist < min_dist:
+			min_dist = dist
+			closest_key = key
+	
+	if min_dist < (spacing * spacing):
+		var current = grid_data[closest_key][nutrient_type]
+		grid_data[closest_key][nutrient_type] = clampf(current + amount, 0.0, 100.0)
+		_update_visuals()
+		
+func spray_nutrients(center_pos: Vector3, nutrient_type: String) -> void:
+	var count = 10
+	var radius = 1.45 
+	var amount_per_drop = 10
+	
+	var color = color_carbon if nutrient_type == "carbon" else (color_nitrogen if nutrient_type == "nitrogen" else color_metals)
+	
+	for i in count:
+		var offset = Vector3(randf_range(-radius, radius), 0, randf_range(-radius, radius))
+		var spawn_pos = center_pos + offset
+		
+		var drop = NutrientDrop.new()
+		get_parent().add_child(drop)
+		drop.setup(spawn_pos, nutrient_type, amount_per_drop, self, color)
 
 func consume_nutrient_at(world_pos: Vector3, nutrient_type: String, amount: float) -> float:
 	var local_pos = to_local(world_pos)
@@ -265,7 +289,7 @@ func _create_mat(color: Color, is_fill: bool) -> StandardMaterial3D:
 	mat.depth_draw_mode = BaseMaterial3D.DEPTH_DRAW_DISABLED
 	
 	if is_fill:
-		mat.albedo_color = Color(color.r, color.g, color.b, 0.2) # 80% transparencia
+		mat.albedo_color = Color(color.r, color.g, color.b, 0.2)
 	else:
-		mat.albedo_color = Color(color.r, color.g, color.b, 0.7) # 30% transparencia
+		mat.albedo_color = Color(color.r, color.g, color.b, 0.7)
 	return mat
