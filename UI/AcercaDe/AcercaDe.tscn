@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://dn6w5r8m8i5tq"]
+
+[ext_resource type="Texture2D" uid="uid://cefdoj0vdi1gw" path="res://UI/AcercaDe/AcercaDeBG.png" id="1_pu7vh"]
+[ext_resource type="Texture2D" uid="uid://b3lrpklcphig3" path="res://UI/AcercaDe/AcercaDeTitle/AcercaDeTitulo.png" id="2_6clcq"]
+
+[node name="AcercaDe" type="Control" unique_id=1822615017]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1061769446]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_pu7vh")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Title" type="TextureRect" parent="." unique_id=467540688]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -644.0
+offset_top = -488.0
+offset_right = 643.0
+offset_bottom = -59.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_6clcq")
+expand_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1496127414]
+layout_mode = 0
+offset_left = 315.0
+offset_top = 197.0
+offset_right = 355.0
+offset_bottom = 237.0
