@@ -1,0 +1,18 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c41b0ga4t4e5p"]
+
+[ext_resource type="Texture2D" uid="uid://cx0va07u538jw" path="res://Rocks Sample Pack/Textures/Stone Gray Basic.Diffuse.png" id="1_qw56n"]
+[ext_resource type="Texture2D" uid="uid://crthhq4cv27hi" path="res://Rocks Sample Pack/Textures/Stone Gray Basic.AO.png" id="2_4y2de"]
+[ext_resource type="Texture2D" uid="uid://bxpqsuh87xfg5" path="res://Rocks Sample Pack/Textures/Stone Gray Basic.Normal.png" id="3_03071"]
+[ext_resource type="Texture2D" uid="uid://dm8rdoyb2g1a0" path="res://Rocks Sample Pack/Textures/Stone Gray Basic.Roughness.png" id="4_8mxr1"]
+
+[resource]
+transparency = 4
+cull_mode = 2
+albedo_texture = ExtResource("1_qw56n")
+roughness_texture = ExtResource("4_8mxr1")
+normal_enabled = true
+normal_texture = ExtResource("3_03071")
+ao_enabled = true
+ao_texture = ExtResource("2_4y2de")
+uv1_scale = Vector3(0.3, 0.3, 0.3)
+uv1_triplanar = true

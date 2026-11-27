@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=4 uid="uid://dgelwmes1qn23"]
+[gd_scene format=4 uid="uid://dgelwmes1qn23"]
 
-[ext_resource type="Material" uid="uid://dicus30rurhp1" path="res://Kyle's Mushroom Pack/Kyle Fuji/Materials/M_oyster.tres" id="1_i63vf"]
+[ext_resource type="Material" uid="uid://dicus30rurhp1" path="res://Materials/M_oyster.tres" id="1_i63vf"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_subn7"]
 
@@ -39,12 +39,11 @@ shadow_mesh = SubResource("ArrayMesh_oxjoy")
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_i63vf"]
 points = PackedVector3Array(-0.040588476, 0.16350612, 0.08338777, 0.018375382, 0.16043341, 0.058949344, -0.040588476, 0.17478418, 0.07213988, -0.08510967, 0.17536783, 0.051015414, -0.09107579, 0.16350612, 0.058949344, -0.014833428, 0, 0.014823042, -3.3602118e-06, 0, 0.020961218, 0.04279773, 0.14194563, -1.6324222e-05, 0.010441214, 0.1674543, 0.051015414, 0.014811203, 0, 0.014823042, -0.083141625, 0.17536783, -0.05103175, -0.040588476, 0.17478418, -0.07217254, -0.104278736, 0.17536783, -1.6324222e-05, -0.11549814, 0.16350612, -1.6324222e-05, -0.020985506, 0, -1.6324222e-05, 0.018375382, 0.16043341, -0.058965668, 0.010441214, 0.1674543, -0.05103175, 0.020963281, 0, -1.6324222e-05, 0.014811203, 0, -0.014839366, -0.040588476, 0.16350612, -0.08338777, -0.09107579, 0.16350612, -0.058965668, -0.014833428, 0, -0.014839366, -3.3602118e-06, 0, -0.020977542)
 
-[node name="oyster_pearl_1" type="StaticBody3D"]
+[node name="oyster_pearl_1" type="StaticBody3D" unique_id=909065985]
 
-[node name="Oyster Pearl 1" type="MeshInstance3D" parent="."]
+[node name="Oyster Pearl 1" type="MeshInstance3D" parent="." unique_id=186802768]
 mesh = SubResource("ArrayMesh_655tg")
-skeleton = NodePath("")
 surface_material_override/0 = ExtResource("1_i63vf")
 
-[node name="Oyster Pearl 1_col_shape" type="CollisionShape3D" parent="."]
+[node name="Oyster Pearl 1_col_shape" type="CollisionShape3D" parent="." unique_id=777163668]
 shape = SubResource("ConvexPolygonShape3D_i63vf")

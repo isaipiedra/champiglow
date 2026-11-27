@@ -1,12 +1,15 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://dicus30rurhp1"]
 
-[ext_resource type="Texture2D" uid="uid://b5dtl44ft30gn" path="res://Kyle's Mushroom Pack/Kyle Fuji/Materials/Textures/T_oyster_atlas_diffuse_roughness.png" id="1_tlnbj"]
-[ext_resource type="Texture2D" uid="uid://d08vrimqldkvq" path="res://Kyle's Mushroom Pack/Kyle Fuji/Materials/Textures/T_oyster_atlas_normal.png" id="2_p7wlk"]
+[ext_resource type="Texture2D" uid="uid://b5dtl44ft30gn" path="res://Materials/Textures/T_oyster_atlas_diffuse_roughness.png" id="1_tlnbj"]
+[ext_resource type="Texture2D" uid="uid://d08vrimqldkvq" path="res://Materials/Textures/T_oyster_atlas_normal.png" id="2_p7wlk"]
 
 [resource]
 albedo_texture = ExtResource("1_tlnbj")
 roughness = 0.7
 roughness_texture = ExtResource("1_tlnbj")
 roughness_texture_channel = 3
+emission_enabled = true
+emission = Color(0.46312708, 0.7257427, 0.49861282, 1)
+emission_energy_multiplier = 9.26
 normal_enabled = true
 normal_texture = ExtResource("2_p7wlk")

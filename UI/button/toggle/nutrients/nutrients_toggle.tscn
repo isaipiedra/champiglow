@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://50txil4mmdib"]
+
+[ext_resource type="PackedScene" uid="uid://bn418gsjw3jom" path="res://UI/button/toggle/toggle_button.tscn" id="1_u82r4"]
+[ext_resource type="Texture2D" uid="uid://cb48gqw4rwira" path="res://UI/button/toggle/nutrients/nutrients.png" id="2_gdkac"]
+
+[node name="nutrients_toggle" unique_id=1387809696 instance=ExtResource("1_u82r4")]
+
+[node name="icon" parent="." index="0" unique_id=2108226190]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+texture = ExtResource("2_gdkac")
+expand_mode = 1

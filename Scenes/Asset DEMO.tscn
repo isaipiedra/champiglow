@@ -1,0 +1,63 @@
+[gd_scene format=4 uid="uid://t216n1fbrpfh"]
+
+[ext_resource type="Material" uid="uid://1r3xuv5b3qyl" path="res://Materials/PROTO Blaaaaaaack.tres" id="1_of3lb"]
+[ext_resource type="PackedScene" uid="uid://c727iedt40kse" path="res://Rocks Sample Pack/Scenes/boulder_flat_regular.tscn" id="2_bbn0f"]
+[ext_resource type="PackedScene" uid="uid://iku0ialhgi1d" path="res://Rocks Sample Pack/Scenes/boulder_round_regular.tscn" id="3_byy31"]
+[ext_resource type="PackedScene" uid="uid://c00c5ea0io7fa" path="res://Rocks Sample Pack/Scenes/pillar_column_regular.tscn" id="4_g5dhc"]
+[ext_resource type="PackedScene" uid="uid://xmhxv7rtd0b4" path="res://Rocks Sample Pack/Scenes/pillar_spike_light.tscn" id="5_nlk85"]
+[ext_resource type="PackedScene" uid="uid://dl4d2yx0glsnm" path="res://Rocks Sample Pack/Scenes/stone_regular.tscn" id="6_j2hcf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xkq4l"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_tmkjs"]
+_surfaces = [{
+"aabb": AABB(-0.01, -0.01, 0, 0.02, 0.02, 1e-05),
+"format": 34359742465,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAgADAAAA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("CtcjPArXIzwAAAAACtcjPArXI7wAAAAACtcjvArXI7wAAAAACtcjvArXIzwAAAAA")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_v7g68"]
+resource_name = "Plane"
+_surfaces = [{
+"aabb": AABB(-0.01, -0.01, 0, 0.02, 0.02, 1e-05),
+"attribute_data": PackedByteArray("AACAP///fz/+//8zAACAPy69OzMAAAA0//9/PwAAgDM="),
+"format": 34359742487,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAgADAAAA"),
+"material": SubResource("StandardMaterial3D_xkq4l"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("CtcjPArXIzwAAAAACtcjPArXI7wAAAAACtcjvArXI7wAAAAACtcjvArXIzwAAAAA/3//f/9/////f/9//3////9//3//f////3//f/9///8=")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_tmkjs")
+
+[node name="Node3D" type="Node3D" unique_id=1162229813]
+
+[node name="Plane" type="MeshInstance3D" parent="." unique_id=1933926590]
+transform = Transform3D(600, 0, 0, 0, -2.6226833e-05, 600, 0, -600, -2.6226833e-05, 0, 0, 0)
+material_override = ExtResource("1_of3lb")
+mesh = SubResource("ArrayMesh_v7g68")
+skeleton = NodePath("")
+
+[node name="Boulder Flat Regular" parent="." unique_id=1344875032 instance=ExtResource("2_bbn0f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28881836, 0, -4.029236)
+
+[node name="Boulder Round Regular" parent="." unique_id=1475472552 instance=ExtResource("3_byy31")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.0338135, 0, 3.2513428)
+
+[node name="Pillar Column Regular" parent="." unique_id=1748485156 instance=ExtResource("4_g5dhc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.3309326, 0, -4.265747)
+
+[node name="Pillar Spike Light" parent="." unique_id=175147582 instance=ExtResource("5_nlk85")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8062744, 0, -1.033081)
+
+[node name="Stone Regular" parent="." unique_id=1538977920 instance=ExtResource("6_j2hcf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11816406, 0, -0.7253418)

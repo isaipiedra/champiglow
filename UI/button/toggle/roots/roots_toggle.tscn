@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cx2u4n1mxuwyu"]
+
+[ext_resource type="PackedScene" uid="uid://bn418gsjw3jom" path="res://UI/button/toggle/toggle_button.tscn" id="1_b0mhp"]
+[ext_resource type="Texture2D" uid="uid://djpgay2hd7ekf" path="res://UI/button/toggle/roots/roots.png" id="2_6ykpt"]
+
+[node name="roots_toggle" unique_id=1387809696 instance=ExtResource("1_b0mhp")]
+
+[node name="icon" parent="." index="0" unique_id=2108226190]
+texture = ExtResource("2_6ykpt")
+expand_mode = 1

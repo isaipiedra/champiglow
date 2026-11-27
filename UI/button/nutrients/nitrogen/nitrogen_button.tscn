@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://britb3mdg1xx2"]
+
+[ext_resource type="PackedScene" uid="uid://bgeugqbqrrfq" path="res://UI/button/nutrients/nutrient_button.tscn" id="1_51slr"]
+[ext_resource type="Texture2D" uid="uid://dbc4txt24wnr5" path="res://UI/button/nutrients/nitrogen/Nitrogen.png" id="2_54au4"]
+[ext_resource type="Texture2D" uid="uid://sqscxkmssp1k" path="res://UI/button/nutrients/nitrogen/Circle.png" id="2_faiev"]
+[ext_resource type="Texture2D" uid="uid://cpxs1jxu0jhh5" path="res://UI/button/nutrients/nitrogen/Circle-hover.png" id="3_y6wps"]
+
+[node name="nitrogen_button" unique_id=1387809696 instance=ExtResource("1_51slr")]
+custom_maximum_size = Vector2(136, 136)
+tooltip_text = "Nitrógeno"
+toggle_mode = true
+texture_normal = ExtResource("2_faiev")
+texture_pressed = ExtResource("3_y6wps")
+texture_hover = ExtResource("3_y6wps")
+
+[node name="icon" parent="." index="0" unique_id=2108226190]
+offset_left = -29.5
+offset_top = -30.217392
+offset_right = 26.0
+offset_bottom = 31.717392
+texture = ExtResource("2_54au4")
+expand_mode = 1
+
+[node name="TextureRect" parent="." index="1" unique_id=326638221]
+custom_maximum_size = Vector2(-1, -1)
+offset_left = -41.904762
+expand_mode = 3
+
+[node name="Label" type="Label" parent="." index="2" unique_id=388115931]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -39.5
+offset_top = -23.0
+offset_right = 39.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Nitrógeno"
