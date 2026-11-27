@@ -2,8 +2,10 @@ extends Control
 
 signal start_requested
 signal toggle_requested
+signal about_requested
 
 func _ready() -> void:
+	print("MainMenu cargado")
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	$VBoxContainer/start.pressed.connect(func(): start_requested.emit())
 	$VBoxContainer/about.pressed.connect(_on_about_pressed)
@@ -14,4 +16,4 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 func _on_about_pressed() -> void:
-	pass
+	about_requested.emit()

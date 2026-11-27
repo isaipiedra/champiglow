@@ -5,6 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://cpxmv282pqsf6" path="res://UI/button/mushrooms/red/red.png" id="2_x0v8d"]
 
 [node name="red" unique_id=1387809696 instance=ExtResource("1_v2qwe")]
+offset_left = 181.0
+offset_top = 178.0
+offset_right = 317.0
+offset_bottom = 314.0
 toggle_mode = true
 stretch_mode = 0
 script = ExtResource("2_4gvbu")
