@@ -44,6 +44,10 @@ var _living_tree_positions: Array[Vector2] = []
 # --- nodos de la interfaz ---
 @onready var ui: CanvasItem = $CanvasLayer/Interface
 @onready var main_menu: Control = $CanvasLayer/MainMenu
+@onready var acerca_de: Control = $CanvasLayer/AcercaDe
+@onready var controles_basicos: Control = $CanvasLayer/ControlesBasicos
+@onready var info_hongos: Control = $CanvasLayer/InfoHongos
+
 @onready var temp_slider: Range = _find(ui.get_node("sliders/slider"), "Range")
 @onready var humidity_slider: Range = _find(ui.get_node("sliders/humidity-slider"), "Range")
 @onready var play_button: BaseButton = _find(ui.get_node("time/PlayButton"), "BaseButton")
@@ -143,6 +147,23 @@ func _ready() -> void:
 
 	main_menu.start_requested.connect(_hide_menu)
 	main_menu.toggle_requested.connect(_toggle_menu)
+	
+	#Acerca de
+	main_menu.about_requested.connect(_show_about)
+	acerca_de.back_requested.connect(_hide_about)
+	
+	#Controles
+	acerca_de.controles_requested.connect(_show_controles)
+	controles_basicos.back_requested.connect(_hide_controles)
+	
+	#hongos
+	acerca_de.hongos_requested.connect(_show_infoHongos)
+	info_hongos.back_requested.connect(_hide_infoHongos)
+	
+	acerca_de.hide()
+	controles_basicos.hide()
+	info_hongos.hide()
+	
 	_show_menu()
 
 
@@ -165,10 +186,46 @@ func _hide_menu() -> void:
 		_forest_sound_started = true
 
 func _toggle_menu() -> void:
+	if controles_basicos.visible:
+		_hide_controles()
+		return
+	if info_hongos.visible:
+		_hide_infoHongos()
+		return 
+		
+	if acerca_de.visible:
+		_hide_about()
+		return
+	
+
 	if main_menu.visible:
 		_hide_menu()
 	else:
 		_show_menu()
+		
+func _show_about() -> void:
+	main_menu.hide()
+	acerca_de.show()
+
+func _hide_about() -> void:
+	acerca_de.hide()
+	main_menu.show()
+	
+func _show_controles() -> void:
+	acerca_de.hide()
+	controles_basicos.show()
+
+func _hide_controles() -> void:
+	controles_basicos.hide()
+	acerca_de.show()
+
+func _show_infoHongos() -> void:
+	acerca_de.hide()
+	info_hongos.show()
+
+func _hide_infoHongos() -> void:
+	info_hongos.hide()
+	acerca_de.show()
 
 
 # ---------- teclas e interfaz ----------

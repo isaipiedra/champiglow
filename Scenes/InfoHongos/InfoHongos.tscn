@@ -1,0 +1,240 @@
+[gd_scene format=3 uid="uid://cg1skl5vhp0pp"]
+
+[ext_resource type="Texture2D" uid="uid://0wx152q6y6j1" path="res://UI/ControlesBasicos/Bg.png" id="1_cr321"]
+[ext_resource type="Script" uid="uid://bajlw8gaqgxox" path="res://Scripts/info_hongos.gd" id="1_xx5qd"]
+[ext_resource type="Texture2D" uid="uid://leijro87o46m" path="res://UI/ControlesBasicos/BotonesNuevos/Hongos/Mycena.png" id="2_j40qa"]
+[ext_resource type="Texture2D" uid="uid://cjs22knywuu2e" path="res://UI/ControlesBasicos/BotonesNuevos/Hongos/Amanita.png" id="3_j40qa"]
+[ext_resource type="Texture2D" uid="uid://cmkk84n77u5uw" path="res://UI/ControlesBasicos/AtrasBoton/Atras.png" id="3_xx5qd"]
+[ext_resource type="Texture2D" uid="uid://d3vcwxpo4ofs6" path="res://UI/ControlesBasicos/AtrasBoton/AtrasGlow.png" id="4_t6j50"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i331s"]
+bg_color = Color(0.23921569, 0.105882354, 0.32156864, 0.8)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[node name="InfoHongos" type="Control" unique_id=1342468931]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xx5qd")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=301569439]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_cr321")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Panel" type="Panel" parent="." unique_id=1438606783]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -477.0
+offset_top = -501.0
+offset_right = 477.0
+offset_bottom = 513.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_i331s")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=973668180]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -425.0
+offset_top = -444.5
+offset_right = 425.0
+offset_bottom = 444.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=1279616112]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ControlesB" type="RichTextLabel" parent="ScrollContainer/VBoxContainer" unique_id=34242903]
+layout_mode = 2
+size_flags_vertical = 4
+bbcode_enabled = true
+text = "[center][font_size=80][b]Información de los hongos[/b][/font_size][/center]"
+fit_content = true
+scroll_active = false
+
+[node name="Info" type="RichTextLabel" parent="ScrollContainer/VBoxContainer" unique_id=294897853]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+bbcode_enabled = true
+text = "
+[font_size=25]Las dos clases de hongos [b]necesitan[/b] que existan los siguientes condiciones climáticas y cantidad de minerales para poder crecer y desarrollarse.
+
+Cualquier cambio fuera de los límites estresará al hongo y hará que este empiece a pudrirse hasta desaparecer. 
+[/font_size]
+"
+fit_content = true
+scroll_active = false
+
+[node name="MycenaTitulo" type="RichTextLabel" parent="ScrollContainer/VBoxContainer" unique_id=1678809451]
+layout_mode = 2
+bbcode_enabled = true
+text = "
+[center][color=#55FF33][font_size=60][b]Mycena chlorophos[/b]
+[/font_size][/color][/center]"
+fit_content = true
+scroll_active = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=1079892718]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="MycenaImagen" type="TextureRect" parent="ScrollContainer/VBoxContainer/VBoxContainer" unique_id=1163200399]
+custom_minimum_size = Vector2(500, 400)
+layout_mode = 2
+texture = ExtResource("2_j40qa")
+expand_mode = 1
+
+[node name="ContenidoMycena" type="RichTextLabel" parent="ScrollContainer/VBoxContainer" unique_id=351225482]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "
+[font_size=25]
+[b]Tiempo de vida:[/b] 22 días.
+
+[b]Días de crecimiento del tallo:[/b] 8 días.
+
+[b]Días de crecimiento del sombrerillo:[/b] Aparece en el día 10 y termina de madurar en el día 14.
+
+[b]Día de muerte:[/b] Día 22.
+
+[b]Condiciones climáticas:[/b]
+
+[b]Humedad:[/b] Mayor o igual a 70%.
+
+[b]Temperatura:[/b]
+[ul]
+[b]Min:[/b] 8 °C.
+[b]Max:[/b] 27 °C.
+[/ul]
+
+[b]Minerales:[/b] El hongo consume estos porcentajes de minerales del suelo por día:
+
+[ul]
+20% de carbono.
+20% de nitrógeno.
+20% de metales.
+[/ul]
+
+Si no hay cantidad suficiente, el hongo posee un límite de dos días antes de morir.
+
+[b]Lugar de nacimiento:[/b] El hongo únicamente crece en troncos muertos.
+
+[b]Día de esparcimiento de esporas:[/b] Día 14.
+
+[b]Color de espora:[/b] Verde.
+
+[b]Brillo:[/b] Esta especie de hongo puede brillar de color verde a partir del día 14 y bajo las siguientes condiciones:
+
+[b]Tiempo del día:[/b] Noche.
+
+[b]Temperatura:[/b] Mayor o igual a 21 °C y menor a 22 °C.
+
+Este brillo continuará durante 4 noches si las condiciones se mantienen.
+ [/font_size]
+"
+fit_content = true
+scroll_active = false
+
+[node name="AmanitaTitulo" type="RichTextLabel" parent="ScrollContainer/VBoxContainer" unique_id=804132381]
+layout_mode = 2
+bbcode_enabled = true
+text = "
+[center][color=#FF5555][font_size=60][b]Amanita Muscaria[/b]
+[/font_size][/color][/center]"
+fit_content = true
+scroll_active = false
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=587451227]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="AmanitaImagen" type="TextureRect" parent="ScrollContainer/VBoxContainer/VBoxContainer2" unique_id=551645789]
+custom_minimum_size = Vector2(500, 400)
+layout_mode = 2
+texture = ExtResource("3_j40qa")
+expand_mode = 1
+
+[node name="ContenidoAmanita" type="RichTextLabel" parent="ScrollContainer/VBoxContainer" unique_id=506839038]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[font_size=25]
+[b]Tiempo de vida:[/b] 37 días.
+
+[b]Días de crecimiento del tallo:[/b] 28 días.
+
+[b]Días de crecimiento del sombrerillo:[/b] Aparece en el día 10 y crece hasta el día 28, durante 18 días.
+
+[b]Día de muerte:[/b] Día 37.
+
+[b]Condiciones climáticas:[/b]
+
+[b]Humedad:[/b] Mayor o igual a 80%.
+
+[b]Temperatura:[/b]
+[ul]
+[b]Min:[/b] 18 °C.
+[b]Max:[/b] 24 °C.
+[/ul]
+
+[b]Minerales:[/b] El hongo consume estos porcentajes de minerales del suelo por día:
+[ul]
+10% de carbono.
+10% de nitrógeno.
+20% de metales.
+[/ul]
+
+Si no hay cantidad suficiente, el hongo posee un límite de dos días antes de morir.
+
+[b]Lugar de nacimiento:[/b] El hongo únicamente crece cerca de árboles vivos.
+
+[b]Día de esparcimiento de esporas:[/b] Del día 31 al día 32.
+
+[b]Color de espora:[/b] Blanco.
+[/font_size]"
+fit_content = true
+scroll_active = false
+
+[node name="Atras" type="TextureButton" parent="." unique_id=1294498033]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 22.0
+offset_right = 412.0
+offset_bottom = 278.0
+scale = Vector2(0.51, 0.4)
+texture_normal = ExtResource("3_xx5qd")
+texture_hover = ExtResource("4_t6j50")
+ignore_texture_size = true

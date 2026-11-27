@@ -1,0 +1,493 @@
+[gd_scene format=3 uid="uid://dsiedxbsg5bji"]
+
+[ext_resource type="Texture2D" uid="uid://0wx152q6y6j1" path="res://UI/ControlesBasicos/Bg.png" id="1_1ltc7"]
+[ext_resource type="Script" uid="uid://i4tsyithxcnt" path="res://Scripts/controles_basicos.gd" id="1_oflo5"]
+[ext_resource type="Texture2D" uid="uid://bwaf8smlh3wpb" path="res://UI/ControlesBasicos/BotonesNuevos/Esporas/Amanita.png" id="2_pae4f"]
+[ext_resource type="Texture2D" uid="uid://dc6rbcj2vmqmg" path="res://UI/ControlesBasicos/BotonesNuevos/Esporas/Mycena.png" id="3_ja78o"]
+[ext_resource type="Texture2D" uid="uid://c8tbdilnqdha3" path="res://UI/ControlesBasicos/BotonesNuevos/Minerales/Carbono.png" id="4_v7yba"]
+[ext_resource type="Texture2D" uid="uid://da5dbdfm6ql5v" path="res://UI/ControlesBasicos/BotonesNuevos/Minerales/Metales.png" id="5_p5y16"]
+[ext_resource type="Texture2D" uid="uid://coc8g7a2rfcfi" path="res://UI/ControlesBasicos/BotonesNuevos/Minerales/Nitrogeno.png" id="6_phg5j"]
+[ext_resource type="Texture2D" uid="uid://ck461r5lp66n2" path="res://UI/ControlesBasicos/BotonesNuevos/Barras/Temperatura.png" id="7_oflo5"]
+[ext_resource type="Texture2D" uid="uid://dsargpsp5e0j3" path="res://UI/ControlesBasicos/BotonesNuevos/Barras/Humedad.png" id="8_pv8t3"]
+[ext_resource type="Texture2D" uid="uid://cc4epjg5pdfow" path="res://UI/ControlesBasicos/BotonesNuevos/Veleta/Veleta.png" id="9_ol1pm"]
+[ext_resource type="Texture2D" uid="uid://6u47d330o1g5" path="res://UI/ControlesBasicos/BotonesNuevos/Vistas/Viento.png" id="10_1qv2g"]
+[ext_resource type="Texture2D" uid="uid://dhqsafefwvr4k" path="res://UI/ControlesBasicos/BotonesNuevos/Vistas/Nutrientes.png" id="11_15r0p"]
+[ext_resource type="Texture2D" uid="uid://xi85ij7i24a8" path="res://UI/ControlesBasicos/BotonesNuevos/Vistas/Micelios.png" id="12_4c1x0"]
+[ext_resource type="Texture2D" uid="uid://c4sxlhro5i7l0" path="res://UI/ControlesBasicos/BotonesNuevos/Pausa y acc.png" id="13_yif0q"]
+[ext_resource type="Texture2D" uid="uid://cmkk84n77u5uw" path="res://UI/ControlesBasicos/AtrasBoton/Atras.png" id="14_phg5j"]
+[ext_resource type="Texture2D" uid="uid://d3vcwxpo4ofs6" path="res://UI/ControlesBasicos/AtrasBoton/AtrasGlow.png" id="15_oflo5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_22wmr"]
+bg_color = Color(0.23921569, 0.105882354, 0.32156864, 0.8)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[node name="ControlesBasicos" type="Control" unique_id=12795469]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_oflo5")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1591037048]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_1ltc7")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Panel" type="Panel" parent="." unique_id=318279318]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -477.0
+offset_top = -501.0
+offset_right = 477.0
+offset_bottom = 513.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_22wmr")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=463067178]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -425.0
+offset_top = -444.5
+offset_right = 425.0
+offset_bottom = 444.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=1521964974]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ControlesB" type="RichTextLabel" parent="ScrollContainer/VBoxContainer" unique_id=1417041875]
+layout_mode = 2
+size_flags_vertical = 4
+bbcode_enabled = true
+text = "[center][font_size=80][b]Controles Básicos[/b][/font_size][/center]"
+fit_content = true
+scroll_active = false
+
+[node name="Info" type="RichTextLabel" parent="ScrollContainer/VBoxContainer" unique_id=323037299]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+bbcode_enabled = true
+text = "
+[font_size=25][b]Girar Cámara[/b]: o	Manten presionado el clic derecho del ratón y desplaza el cursor a lo largo de la pantalla
+
+[b]Desplazarse por el escenario[/b]: Para todos los movimientos de desplazamiento por el entorno se debe de mantener presionado el clic derecho del ratón y luego presionar la tecla deseada. Las teclas que presionar son las siguientes:
+
+[ul]
+[b]W:[/b] Hacia adelante
+[b]S:[/b] Hacia atrás
+[b]D:[/b] Hacia la derecha
+[b]A:[/b] Hacia la izquierda
+[b]Q:[/b] Hacia la abajo
+[b]E:[/b] Hacia arriba
+[/ul][/font_size]
+"
+fit_content = true
+scroll_active = false
+
+[node name="Salir" type="RichTextLabel" parent="ScrollContainer/VBoxContainer" unique_id=1237568140]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[font_size=25] [b]Salir del juego: [/b]Esc [/font_size]
+"
+fit_content = true
+scroll_active = false
+
+[node name="Espacio" type="RichTextLabel" parent="ScrollContainer/VBoxContainer" unique_id=853793300]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "
+[font_size=25] [b]Detener paso del tiempo: [/b]Espacio [/font_size]
+"
+fit_content = true
+scroll_active = false
+
+[node name="BotonesTitulo" type="RichTextLabel" parent="ScrollContainer/VBoxContainer" unique_id=106682419]
+layout_mode = 2
+bbcode_enabled = true
+text = "
+[center][font_size=80][b]Uso de botones[/b][/font_size][/center]"
+fit_content = true
+scroll_active = false
+
+[node name="CambiarEspora" type="RichTextLabel" parent="ScrollContainer/VBoxContainer" unique_id=1844511637]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "
+[font_size=25][b]Cambiar de tipo de espora: [/b] Da clic izquierdo en el botón con el tipo de hongo al cual pertenece la espora. 
+[/font_size]
+"
+fit_content = true
+scroll_active = false
+
+[node name="Esporas" type="HBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=1309246680]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 3.27
+theme_override_constants/separation = 60
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/Esporas" unique_id=1228058353]
+layout_mode = 2
+alignment = 1
+
+[node name="AmanitaBoton" type="TextureRect" parent="ScrollContainer/VBoxContainer/Esporas/VBoxContainer" unique_id=975209288]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("2_pae4f")
+expand_mode = 3
+
+[node name="Nombre" type="RichTextLabel" parent="ScrollContainer/VBoxContainer/Esporas/VBoxContainer" unique_id=1769082108]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[center][font_size=10][b]Amanita Muscaria[/b]  [/font_size]
+"
+fit_content = true
+scroll_active = false
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/Esporas" unique_id=80252428]
+custom_minimum_size = Vector2(105, 0)
+propagate_maximum_size = false
+layout_mode = 2
+size_flags_stretch_ratio = 8.24
+alignment = 1
+
+[node name="MycenaBoton" type="TextureRect" parent="ScrollContainer/VBoxContainer/Esporas/VBoxContainer2" unique_id=1209530326]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("3_ja78o")
+expand_mode = 3
+
+[node name="Nombre" type="RichTextLabel" parent="ScrollContainer/VBoxContainer/Esporas/VBoxContainer2" unique_id=247917845]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[font_size=10][b]Mycena Chlorophos[/b]  [/font_size]
+"
+fit_content = true
+scroll_active = false
+
+[node name="Esparcir Esporas" type="RichTextLabel" parent="ScrollContainer/VBoxContainer" unique_id=2071564930]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "
+[font_size=25][b]Esparcir esporas: [/b] Clic izquierdo y sobre cualquier lugar de la pantalla teniendo la espora seleccionada. [/font_size]
+"
+fit_content = true
+scroll_active = false
+
+[node name="CambiarNutriente" type="RichTextLabel" parent="ScrollContainer/VBoxContainer" unique_id=1678951134]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "
+[font_size=25][b]Cambiar de tipo de nutriente: [/b] Selecciona el botón correspondiente al nutriente deseado. [/font_size]
+"
+fit_content = true
+scroll_active = false
+
+[node name="Minerales" type="HBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=1049010895]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 3.27
+theme_override_constants/separation = 60
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/Minerales" unique_id=1377710469]
+layout_mode = 2
+alignment = 1
+
+[node name="CarbonoBoton" type="TextureRect" parent="ScrollContainer/VBoxContainer/Minerales/VBoxContainer" unique_id=2048216234]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("4_v7yba")
+expand_mode = 3
+
+[node name="Nombre" type="RichTextLabel" parent="ScrollContainer/VBoxContainer/Minerales/VBoxContainer" unique_id=1308013879]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[center][font_size=10][b]Carbono[/b]  [/font_size]
+"
+fit_content = true
+scroll_active = false
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/Minerales" unique_id=171448932]
+custom_minimum_size = Vector2(105, 0)
+propagate_maximum_size = false
+layout_mode = 2
+size_flags_stretch_ratio = 8.24
+alignment = 1
+
+[node name="MetalesBoton" type="TextureRect" parent="ScrollContainer/VBoxContainer/Minerales/VBoxContainer2" unique_id=1854651740]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("5_p5y16")
+expand_mode = 3
+
+[node name="Salir3" type="RichTextLabel" parent="ScrollContainer/VBoxContainer/Minerales/VBoxContainer2" unique_id=551731265]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[center][font_size=10][b]Metales[/b] [/font_size]
+"
+fit_content = true
+scroll_active = false
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/Minerales" unique_id=263548525]
+custom_minimum_size = Vector2(105, 0)
+propagate_maximum_size = false
+layout_mode = 2
+size_flags_stretch_ratio = 8.24
+alignment = 1
+
+[node name="NitrogenoBoton" type="TextureRect" parent="ScrollContainer/VBoxContainer/Minerales/VBoxContainer3" unique_id=1510613915]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("6_phg5j")
+expand_mode = 3
+
+[node name="Salir3" type="RichTextLabel" parent="ScrollContainer/VBoxContainer/Minerales/VBoxContainer3" unique_id=761180063]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[center][font_size=10][b]Nitrogeno[/b] [/font_size]
+"
+fit_content = true
+scroll_active = false
+
+[node name="EsparcirNutriente" type="RichTextLabel" parent="ScrollContainer/VBoxContainer" unique_id=894474693]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "
+[font_size=25][b]Esparcir Nutrientes: [/b] Mantener Clic derecho sobre la zona deseada. [/font_size]
+"
+fit_content = true
+scroll_active = false
+
+[node name="AumentarDisTemp" type="RichTextLabel" parent="ScrollContainer/VBoxContainer" unique_id=417410787]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "
+[font_size=25][b]Aumentar o disminuir temperatura: [/b] Arrastra el “sol” hacia arriba para aumentar la temperatura y hacia abajo para reducirla. El mínimo son 0 grados Celsius y el máximo 100. [/font_size]
+"
+fit_content = true
+scroll_active = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=749928605]
+propagate_maximum_size = false
+layout_mode = 2
+
+[node name="Temperatura" type="TextureRect" parent="ScrollContainer/VBoxContainer/VBoxContainer" unique_id=1960952808]
+custom_minimum_size = Vector2(100, 500)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("7_oflo5")
+expand_mode = 1
+
+[node name="AumentarDisHum" type="RichTextLabel" parent="ScrollContainer/VBoxContainer" unique_id=1551977207]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "
+[font_size=25][b]Aumentar o reducir el porcentaje de humedad: [/b] Arrastra la “gota” hacia arriba para aumentar la temperatura y hacia abajo para reducirla. El mínimo es una humedad del 0% y el máximo 100%.[/font_size]
+"
+fit_content = true
+scroll_active = false
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=555300260]
+propagate_maximum_size = false
+layout_mode = 2
+
+[node name="Humedad" type="TextureRect" parent="ScrollContainer/VBoxContainer/VBoxContainer2" unique_id=341627504]
+custom_minimum_size = Vector2(100, 500)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("8_pv8t3")
+expand_mode = 1
+
+[node name="Dirección del viento" type="RichTextLabel" parent="ScrollContainer/VBoxContainer" unique_id=306381028]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "
+[font_size=25][b]Cambiar la dirección del viento: [/b] Da clic izquierdo sobre la veleta y manteniendo presionado este botón mueve la veleta hacia la dirección deseada.[/font_size]
+"
+fit_content = true
+scroll_active = false
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=721223683]
+propagate_maximum_size = false
+layout_mode = 2
+
+[node name="Veleta" type="TextureRect" parent="ScrollContainer/VBoxContainer/VBoxContainer3" unique_id=253565260]
+custom_minimum_size = Vector2(300, 500.21)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("9_ol1pm")
+expand_mode = 1
+
+[node name="Vistas" type="RichTextLabel" parent="ScrollContainer/VBoxContainer" unique_id=1541393263]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "
+[font_size=25][b]Cambio de vistas: [/b] Da clic izquierdo sobre la vista deseada.
+[/font_size]
+"
+fit_content = true
+scroll_active = false
+
+[node name="OpcionesVista" type="HBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=8074709]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 3.27
+theme_override_constants/separation = 60
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/OpcionesVista" unique_id=669027928]
+custom_minimum_size = Vector2(105, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="VientoVista" type="TextureRect" parent="ScrollContainer/VBoxContainer/OpcionesVista/VBoxContainer" unique_id=239636152]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("10_1qv2g")
+expand_mode = 3
+
+[node name="Nombre" type="RichTextLabel" parent="ScrollContainer/VBoxContainer/OpcionesVista/VBoxContainer" unique_id=1012821756]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[center][font_size=10][b]Dirección del viento[/b]  [/font_size]
+"
+fit_content = true
+scroll_active = false
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/OpcionesVista" unique_id=1584677637]
+custom_minimum_size = Vector2(105, 0)
+propagate_maximum_size = false
+layout_mode = 2
+size_flags_stretch_ratio = 8.24
+alignment = 1
+
+[node name="Minerales" type="TextureRect" parent="ScrollContainer/VBoxContainer/OpcionesVista/VBoxContainer2" unique_id=973537652]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("11_15r0p")
+expand_mode = 3
+
+[node name="Salir3" type="RichTextLabel" parent="ScrollContainer/VBoxContainer/OpcionesVista/VBoxContainer2" unique_id=260605761]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[center][font_size=10][b]Nutrientes[/b] [/font_size]
+"
+fit_content = true
+scroll_active = false
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/OpcionesVista" unique_id=701664873]
+custom_minimum_size = Vector2(105, 0)
+propagate_maximum_size = false
+layout_mode = 2
+size_flags_stretch_ratio = 8.24
+alignment = 1
+
+[node name="Micelios" type="TextureRect" parent="ScrollContainer/VBoxContainer/OpcionesVista/VBoxContainer3" unique_id=1796320185]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("12_4c1x0")
+expand_mode = 3
+
+[node name="Salir3" type="RichTextLabel" parent="ScrollContainer/VBoxContainer/OpcionesVista/VBoxContainer3" unique_id=1236428950]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[center][font_size=10][b]Micelios[/b] [/font_size]
+"
+fit_content = true
+scroll_active = false
+
+[node name="PausayAcc" type="RichTextLabel" parent="ScrollContainer/VBoxContainer" unique_id=575023543]
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "
+[font_size=25][b]Pausa y aumentar el paso del tiempo: [/b] Da clic izquierdo el botón con \"||\" y para acelerar el tiempo solo da clic derecho sobre el botón a la derecha de este. Existen las velocidades x1, x2, x4, x8 y x16
+[/font_size]
+"
+fit_content = true
+scroll_active = false
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="ScrollContainer/VBoxContainer" unique_id=1189323461]
+propagate_maximum_size = false
+layout_mode = 2
+
+[node name="Veleta" type="TextureRect" parent="ScrollContainer/VBoxContainer/VBoxContainer4" unique_id=1531577208]
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("13_yif0q")
+expand_mode = 1
+
+[node name="Atras" type="TextureButton" parent="." unique_id=1008465756]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 22.0
+offset_right = 412.0
+offset_bottom = 278.0
+scale = Vector2(0.51, 0.4)
+texture_normal = ExtResource("14_phg5j")
+texture_hover = ExtResource("15_oflo5")
+ignore_texture_size = true
